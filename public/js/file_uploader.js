@@ -6,7 +6,7 @@ Dropzone.options.dropzone =
             var time = dt.getTime();
             return time + file.name;
         },
-        acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf",
+        acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf,.doc,.docx",
         addRemoveLinks: true,
         timeout: 50000,
         dictDefaultMessage: "déposer des fichiers ici ou cliquer pour les télécharger",

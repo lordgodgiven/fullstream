@@ -42,7 +42,11 @@
                         </li>
 
                     </ul>
-
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-primary btn-sm">Modifier profil</a>
+                        </div>
+                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-warning btn-sm">Soumission</a></div>
+                    </div>
 
                     <br/>
                 </div>
@@ -95,16 +99,8 @@
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
-                                            <h4 class="heading">NAEMA</h4>
+                                            <h4 class="heading">IDENTIFIANT PRCCE</h4>
                                             <blockquote class="message">XXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">NOPMA</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXX</blockquote>
                                             <br/>
                                         </div>
                                     </li>

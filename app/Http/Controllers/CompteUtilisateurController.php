@@ -55,41 +55,79 @@ class CompteUtilisateurController extends Controller
         ]);
 
 
-        $info_compte = [
-            'type_compte_id' => $request['type_compte'],
-            'civilite_id' => $request['civilite'],
-            'genre_sexe_id' => $request['sexe'],
-            'nom' => $request['nom'],
-            'prenom' => $request['prenom'],
-            'login' => $request['login'],
-            'password' => bcrypt($request['password']),
-            'email' => $request['email'],
-            'question_securite' => $request['question_securite'],
-            'reponse_question_securite' => $request['reponse_question_securite'],
-            'non_fonction_publique' => $request['non_fonction_publique'],
-            'accord_usage_donnees' => $request['accord_usage_donnees'],
-            'accord_reception_info' => $request['accord_reception_info'],
-        ];
-
         User::create([
             'login' => $request['login'],
             'password' => bcrypt($request['password']),
             'nom' => $request['nom'],
             'prenom' => $request['prenom'],
             'email' => $request['email'],
-            'type_compte_id' => $request['type_compte']
+            'type_compte' => $request['type_compte']
         ]);
 
-        if ($request['type_compte'] == "1") {
+
+        if ($request['type_compte'] === "prestataire") {
+
+            $individu_last_id = Individu::create([
+                'nom' => $request['nom'],
+                'prenom' => $request['prenom'],
+                'civilite_id' => $request['civilite'],
+                'genre_sexe_id' => $request['sexe']
+            ]);
+
+            $compte_utilisateur_last_id = CompteUtilisateur::create([
+                'civilite_id' => $request['civilite'],
+                'genre_sexe_id' => $request['sexe'],
+                'nom' => $request['nom'],
+                'prenom' => $request['prenom'],
+                'login' => $request['login'],
+                'password' => bcrypt($request['password']),
+                'email' => $request['email'],
+                'type_compte' => $request['type_compte'],
+                'question_securite' => $request['question_securite'],
+                'reponse_question_securite' => $request['reponse_question_securite'],
+                'non_fonction_publique' => $request['non_fonction_publique'],
+                'accord_usage_donnees' => $request['accord_usage_donnees'],
+                'accord_reception_info' => $request['accord_reception_info']
+            ]);
+
+            DossierPrestataire::create([
+                'compte_utilisateur_id' => $compte_utilisateur_last_id->id,
+                'individu_id' => $individu_last_id->id,
+            ]);
+
+            // Mail::to($request['email'])->send(new NotificationFormMail($request->only('nom','prenom','civilite','type_compte')));
+
+            return redirect()->route('login');
+
+        } else if ($request['type_compte'] === "beneficiaire") {
+            $compte_utilisateur_last_id = CompteUtilisateur::create([
+                'civilite_id' => $request['civilite'],
+                'genre_sexe_id' => $request['sexe'],
+                'nom' => $request['nom'],
+                'prenom' => $request['prenom'],
+                'login' => $request['login'],
+                'password' => bcrypt($request['password']),
+                'email' => $request['email'],
+                'type_compte' => $request['type_compte'],
+                'question_securite' => $request['question_securite'],
+                'reponse_question_securite' => $request['reponse_question_securite'],
+                'non_fonction_publique' => $request['non_fonction_publique'],
+                'accord_usage_donnees' => $request['accord_usage_donnees'],
+                'accord_reception_info' => $request['accord_reception_info']
+            ]);
+
+            DossierBeneficiaire::create([
+                'compte_utilisateur_id' => $compte_utilisateur_last_id->id,
+                'nom' => $request['nom'],
+                'prenom' => $request['prenom'],
+                'email' => $request['email']
+            ]);
+            //Mail::to($request['email'])->send(new NotificationFormMail($request->only('nom','prenom','civilite','type_compte')));
+
             return redirect()->route('login');
         }
 
-        $compte_utilisateur_id = CompteUtilisateur::create($info_compte);
 
-        DossierPrestataire::create(['compte_utilisateur_id' => $compte_utilisateur_id->id]);
-
-        //Mail::to($request['email'])->send(new NotificationFormMail($info_compte));
-        return redirect()->route('login');
     }
 
     /**
@@ -103,11 +141,10 @@ class CompteUtilisateurController extends Controller
     {
 
 
-        if ($compteUtilisateur->type_compte->id == 1) {
-            $infoComplementaires = Individu::where('compte_utilisateur_id', $compteUtilisateur->id)->first();
+        if ($compteUtilisateur->type_compte === "prestataire") {
 
-
-            $dossierPrestataire = DossierPrestataire::with('individu')->where('individu_id', $infoComplementaires->id)->get();
+            $dossierPrestataire = DossierPrestataire::where('compte_utilisateur_id', $compteUtilisateur->id)->first();
+            $infoComplementaires = Individu::find($dossierPrestataire->individu_id);
 
             $communeVille = CommuneVille::where('pays_nationalite_id', $infoComplementaires->pays_nationalite_id)->first();
 
@@ -115,7 +152,7 @@ class CompteUtilisateurController extends Controller
 
             return view('prestataire.profile', compact('compteUtilisateur',
                 'infoComplementaires', 'communeVille', 'dossierPrestataire', 'filenames'));
-        } else if ($compteUtilisateur->type_compte->id == 2) {
+        } else if ($compteUtilisateur->type_compte === "beneficiaire") {
 
             $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', $compteUtilisateur->id)->first();
             $filenames = DocumentUpload::where('compte_utilisateur_id', $compteUtilisateur->id)->get();

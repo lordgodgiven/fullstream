@@ -17,189 +17,6 @@
         </div>
     </div>
 
-    <!-- sous formulaire etat civil -->
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Personne physique</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <form class="form-horizontal form-label-left" method="POST" action="{{route('individu.store')}}">
-                    @csrf
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Civilite
-                            : <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <select name="civilite" id="civilite" class="form-control" readonly="">
-                                <option value="">Votre choix</option>
-                                @foreach($civilites as $civilite)
-                                    <option
-                                        value="{{$civilite->id}}" {{$civilite->id==$utilisateur->civilite->id ? 'selected':''}} >{{$civilite->designation}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Sexe
-                            : <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <select name="sexe" id="sexe" class="form-control" readonly="">
-                                <option value="">Votre choix</option>
-                                @foreach($genreSexes as $sexe)
-                                    <option
-                                        value="{{$sexe->id}}" {{$sexe->id==$utilisateur->genre_sexe->id ? 'selected':''}} >{{$sexe->designation}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">identifiant PRCCEII
-                            :
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="identifiant_prcceii" name="identifiant_prcceii"
-                                   class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">NIU:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="niu" class="form-control @error('niu') is-invalid @enderror"
-                                   name="niu">
-                        </div>
-                        @error('niu')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">NSS
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nss" name="nss"
-                                   class="form-control @error('nss') is-invalid @enderror">
-                        </div>
-                        @error('nss')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nom
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="nom" value="{{$utilisateur->nom}}" readonly class="form-control">
-                        </div>
-
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Prénom: <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="prenom" value="{{$utilisateur->prenom}}" readonly
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date de naissance:
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" name="date_naissance"
-                                   class="form-control @error('date_naissance') is-invalid @enderror">
-                        </div>
-                        @error('date_naissance')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nationalité: <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <select name="nationalite" id="nationalite"
-                                    class="form-control @error('nationalite') is-invalid @enderror">
-                                <option value="">Votre choix</option>
-                                @foreach($nationalites as $nationalite)
-                                    <option value="{{$nationalite->id}}"
-                                            @if(old('nationalite')==$nationalite->id) selected="selected" @endif>{{$nationalite->designation}}</option>
-                                @endforeach
-                            </select>
-                            @error('nationalite')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Photo:
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="photo" id="photo" required="required"
-                                   class="form-control ">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nivau de
-                            qualification: <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <select name="niveau_qualification" id="ville"
-                                    class="form-control @error('niveau_qualification') is-invalid @enderror">
-                                <option value="">Votre choix</option>
-                                @foreach($niveauQualifications as $niveauQualification)
-                                    <option value="{{$niveauQualification->id}}"
-                                            @if(old('niveau_qualification')==$niveauQualification->id) selected="selected" @endif>{{$niveauQualification->designation}}</option>
-                                @endforeach
-                            </select>
-                            @error('niveau_qualification')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Situation
-                            familliale: <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <select name="situation_familliale" id="ville"
-                                    class="form-control @error('situation_familliale') is-invalid @enderror">
-                                <option value="">Votre choix</option>
-                                @foreach($situationFamilliales as $situationFamilliale)
-                                    <option value="{{$situationFamilliale->id}}"
-                                            @if(old('situation_familliale')==$situationFamilliale->id) selected="selected" @endif>{{$situationFamilliale->designation}}</option>
-                                @endforeach
-                            </select>
-                            @error('situation_familliale')
-                            <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="ln_solid"></div>
-                    <div class="item form-group">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button class="btn btn-primary" type="reset">Effacer</button>
-                            <button type="submit" class="btn btn-success">Enregistrer</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- /sous formulaire etat civil-->
-
     <!-- sous formulaire identitté -->
     <div class="col-md-12 col-sm-12">
         <div class="x_panel">
@@ -216,8 +33,8 @@
                       action="{{route('dossier-prestataire.store')}}">
                     @csrf
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">N°
-                            d'indentification roster PRCCEII :
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Identifiant PRCCEII
+                            :
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="identifiant_roster_prcceii" name="identifiant_roster_prcceii"
@@ -225,28 +42,24 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">NAEMA:
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">NSS
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="naema" class="form-control" name="naema"
-                                   readonly>
+                            <input type="text" id="nss" name="nss"
+                                   class="form-control @error('nss') is-invalid @enderror">
                         </div>
+                        @error('nss')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">NOPEMA
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nopema" name="nopema" class="form-control"
-                                   readonly>
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Numéro
                             d'identification Unique(NIU) <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="niu" class="form-control @error('niu') is-invalid @enderror"
-                                   value="{{$individu->niu ?? ''}}" readonly>
+                                   value="{{$individu->niu ?? ''}}">
                         </div>
                         @error('niu')
                         <span class="text-danger">{{ $message }}</span>
@@ -269,12 +82,30 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Prénom: <span
+                                class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="prenom" class="form-control" value="{{$utilisateur->prenom}}"
+                                   readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nationalité:
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="nationalite" readonly class="form-control"
-                                   value="{{$individu->pays_nationalite->designation ?? ''}}">
+                            <select name="nationalite" id="nationalite"
+                                    class="form-control @error('nationalite') is-invalid @enderror">
+                                <option value="">Votre choix</option>
+                                @foreach($nationalites as $nationalite)
+                                    <option value="{{$nationalite->id}}"
+                                            @if(old('nationalite')==$nationalite->id) selected="selected" @endif>{{$nationalite->designation}}</option>
+                                @endforeach
+                            </select>
+                            @error('nationalite')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="form-group row">
@@ -349,7 +180,7 @@
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="e-mail" id="e-mail" required="required"
                                    value="{{$email->email ?? ''}}"
-                                   class="form-control ">
+                                   class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -377,7 +208,7 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="date_naissance" id="date_naissance"
+                            <input type="date" name="date_naissance" id="date_naissance"
                                    class="form-control " value="{{$individu->date_naissance ?? ''}}">
                         </div>
                     </div>
@@ -431,6 +262,44 @@
                                 @endforeach
                             </select>
                             @error('type_expert')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nivau de
+                            qualification: <span
+                                class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select name="niveau_qualification" id="niveau_qualification"
+                                    class="form-control @error('niveau_qualification') is-invalid @enderror">
+                                <option value="">Votre choix</option>
+                                @foreach($niveauQualifications as $niveauQualification)
+                                    <option value="{{$niveauQualification->id}}"
+                                            @if(old('niveau_qualification')==$niveauQualification->id) selected="selected" @endif>{{$niveauQualification->designation}}</option>
+                                @endforeach
+                            </select>
+                            @error('niveau_qualification')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Situation
+                            familliale: <span
+                                class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select name="situation_familliale" id="situation_familliale"
+                                    class="form-control @error('situation_familliale') is-invalid @enderror">
+                                <option value="">Votre choix</option>
+                                @foreach($situationFamilliales as $situationFamilliale)
+                                    <option value="{{$situationFamilliale->id}}"
+                                            @if(old('situation_familliale')==$situationFamilliale->id) selected="selected" @endif>{{$situationFamilliale->designation}}</option>
+                                @endforeach
+                            </select>
+                            @error('situation_familliale')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -654,8 +523,11 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="missions_principales" id="missions_principales" required="required"
-                                   class="form-control @error('missions_principales') is-invalid @enderror">
+                            <textarea class="form-control @error('missions_principales') is-invalid @enderror" cols="30"
+                                      name="missions_principales"
+                                      rows="3">
+                                    {{ old('missions_principales') }}
+                       </textarea>
                             @error('missions_principales')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror

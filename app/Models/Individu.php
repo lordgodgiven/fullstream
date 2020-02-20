@@ -30,9 +30,9 @@ class Individu extends Model
         return $this->belongsTo(GenreSexe::class);
     }
 
-    public function compte_utilisateur()
+    public function compte_utilisateurs()
     {
-        return $this->belongsTo(CompteUtilisateur::class);
+        return $this->hasMany(CompteUtilisateur::class);
     }
 
 //    public function setDateNaissanceAttribute($value)

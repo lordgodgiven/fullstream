@@ -1,34 +1,34 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
-        @if(Auth::user()->type_compte_id==1)
+        @if(Auth::user()->type_compte === "prestataire")
             <h3>Prestataire</h3>
-        @elseif(Auth::user()->type_compte_id==2)
+        @elseif(Auth::user()->type_compte === "beneficiaire")
             <h3>Beneficiaire</h3>
         @endif
         <ul class="nav side-menu">
             <li><a><i class="fa fa-bar-chart-o"></i> Tableau de bord <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="index.html">Suivi des indicateurs</a></li>
-                    <li><a href="index2.html">Statistiques</a></li>
+                    <li><a href="#">Suivi des indicateurs</a></li>
+                    <li><a href="#">Statistiques</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-edit"></i> Inscriptions <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-edit"></i> Mon dossier <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    @if(Auth::user()->type_compte_id==1)
-                        <li><a href="{{route('dossier-prestataire.create')}}">Prestataires</a></li>
+                    @if(Auth::user()->type_compte === "prestataire")
+                        <li><a href="{{route('dossier-prestataire.create')}}">Inscription</a></li>
                     @endif
-                    @if(Auth::user()->type_compte_id==2)
-                        <li><a href="{{route('dossier-beneficiaire.create')}}">Bénéficiaires</a></li>
+                    @if(Auth::user()->type_compte === "beneficiaire")
+                        <li><a href="{{route('dossier-beneficiaire.create')}}">Inscription</a></li>
                     @endif
-                    <li><a href="form_validation.html">Clusters</a></li>
-                    <li><a href="form_validation.html">Chaine de valeur</a></li>
+                    <li><a href="#">Clusters</a></li>
+                    <li><a href="#">Chaine de valeur</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-folder"></i> Ouvrir un dossier <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{route('gestionnaire.prestataire')}}">Prestataires</a></li>
                     <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaires</a></li>
-                    <li><a href="form_validation.html">Clusters</a></li>
+                    <li><a href="#">Clusters</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-desktop"></i> Gestion <span class="fa fa-chevron-down"></span></a>

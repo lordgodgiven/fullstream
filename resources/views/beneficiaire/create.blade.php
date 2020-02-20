@@ -32,22 +32,7 @@
                 <form class="form-horizontal form-label-left" method="POST"
                       action="{{route('dossier-beneficiaire.store')}}">
                     @csrf
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">NAEMA:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="naema" class="form-control" name="naema"
-                                   readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">NOPEMA
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nopema" name="nopema" class="form-control"
-                                   readonly>
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Identifiant PRCCEII
                             :
@@ -218,7 +203,17 @@
                             : <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="montant_capitale" id="montant_capitale" required="required"
+                            <input type="text" name="montant_capitale_sociale" id="montant_capitale_sociale"
+                                   required="required"
+                                   class="form-control ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Chiffre d'affaire
+                            : <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" name="chiffre_affaire" id="chiffre_affaire" required="required"
                                    class="form-control ">
                         </div>
                     </div>

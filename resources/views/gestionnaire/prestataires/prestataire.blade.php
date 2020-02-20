@@ -25,8 +25,6 @@
                                 <tr>
                                     <th>N°Enreg</th>
                                     <th>N°PRCCEE</th>
-                                    <th>NAEMA</th>
-                                    <th>NOPEMA</th>
                                     <th>NIU</th>
                                     <th>Code départ.</th>
                                     <th>Civilité</th>
@@ -44,8 +42,6 @@
                                     <tr>
                                         <td>{{$dossierPrestataire->id}}</td>
                                         <td>{{$dossierPrestataire->individu->identifiant_prcceii ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->naema ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->nopema ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->niu ?? ''}}</td>
                                         <td>{{$dossierPrestataire->departement->designation ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->civilite->designation  ?? ''}}</td>
@@ -54,7 +50,7 @@
                                         <td>{{$dossierPrestataire->individu->nom_jeune_fille  ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->prenom  ?? ''}}</td>
 
-                                        <td class="text-center">
+                                        <td>
                                             <a href="#" class="btn btn-outline-warning btn-sm" title="Modifier"> <i
                                                     class="fa fa-edit"></i></a>
                                             <a href="#" class="btn btn-outline-danger btn-sm" title="Consulter"><i

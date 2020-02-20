@@ -74,7 +74,7 @@ class DossierPrestataireController extends Controller
         $zoneInterventions = ZoneIntervention::all();
         $villes = CommuneVille::all();
         $email = CompteUtilisateur::find(Auth::user()->id);
-        $individu = Individu::where('compte_utilisateur_id', (Auth::user()->id))->first();
+        //$individu = Individu::where('compte_utilisateur_id', (Auth::user()->id))->first();
 
         $typeExperts = TypeExpert::all();
         $familleInterventions = FamilleIntervention::all();
@@ -111,19 +111,29 @@ class DossierPrestataireController extends Controller
     public function store(Request $request)
     {
 
-
-        $compte_utilisateur_id = CompteUtilisateur::find(Auth::user()->id);
-        $individu_id = Individu::where('compte_utilisateur_id', Auth::user()->id)->first();
-
         $telephone = $request->indicatif_telephonique . ' ' . $request->numero_telephone;
-
         $motivation = $request['motivations'];
+        $compte_utilisateur_id = CompteUtilisateur::find(Auth::user()->id);
+        $dossier_prestataire = DossierPrestataire::where('compte_utilisateur_id', $compte_utilisateur_id->id)->first();
 
 
         if (is_null($motivation)) {
+
+            Individu::where('id', $dossier_prestataire->individu_id)
+                ->update([
+                    'identifiant_prcceii' => $request->identifiant_prcceii,
+                    'pays_nationalite_id' => $request->nationalite,
+                    'niu' => $request->niu,
+                    'nss' => $request->nss,
+                    'niveau_qualification_id' => $request->niveau_qualification,
+                    'date_naissance' => $request->date_naissance,
+                    'nom_jeune_fille' => $request->nom_jeune_fille,
+                    'situation_familliale_id' => $request->situation_familliale,
+                    'adresse_personnelle' => $request->adresse_personnelle,
+                ]);
+
             DossierPrestataire::where('compte_utilisateur_id', $compte_utilisateur_id->id)
                 ->update([
-                    'individu_id' => $individu_id->id,
                     'compte_utilisateur_id' => $compte_utilisateur_id->id,
                     'identifiant_roster_prcceii' => $request->identifiant_prcceii,
                     'telephone' => $telephone,
@@ -132,9 +142,7 @@ class DossierPrestataireController extends Controller
                     'zone_intervention_id' => $request->zone_intervention,
                     'type_expert_id' => $request->type_expert,
                     'situation_a_i_id' => $request->situation_dossier,
-                    'motivation' => $request->motivations,
                 ]);
-
 
             $notification = array(
                 'message' => 'Votre dossier a été crée avec succès!',

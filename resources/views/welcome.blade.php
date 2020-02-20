@@ -722,7 +722,7 @@
                                                 <option value="">Votre choix</option>
                                                 @foreach($civilites as $civilite)
                                                     <option value="{{$civilite->id}}"
-                                                            @if(old('civilite')==$civilite->id) selected="selected" @endif>{{$civilite->designation}}</option>
+                                                            @if(old('civilite')==$civilite->id) selected="selected" @endif>{{$civilite->designation ?? ''}}</option>
                                                 @endforeach
                                             </select>
                                             @error('civilites')
@@ -878,10 +878,8 @@
                                             <select name="type_compte" id="type_compte"
                                                     class="form-control @error('type_compte') is-invalid @enderror">
                                                 <option value="">Votre choix</option>
-                                                @foreach($type_comptes as $type_compte)
-                                                    <option value="{{$type_compte->id}}"
-                                                            @if(old('type_compte')==$type_compte->id) selected="selected" @endif>{{$type_compte->designation}}</option>
-                                                @endforeach
+                                                <option value="prestataire">Prestataire</option>
+                                                <option value="beneficiaire">Bénéficiaire</option>
                                             </select>
                                             @error('type_compte')
                                             <span class="text-danger">{{ $message }}</span>

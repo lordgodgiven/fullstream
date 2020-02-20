@@ -88,45 +88,41 @@ class DossierBeneficiaireController extends Controller
             'alert-type' => 'success'
         );
 
-        $dossierBeneficiaire = new DossierBeneficiaire();
-        $dossierBeneficiaire->compte_utilisateur_id = Auth::user()->id;
-        $dossierBeneficiaire->secteur_juridique_id = $request->secteur_juridique;
-        $dossierBeneficiaire->activite_principale_id = $request->activite_principale;
-        $dossierBeneficiaire->situation_structure_id = $request->situation_structure;
-        $dossierBeneficiaire->pays_nationalite_id = $request->pays;
-        $dossierBeneficiaire->commune_ville_id = $request->ville;
-        $dossierBeneficiaire->arrondissement_id = $request->arrondissement;
-        $dossierBeneficiaire->quartier_id = $request->quartier;
-        $dossierBeneficiaire->naema = $request->naema;
-        $dossierBeneficiaire->code_departement_id = $request->departement;
-        $dossierBeneficiaire->nopma = $request->nopema;
-        $dossierBeneficiaire->denomination_raison_sociale = $request->raison_sociale;
-        $dossierBeneficiaire->nom = $request->nom;
-        $dossierBeneficiaire->prenom = $request->prenom;
-        $dossierBeneficiaire->sigle_abbreviation = $request->abreviation;
-        $dossierBeneficiaire->rccm = $request->rccm;
-        $dossierBeneficiaire->niu = $request->niu;
-        $dossierBeneficiaire->scien = $request->scien;
-        $dossierBeneficiaire->sciet = $request->sciet;
-        $dossierBeneficiaire->nss = $request->nss;
-        $dossierBeneficiaire->autre_identifiant = $request->autre_identifiant;
-        $dossierBeneficiaire->activite_secondaire = $request->activite_secondaire;
-        $dossierBeneficiaire->date_creation = $request->date_creation;
-        $dossierBeneficiaire->capitale_sociale = $request->montant_capitale;
-        $dossierBeneficiaire->gerant_responsable = $request->nom_prenom_gerant;
-        $dossierBeneficiaire->presentation_generale = $request->presentation_generale;
-        $dossierBeneficiaire->nombre_employes = $request->nombre_employes;
-        $dossierBeneficiaire->structure_mere = $request->structure_mere;
-        $dossierBeneficiaire->adresse = $request->adresse;
-        $dossierBeneficiaire->telephone = $request->numero_telephone;
-        $dossierBeneficiaire->filiale_multinationale = $request->filiale_multinationale;
-        $dossierBeneficiaire->fax = $request->fax;
-        $dossierBeneficiaire->email = $request->email;
-        $dossierBeneficiaire->site_web = $request->site_web;
-        $dossierBeneficiaire->reseaux_sociaux = $request->reseaux_sociaux;
-        $dossierBeneficiaire->motivations = $request->motivations;
-
-        // $dossierBeneficiaire->save();
+        DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)
+            ->update([
+                'secteur_juridique_id' => $request->secteur_juridique,
+                'activite_principale_id' => $request->activite_principale,
+                'situation_structure_id' => $request->situation_structure,
+                'pays_nationalite_id' => $request->pays,
+                'commune_ville_id' => $request->commune_ville,
+                'arrondissement_id' => $request->arrondissement,
+                'quartier_id' => $request->quartier,
+                'code_departement_id' => $request->departement,
+                'denomination_raison_sociale' => $request->raison_sociale,
+                'sigle_abbreviation' => $request->abreviation,
+                'rccm' => $request->rccm,
+                'niu' => $request->niu,
+                'scien' => $request->scien,
+                'sciet' => $request->sciet,
+                'autre_identifiant' => $request->autre_identifiant,
+                'activite_secondaire' => $request->activite_secondaire,
+                'date_creation' => $request->date_creation,
+                'nss' => $request->nss,
+                'montant_capitale_sociale' => $request->montant_capitale_sociale,
+                'chriffre_affaire' => $request->chriffre_affaire,
+                'gerant_responsable' => $request->nom_prenom_gerant,
+                'presentation_generale' => $request->presentation_generale,
+                'nombre_employes' => $request->nombre_employes,
+                'structure_mere' => $request->structure_mere,
+                'adresse' => $request->adresse,
+                'telephone' => $request->telephone,
+                'filiale_multinationale' => $request->filiale_multinationale,
+                'fax' => $request->fax,
+                'telephone' => $request->telephone,
+                'site_web' => $request->site_web,
+                'reseaux_sociaux' => $request->reseaux_sociaux,
+                'motivations' => $request->motivations,
+            ]);
 
         return redirect()->route('dossier-beneficiaire.create')->with($notification);
 

@@ -41,7 +41,7 @@ class CompteUtilisateur extends Model
 
     public function individus()
     {
-        return $this->hasMany(Individu::class);
+        return $this->belongsTo(Individu::class);
     }
 
     public function profil_compte_users()

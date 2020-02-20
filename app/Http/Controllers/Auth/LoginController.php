@@ -74,13 +74,13 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
 
-        if ($user->type_compte_id == 1) {
+        if ($user->type_compte === "prestataire") {
             $notification = array(
                 'message' => 'Connexion prestataire effectuée avec succès!',
                 'alert-type' => 'success'
             );
             return redirect('/dossier-prestataires')->with($notification);
-        } elseif ($user->type_compte_id == 2) {
+        } elseif ($user->type_compte === "beneficiaire") {
             $notification = array(
                 'message' => 'Connexion bénéficiaire effectuée avec succès!',
                 'alert-type' => 'success'

@@ -33,25 +33,21 @@
 
                         </li>
                         <li>
-                            Email : <b>{{$infoComplementaires->compte_utilisateur->email}}</b>
+                            Email : <b>{{$compteUtilisateur->email}}</b>
                         </li>
                         <li>
                             Date de naissance : <b>{{$infoComplementaires->date_naissance}}</b>
                         </li>
-                        @foreach($dossierPrestataire as $dossier)
-                            <li>
-                                @if(!$dossier->telephone=='')
-                                    Téléphone : <b>{{$dossier->telephone}}</b>
-                                @endif
-                            </li>
+                        <li>
+                            Téléphone : <b>{{$dossierPrestataire->telephone}}</b>
+                        </li>
 
-                            <li>
-                                @if(!$dossier->individu->niu=='')
-                                    NIU : <b>{{$dossier->individu->niu}}</b>
-                                @endif
-                            </li>
-                        @endforeach
                     </ul>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-primary btn-sm">Modifier profil</a>
+                        </div>
+                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-warning btn-sm">Soumission</a></div>
+                    </div>
 
 
                     <br/>
@@ -105,27 +101,12 @@
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
-                                            <h4 class="heading">N° IDENTIFIANT ROOSTER PRCCE II</h4>
+                                            <h4 class="heading">N° IDENTIFIANT PRCCE II</h4>
                                             <blockquote class="message">XXXXXXXXXXXXXXXXXX</blockquote>
                                             <br/>
                                         </div>
                                     </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">NAEMA</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">NOPEMA</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
+
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">

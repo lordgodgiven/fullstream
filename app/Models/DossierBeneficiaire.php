@@ -9,6 +9,7 @@ class DossierBeneficiaire extends Model
 
     protected $guarded = [];
 
+
     public function notation_beneficiaires()
     {
         return $this->hasMany(NotationBeneficiaire::class);
