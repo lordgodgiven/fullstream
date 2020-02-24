@@ -34,10 +34,5 @@ class FamilleIntervention extends Model
         return $this->hasMany(SousCategorieFamilleIntervention::class);
     }
 
-    public function dossier_prestataires()
-    {
-        return $this->hasMany(DossierPrestataire::class);
-    }
-
 
 }

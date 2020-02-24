@@ -41,7 +41,7 @@ class CompteUtilisateur extends Model
 
     public function individus()
     {
-        return $this->belongsTo(Individu::class);
+        return $this->belongsTo(Individu::class)->withDefault();
     }
 
     public function profil_compte_users()
@@ -51,16 +51,16 @@ class CompteUtilisateur extends Model
 
     public function type_compte()
     {
-        return $this->belongsTo(TypeCompte::class);
+        return $this->belongsTo(TypeCompte::class)->withDefault();
     }
 
     public function civilite()
     {
-        return $this->belongsTo(Civilite::class);
+        return $this->belongsTo(Civilite::class)->withDefault();
     }
 
     public function genre_sexe()
     {
-        return $this->belongsTo(GenreSexe::class);
+        return $this->belongsTo(GenreSexe::class)->withDefault();
     }
 }

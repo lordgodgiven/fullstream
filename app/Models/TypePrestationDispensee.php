@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TypePrestationDispensee extends Model
 {
     protected $guarded = [];
+    protected $with = ['famille_intervention', 'sous_categorie'];
 
     public function dossier_prestataire()
     {

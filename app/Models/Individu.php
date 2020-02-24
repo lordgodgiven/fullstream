@@ -9,6 +9,7 @@ class Individu extends Model
 {
     protected $guarded = [];
     protected $dates = ['date_naissance'];
+    protected $with = ['niveau_qualification'];
 
     public function dossier_prestataires()
     {
@@ -17,22 +18,27 @@ class Individu extends Model
 
     public function pays_nationalite()
     {
-        return $this->belongsTo(PaysNationalite::class);
+        return $this->belongsTo(PaysNationalite::class)->withDefault();
     }
 
     public function civilite()
     {
-        return $this->belongsTo(Civilite::class);
+        return $this->belongsTo(Civilite::class)->withDefault();
     }
 
     public function genre_sexe()
     {
-        return $this->belongsTo(GenreSexe::class);
+        return $this->belongsTo(GenreSexe::class)->withDefault();
     }
 
     public function compte_utilisateurs()
     {
         return $this->hasMany(CompteUtilisateur::class);
+    }
+
+    public function niveau_qualification()
+    {
+        return $this->belongsTo(NiveauQualification::class);
     }
 
 //    public function setDateNaissanceAttribute($value)

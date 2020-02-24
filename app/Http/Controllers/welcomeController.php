@@ -13,7 +13,7 @@ class welcomeController extends Controller
     public function home()
     {
 
-        $profil_tilisateurs = ProfilUtilisateur::all();
+        $profil_utilisateurs = ProfilUtilisateur::all();
         $type_comptes = TypeCompte::all();
         $sexes = GenreSexe::all();
         $civilites = Civilite::all();

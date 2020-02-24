@@ -23,16 +23,12 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>N°Enreg</th>
                                     <th>N°PRCCEE</th>
-                                    <th>Sigle ou abreviation</th>
                                     <th>Raison sociale</th>
                                     <th>Nom et prénom</th>
                                     <th>Sécteur ou domaine d'activité</th>
                                     <th>Activité principale</th>
-                                    <th>Date éligibilité</th>
-                                    <th>Gérant/Responsable</th>
-                                    <th>Téléphone</th>
+                                    <th>Gérant</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -41,26 +37,19 @@
                                 <tbody>
                                 @foreach($dossierBeneficiaires as $dossierBeneficiaire)
                                     <tr>
-                                        <td>{{$dossierBeneficiaire->id}}</td>
-                                        <td>{{$dossierBeneficiaire->identifiant_prcceii ?? ''}}</td>
-                                        <td>{{$dossierBeneficiaire->sigle_abbreviation ?? ''}}</td>
+                                        <td>{{$dossierBeneficiaire->identifiant_prcce ?? ''}}</td>
                                         <td>{{$dossierBeneficiaire->denomination_raison_sociale?? ''}}</td>
                                         <td>{{$dossierBeneficiaire->nom.' '.$dossierBeneficiaire->prenom}}</td>
                                         <td>{{$dossierBeneficiaire->secteur_juridique->designation ?? ''}}</td>
                                         <td>{{$dossierBeneficiaire->activite_principale->designation ?? ''}}</td>
-                                        <td>{{$dossierBeneficiaire->eligibilite_beneficiaire->date  ?? ''}}</td>
                                         <td>{{$dossierBeneficiaire->gerant_responsable  ?? ''}}</td>
-                                        <td>{{$dossierBeneficiaire->telephone ?? ''}}</td>
-
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-outline-warning btn-sm" title="Modifier"> <i
-                                                    class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Consulter"><i
+                                            <a href="{{route('gestionnaire.beneficiaire.show',$dossierBeneficiaire->id)}}"
+                                               class="btn btn-outline-danger btn-sm" title="Consulter"><i
                                                     class="fa fa-eye"></i></a>
                                             <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>

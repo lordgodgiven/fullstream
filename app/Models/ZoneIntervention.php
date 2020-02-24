@@ -18,6 +18,6 @@ class ZoneIntervention extends Model
 
     public function dossier_prestataires()
     {
-        return $this->hasMany(ZoneIntervention::class);
+        return $this->hasMany(DossierPrestataire::class);
     }
 }

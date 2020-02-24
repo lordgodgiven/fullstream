@@ -66,7 +66,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="#brand">
+                <a class="navbar-brand">
 
                     <img src="{{ asset('assets/images/logo.png') }}" class="logo logo-display m-top-10" alt="">
                     <img src="{{ asset('assets/images/logo.png') }}" class="logo logo-scrolled" alt="">
@@ -79,12 +79,12 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="#hello">Accueil</a></li>
-                    <li><a href="#about">A Propos</a></li>
-                    <li><a href="#about">Chèque PME</a></li>
-                    <li><a href="#service">Comment ça marche?</a></li>
-                    <li><a href="#portfolio">Actualités</a></li>
-                    <li><a href="#pricing">Creer un compte</a></li>
-                    <li><a href="{{ route('login') }}">Se connecter</a></li>
+                    <li><a href="#service">PRCCE II</a></li>
+                    <li><a href="#about">Clusters PME</a></li>
+                    <li><a href="#portfolio">Chaines de valeurs</a></li>
+                    <li><a href="#pricing">Espace Prestaires</a></li>
+                    <li><a href="#pricing">Espace Bénéficiaires</a></li>
+                    <li><a href="{{ route('login') }}">Mon compte</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -95,23 +95,11 @@
         <div class="side">
             <a href="#" class="close-side"><i class="fa fa-times"></i></a>
             <div class="widget">
-                <h6 class="title">Custom Pages</h6>
+                <h6 class="title">Outils</h6>
                 <ul class="link">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="widget">
-                <h6 class="title">Additional Links</h6>
-                <ul class="link">
-                    <li><a href="#">Retina Homepage</a></li>
-                    <li><a href="#">New Page Examples</a></li>
-                    <li><a href="#">Parallax Sections</a></li>
-                    <li><a href="#">Shortcode Central</a></li>
-                    <li><a href="#">Ultimate Font Collection</a></li>
+                    <li><a href="#" target="_blank">Espace Formation</a></li>
+                    <li><a href="#">Espace Collaboratif</a></li>
+                    <li><a href="#">HelpDesk CCIAM</a></li>
                 </ul>
             </div>
         </div>
@@ -128,13 +116,11 @@
             <div class="row">
                 <div class="main_home">
                     <div class="home_text">
-                        <h1 class="text-white">PRCCE</h1>
-                        <h3 class="text-white">Programme de renforcement des capacités <br>commerciales et
-                            entrepreneuriales</h3>
+                        <h1 class="text-white">Clusters PME Congo</h1>
                     </div>
-
+                    <br><br>
                     <div class="home_btns m-top-40">
-                        <a href="#about" class="btn btn-default m-top-20">A propos</a>
+                        <a href="#about" class="btn btn-default m-top-20">PRCCE II</a>
                     </div>
 
                 </div>
@@ -1081,7 +1067,7 @@
                     <div class="col-md-4">
                         <div class="rage_widget">
                             <div class="widget_head">
-                                <h3 class="text-white">RAGE</h3>
+                                <h3 class="text-white">Clusters PME Congo</h3>
                                 <div class="separator_small"></div>
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
@@ -1106,14 +1092,14 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input id="first_name" name="first_name" type="text" placeholder="Name"
+                                        <input id="first_name" name="first_name" type="text" placeholder="Nom"
                                                class="form-control" required="">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input id="phone" name="phone" type="text" placeholder="Phone"
+                                        <input id="phone" name="phone" type="text" placeholder="Téléphone"
                                                class="form-control">
                                     </div>
                                 </div>
@@ -1123,7 +1109,7 @@
                                         <textarea class="form-control" rows="6" placeholder="Message"></textarea>
                                     </div>
                                     <div class="form-group text-center">
-                                        <a href="" class="btn btn-primary">SEND MESSAGE</a>
+                                        <a href="" class="btn btn-primary">Envoyer</a>
                                     </div>
                                 </div>
 

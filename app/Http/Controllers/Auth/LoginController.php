@@ -86,6 +86,18 @@ class LoginController extends Controller
                 'alert-type' => 'success'
             );
             return redirect('/dossier-benefiaires')->with($notification);
+        } elseif ($user->type_compte === "administrateur") {
+            $notification = array(
+                'message' => 'Connexion administrateur effectuée avec succès!',
+                'alert-type' => 'success'
+            );
+            return redirect('/administrations')->with($notification);
+        } elseif ($user->type_compte === "gestionnaire") {
+            $notification = array(
+                'message' => 'Connexion gestionnaire effectuée avec succès!',
+                'alert-type' => 'success'
+            );
+            return redirect('/gestionnaires')->with($notification);
         }
 
 

@@ -43,6 +43,6 @@ class User extends Authenticatable
 
     public function type_compte()
     {
-        return $this->belongsTo(TypeCompte::class);
+        return $this->belongsTo(TypeCompte::class)->withDefault();
     }
 }

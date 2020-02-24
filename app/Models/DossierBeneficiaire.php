@@ -10,6 +10,7 @@ class DossierBeneficiaire extends Model
     protected $guarded = [];
 
 
+
     public function notation_beneficiaires()
     {
         return $this->hasMany(NotationBeneficiaire::class);
@@ -25,9 +26,9 @@ class DossierBeneficiaire extends Model
         return $this->hasMany(EligibiliteBeneficiaire::class);
     }
 
-    public function compte_utilisateurs()
+    public function compte_utilisateur()
     {
-        return $this->belongsTo(CompteUtilisateur::class);
+        return $this->belongsTo(CompteUtilisateur::class)->withDefault();
     }
 
     public function competence_informatiques()
@@ -57,22 +58,22 @@ class DossierBeneficiaire extends Model
 
     public function pays_nationalite()
     {
-        return $this->belongsTo(PaysNationalite::class);
+        return $this->belongsTo(PaysNationalite::class)->withDefault();
     }
 
     public function commune_ville()
     {
-        return $this->belongsTo(CommuneVille::class);
+        return $this->belongsTo(CommuneVille::class)->withDefault();
     }
 
     public function activite_principale()
     {
-        return $this->belongsTo(ActivitePrincipale::class);
+        return $this->belongsTo(ActivitePrincipale::class)->withDefault();
     }
 
     public function secteur_domaine_activite()
     {
-        return $this->belongsTo(SecteurDomaineActivite::class);
+        return $this->belongsTo(SecteurDomaineActivite::class)->withDefault();
     }
 
 

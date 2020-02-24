@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CommuneVille;
 use App\Models\CompteUtilisateur;
+use App\Models\DecisionEligibilitePrestataire;
 use App\Models\DocumentUpload;
 use App\Models\DossierBeneficiaire;
 use App\Models\DossierPrestataire;
@@ -41,6 +42,10 @@ class CompteUtilisateurController extends Controller
      */
     public function store(Request $request)
     {
+        $notification = array(
+            'message' => 'Votre compte a été crée avec succès!',
+            'alert-type' => 'success'
+        );
 
         $request->validate([
             'type_compte' => 'required',
@@ -95,9 +100,9 @@ class CompteUtilisateurController extends Controller
                 'individu_id' => $individu_last_id->id,
             ]);
 
-            // Mail::to($request['email'])->send(new NotificationFormMail($request->only('nom','prenom','civilite','type_compte')));
+            //Mail::to($request['email'])->send(new NotificationFormMail($request->only('nom','prenom','civilite','type_compte')));
 
-            return redirect()->route('login');
+            return redirect()->route('home')->with($notification);
 
         } else if ($request['type_compte'] === "beneficiaire") {
             $compte_utilisateur_last_id = CompteUtilisateur::create([
@@ -122,9 +127,10 @@ class CompteUtilisateurController extends Controller
                 'prenom' => $request['prenom'],
                 'email' => $request['email']
             ]);
+
             //Mail::to($request['email'])->send(new NotificationFormMail($request->only('nom','prenom','civilite','type_compte')));
 
-            return redirect()->route('login');
+            return redirect()->route('home')->with($notification);
         }
 
 
@@ -144,13 +150,15 @@ class CompteUtilisateurController extends Controller
         if ($compteUtilisateur->type_compte === "prestataire") {
 
             $dossierPrestataire = DossierPrestataire::where('compte_utilisateur_id', $compteUtilisateur->id)->first();
+            $decisionEligiblitePrestataire = DecisionEligibilitePrestataire::where('dossier_prestataire_id', $dossierPrestataire->id)->first();
+            //dd($decisionEligiblitePrestataire->avis_decision );
             $infoComplementaires = Individu::find($dossierPrestataire->individu_id);
 
             $communeVille = CommuneVille::where('pays_nationalite_id', $infoComplementaires->pays_nationalite_id)->first();
 
             $filenames = DocumentUpload::where('compte_utilisateur_id', $compteUtilisateur->id)->get();
 
-            return view('prestataire.profile', compact('compteUtilisateur',
+            return view('prestataire.profile', compact('compteUtilisateur', 'decisionEligiblitePrestataire',
                 'infoComplementaires', 'communeVille', 'dossierPrestataire', 'filenames'));
         } else if ($compteUtilisateur->type_compte === "beneficiaire") {
 

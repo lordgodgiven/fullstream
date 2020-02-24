@@ -12,7 +12,18 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                Add content to the page ...
+                <p>
+                    Avant de commencer votre inscription en ligne, merci de préparer les éléments suivants :
+                <ul>
+                    <li>Un document présentant vos références client de moins de 5 ans ;</li>
+                    <li>Un document présentant vos domaines de compétences ;</li>
+                    <li>Un bref exposé de vos motivations à candidater pour le PRCCE II (maximum de 300 mots acceptés)
+                        .
+                    </li>
+                </ul>
+                NB: Vous pouvez remplir votre dossier à votre rytme et soumettre le dossier à votre convenance en allant
+                dans profil -> soumettre mon dossier.<br>
+                </p>
             </div>
         </div>
     </div>
@@ -38,7 +49,8 @@
                             :
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="identifiant_prcceii" name="identifiant_prcceii"
+                            <input type="text" id="identifiant_prcce" name="identifiant_prcce"
+                                   value="{{$identifiant_prcce}}"
                                    class="form-control" readonly>
                         </div>
                     </div>
@@ -396,7 +408,7 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="numero_telephone" id="numero_telephone" required="required"
+                            <input type="text" name="telephone" id="telephone" required="required"
                                    class="form-control ">
                         </div>
                     </div>

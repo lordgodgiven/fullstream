@@ -45,6 +45,7 @@ class DossierBeneficiaireController extends Controller
     {
 
         $utilisateur = CompteUtilisateur::find(Auth::user()->id);
+        $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id);
         $nationalites = PaysNationalite::all();
         $listePays = PaysNationalite::all();
         $departements = Departement::all();
@@ -64,13 +65,14 @@ class DossierBeneficiaireController extends Controller
         $situationStructures = SituationStructure::all();
         $arrondissements = Arrondissement::all();
         $quartiers = Quartier::all();
+        $identifiant_prcce = $this->prcce_identifiant_generator();
 
 
         return view('beneficiaire.create', compact('departements',
-            'disponibilites', 'listePays', 'zoneInterventions',
+            'disponibilites', 'listePays', 'zoneInterventions', 'dossierBeneficiaire',
             'nationalites', 'villes', 'email', 'typeExperts', 'utilisateur',
             'familleInterventions', 'sousCategories', 'typeEmployeurs',
-            'langues', 'degreMaitrises', 'typePrestationDispensees',
+            'langues', 'degreMaitrises', 'typePrestationDispensees', 'identifiant_prcce',
             'activitePrincipales', 'secteurJuriques', 'situationStructures', 'arrondissements', 'quartiers'));
     }
 
@@ -94,7 +96,7 @@ class DossierBeneficiaireController extends Controller
                 'activite_principale_id' => $request->activite_principale,
                 'situation_structure_id' => $request->situation_structure,
                 'pays_nationalite_id' => $request->pays,
-                'commune_ville_id' => $request->commune_ville,
+                'commune_ville_id' => $request->ville,
                 'arrondissement_id' => $request->arrondissement,
                 'quartier_id' => $request->quartier,
                 'code_departement_id' => $request->departement,
@@ -104,12 +106,13 @@ class DossierBeneficiaireController extends Controller
                 'niu' => $request->niu,
                 'scien' => $request->scien,
                 'sciet' => $request->sciet,
+                'nss' => $request->nss,
+                'identifiant_prcce' => $request->identifiant_prcce,
                 'autre_identifiant' => $request->autre_identifiant,
                 'activite_secondaire' => $request->activite_secondaire,
                 'date_creation' => $request->date_creation,
-                'nss' => $request->nss,
                 'montant_capitale_sociale' => $request->montant_capitale_sociale,
-                'chriffre_affaire' => $request->chriffre_affaire,
+                'chiffre_affaire' => $request->chiffre_affaire,
                 'gerant_responsable' => $request->nom_prenom_gerant,
                 'presentation_generale' => $request->presentation_generale,
                 'nombre_employes' => $request->nombre_employes,
@@ -118,7 +121,6 @@ class DossierBeneficiaireController extends Controller
                 'telephone' => $request->telephone,
                 'filiale_multinationale' => $request->filiale_multinationale,
                 'fax' => $request->fax,
-                'telephone' => $request->telephone,
                 'site_web' => $request->site_web,
                 'reseaux_sociaux' => $request->reseaux_sociaux,
                 'motivations' => $request->motivations,
@@ -126,6 +128,50 @@ class DossierBeneficiaireController extends Controller
 
         return redirect()->route('dossier-beneficiaire.create')->with($notification);
 
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\DossierBeneficiaire $dossierBeneficiaire
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update($id)
+    {
+        $notification = array(
+            'message' => 'Votre dossier a été soumis avec succès!',
+            'alert-type' => 'info'
+        );
+
+        $dossierBeneficiaire = DossierBeneficiaire::with('compte_utilisateur')
+            ->where('compte_utilisateur_id', $id)
+            ->update(['soumission_dossier_ok' => "OUI"]);
+
+        return redirect()->route('profile.show', $id)->with($notification);
+
+
+    }
+
+    /* public function update(DossierBeneficiaire $dossierBeneficiaire)
+     {
+         dd($dossierBeneficiaire);
+         $notification = array(
+             'message' => 'Votre dossier a été soumis avec succès!',
+             'alert-type' => 'info'
+         );
+
+         $dossierBeneficiaire::where('id', $dossierBeneficiaire->id)
+             ->update(['soumission_dossier_ok' => "OUI"]);
+
+         return redirect()->route('profile.show', $dossierBeneficiaire->id)->with($notification);
+     }*/
+
+
+    private function prcce_identifiant_generator()
+    {
+        return $nui = strtoupper("prcce-" . substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 6));
     }
 
 

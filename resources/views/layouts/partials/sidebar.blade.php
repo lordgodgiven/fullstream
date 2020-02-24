@@ -4,6 +4,10 @@
             <h3>Prestataire</h3>
         @elseif(Auth::user()->type_compte === "beneficiaire")
             <h3>Beneficiaire</h3>
+        @elseif(Auth::user()->type_compte === "gestionnaire")
+            <h3>Gestionnaire</h3>
+        @elseif(Auth::user()->type_compte === "administrateur")
+            <h3>Administrateur</h3>
         @endif
         <ul class="nav side-menu">
             <li><a><i class="fa fa-bar-chart-o"></i> Tableau de bord <span class="fa fa-chevron-down"></span></a>
@@ -12,47 +16,83 @@
                     <li><a href="#">Statistiques</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-edit"></i> Mon dossier <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    @if(Auth::user()->type_compte === "prestataire")
-                        <li><a href="{{route('dossier-prestataire.create')}}">Inscription</a></li>
+            @if(Auth::user()->type_compte === "prestataire" or Auth::user()->type_compte === "beneficiaire")
+                <li><a><i class="fa fa-folder"></i> Mon dossier <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        @if(Auth::user()->type_compte === "prestataire")
+                            <li><a href="{{route('dossier-prestataire.create')}}">Informations personnelles</a></li>
+                        @endif
+                        @if(Auth::user()->type_compte === "beneficiaire")
+                            <li><a href="{{route('dossier-beneficiaire.create')}}">Informations personnelles</a></li>
+                        @endif
+                        @if(Auth::user()->type_compte === "prestataire")
+                            <li><a href="#">Mes accréditations</a></li>
+                            <li><a href="#">Mes contrats</a></li>
+                            <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
+                        @endif
+                        @if(Auth::user()->type_compte === "beneficiaire")
+                            <li><a href="#">Mes demandes de prestations</a></li>
+                            <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
+            @if(Auth::user()->type_compte === "prestataire" or Auth::user()->type_compte === "beneficiaire")
+                <li><a><i class="fa fa-group"></i> Clusters <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        @if(Auth::user()->type_compte === "prestataire")
+                            <li><a href="#">Cluster services</a></li>
+                        @endif
+                        @if(Auth::user()->type_compte === "beneficiaire")
+                            <li><a href="#"> Clusters PME</a></li>
                     @endif
-                    @if(Auth::user()->type_compte === "beneficiaire")
-                        <li><a href="{{route('dossier-beneficiaire.create')}}">Inscription</a></li>
-                    @endif
-                    <li><a href="#">Clusters</a></li>
-                    <li><a href="#">Chaine de valeur</a></li>
-                </ul>
-            </li>
-            <li><a><i class="fa fa-folder"></i> Ouvrir un dossier <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="{{route('gestionnaire.prestataire')}}">Prestataires</a></li>
+                    <!--<li><a href="{{route('gestionnaire.prestataire')}}">Prestataires</a></li>
                     <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaires</a></li>
-                    <li><a href="#">Clusters</a></li>
-                </ul>
-            </li>
-            <li><a><i class="fa fa-desktop"></i> Gestion <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="general_elements.html">Eligibilité</a></li>
-                    <li><a href="media_gallery.html">Accréditation</a></li>
-                    <li><a href="typography.html">Validation</a></li>
-                    <li><a href="typography.html">Offre de prestation</a></li>
-                    <li><a href="icons.html">Demandes de prestations</a></li>
-                    <li><a href="icons.html">Suivi & Evaluation</a></li>
-                </ul>
-            </li>
+                    <li><a href="#">Clusters</a></li>-->
+                    </ul>
+                </li>
+            @endif
+            @if(Auth::user()->type_compte === "gestionnaire" OR Auth::user()->type_compte === "administrateur")
+                <li><a><i class="fa fa-desktop"></i> Gestion <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#">Eligibilité <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" style="display: block;">
+                                <li><a href="{{route('gestionnaire.prestataire')}}">Prestataire</a>
+                                </li>
+                                <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaire</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Accréditation <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" style="display: block;">
+                                <li><a href="#level2_1">Prestataire</a>
+                                </li>
+                                <li><a href="#level2_2">Bénéficiaire</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="typography.html">Validation</a></li>
+                        <li><a href="typography.html">Offre de prestation</a></li>
+                        <li><a href="icons.html">Demandes de prestations</a></li>
+                        <li><a href="icons.html">Suivi & Evaluation</a></li>
+                    </ul>
+                </li>
+            @endif
             <li><a><i class="fa fa-user"></i> Mon Compte <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="{{route('profile.show',Auth::user()->id)}}">Mes informations</a></li>
-                    <li><a href="tables_dynamic.html">Messagerie</a></li>
+                    <li><a href="{{route('profile.show',Auth::user()->id)}}">Profile du compte</a></li>
+                    <li><a href="#">Messagerie</a></li>
+                    <li><a href="#">Assitance technique</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-cog"></i>Parametres<span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                    <li><a href="{{route('administration.utilisateurs')}}">Gestion des utilisateurs</a></li>
-                    <li><a href="#">Gestion des référenciels</a></li>
-                </ul>
-            </li>
+            @if(Auth::user()->type_compte === "administrateur" )
+                <li><a><i class="fa fa-cog"></i>Parametres<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{route('administration.utilisateurs')}}">Gestion des utilisateurs</a></li>
+                        <li><a href="#">Gestion des référenciels</a></li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </div>
 

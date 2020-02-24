@@ -12,7 +12,38 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                Add content to the page ...
+                <p>
+                    Avant de commencer votre inscription en ligne, merci de préparer les éléments suivants :
+                <ul>
+                    <li>
+                        Un document présentant vos références client de moins de 5 ans (nom / prénom ou raison sociale
+                        du client,
+                        numéro de téléphone, email du client, type de la prestation, date de début de la prestation,
+                        date de fin de la
+                        prestation, durée de la prestation);
+                    </li>
+                    <li>
+                        un document présentant vos références client de moins de 5 ans (nom / prénom ou raison sociale
+                        du client,
+                        numéro de téléphone, email du client, type de la prestation, date de début de la prestation,
+                        date de fin de la
+                        prestation, durée de la prestation);
+                    </li>
+                    <li>
+                        un bref exposé de vos motivations à prester pour le PRCCE II (maximum de 300 mots acceptés) .
+                        - un exemplaire de votre CV au format électronique .<br>
+                        <a href="#">[Télécharger le Modèle de CV simplifié (format UE)]</a>;
+                    </li>
+                    <li>
+                        une copie électronique de votre pièce d’identité (passeport ou carte d'identité);
+                    </li>
+                    <li>
+                        une copie électronique de votre/vos diplômes
+                    </li>
+                </ul>
+                NB: Vous pouvez remplir votre dossier à votre rytme et soumettre le dossier à votre convenance en allant
+                dans profil -> soumettre mon dossier.<br>
+                </p>
             </div>
         </div>
     </div>
@@ -37,7 +68,8 @@
                             :
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="identifiant_roster_prcceii" name="identifiant_roster_prcceii"
+                            <input type="text" id="identifiant_prcce" name="identifiant_prcce"
+                                   value="{{$identifiant_prcce}}"
                                    class="form-control" readonly>
                         </div>
                     </div>
@@ -188,7 +220,8 @@
                             (précisez l'indicatif): <span class="required">*</span>
                         </label>
                         <div class="col-md-2 col-sm-2">
-                            <input type="text" name="indicatif_telephonique" id="telephone" placeholder="+242"
+                            <input type="text" name="indicatif_telephonique" id="indicatif_telephonique"
+                                   placeholder="+242"
                                    class="form-control @error('indicatif_telephonique') is-invalid @enderror">
                         </div>
                         @error('indicatif_telephonique')
@@ -311,7 +344,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="situation_dossier" id="situation_dossier"
-                                   class="form-control " readonly>
+                                   class="form-control " value="{{$dossier_prestataire->situation_dossier}}" readonly>
                         </div>
                     </div>
                     <div class="ln_solid"></div>

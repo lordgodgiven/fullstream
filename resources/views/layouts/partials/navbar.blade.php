@@ -26,7 +26,7 @@
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
                        data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-orange">6</span>
+                        <span class="badge bg-orange">0</span>
                     </a>
             </ul>
             </li>

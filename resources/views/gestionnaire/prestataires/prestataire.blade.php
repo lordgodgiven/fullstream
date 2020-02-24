@@ -23,7 +23,6 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>N°Enreg</th>
                                     <th>N°PRCCEE</th>
                                     <th>NIU</th>
                                     <th>Code départ.</th>
@@ -40,8 +39,7 @@
                                 <tbody>
                                 @foreach($dossierPrestataires as $dossierPrestataire)
                                     <tr>
-                                        <td>{{$dossierPrestataire->id}}</td>
-                                        <td>{{$dossierPrestataire->individu->identifiant_prcceii ?? ''}}</td>
+                                        <td>{{$dossierPrestataire->individu->identifiant_prcce ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->niu ?? ''}}</td>
                                         <td>{{$dossierPrestataire->departement->designation ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->civilite->designation  ?? ''}}</td>
@@ -49,16 +47,13 @@
                                         <td>{{$dossierPrestataire->individu->nom  ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->nom_jeune_fille  ?? ''}}</td>
                                         <td>{{$dossierPrestataire->individu->prenom  ?? ''}}</td>
-
                                         <td>
-                                            <a href="#" class="btn btn-outline-warning btn-sm" title="Modifier"> <i
-                                                    class="fa fa-edit"></i></a>
-                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Consulter"><i
+                                            <a href="{{route('gestionnaire.prestataire.show',$dossierPrestataire->id)}}"
+                                               class="btn btn-outline-danger btn-sm" title="Consulter"><i
                                                     class="fa fa-eye"></i></a>
                                             <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
                                                     class="fa fa-trash"></i></a>
                                         </td>
-
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -44,9 +44,19 @@
 
                     </ul>
                     <div class="row">
-                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-primary btn-sm">Modifier profil</a>
-                        </div>
-                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-warning btn-sm">Soumission</a></div>
+                        <div class="col-md-6 col-sm-6"><a class="btn btn-outline-primary btn-sm">Changer mot de
+                                passe</a></div>
+                        @if($dossierPrestataire->soumission_dossier_ok==="NON")
+                            <div class="col-md-6 col-sm-6"><a class="btn btn-outline-warning btn-sm" onclick="event.preventDefault();
+                        document.getElementById('submit-form-prestataire').submit();">Soumettre le dossier</a></div>
+
+                            <form id="submit-form-prestataire"
+                                  action="{{ route('dossier-prestataire.update', Auth::user()->id)  }}" method="POST"
+                                  style="display: none;">
+                                @csrf
+                                @method('PATCH')
+                            </form>
+                        @endif
                     </div>
 
 
@@ -56,23 +66,151 @@
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                             <li role="presentation" class=""><a href="#tab_content1" role="tab" id="profile-tab"
-                                                                data-toggle="tab" aria-expanded="false">Documents
-                                    fournis</a>
-                            </li>
-                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab2"
                                                                 data-toggle="tab" aria-expanded="false">Informations
                                     PRCCEII</a>
                             </li>
-                            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2"
+                            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab2"
                                                                 data-toggle="tab" aria-expanded="false">Informations
                                     Complementaires</a>
                             </li>
+                            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2"
+                                                                data-toggle="tab" aria-expanded="false">Documents
+                                    fournis</a>
+                            </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="tab_content1"
-                                 aria-labelledby="profile-tab">
+                            <div role="tabpanel" class="tab-pane active" id="tab_content1" aria-labelledby="home-tab">
 
-                                <!-- start user projects -->
+                                <!-- Information PRCCE -->
+                                <ul class="messages">
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">N° IDENTIFIANT PRCCE II</h4>
+                                            <blockquote
+                                                class="message">{{$dossierPrestataire->identifiant_prcce ?? 'AUCUN'}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+
+                                    <li style="background-color: @if($decisionEligiblitePrestataire->avis_decision->designation === "Eligible") green @else red @endif; color: white; border-radius: 5px 5px 5px 5px">
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">ELIGIBILITE</h4>
+                                            <blockquote
+                                                class="message">{{$decisionEligiblitePrestataire->avis_decision->designation}}
+                                                <i class="fa fa-calendar"></i> {{$decisionEligiblitePrestataire->avis_decision->created_at}}
+                                            </blockquote>
+                                            <blockquote
+                                                class="message">{{$decisionEligiblitePrestataire->observation}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">NIVEAU ACCREDITATION</h4>
+                                            <blockquote class="message">0</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">DATE DE CREATION</h4>
+                                            <blockquote class="message">{{$dossierPrestataire->created_at}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">DATE DE MODIFICATION</h4>
+                                            <blockquote class="message">{{$dossierPrestataire->updated_at}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">SITUATION DU DOSSIER</h4>
+                                            <blockquote
+                                                class="message">{{$dossierPrestataire->situation_dossier ?? 'AUCUN'}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                                <!-- Information PRCCE -->
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="home-tab">
+
+                                <!-- Informations Complementaires -->
+                                <ul class="messages">
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">DISPONIBILITE</h4>
+                                            <blockquote
+                                                class="message">{{$dossierPrestataire->disponibilite->designation}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">ZONE INTERVENTION</h4>
+                                            <blockquote
+                                                class="message">{{$dossierPrestataire->zone_intervention->designation}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">TYPE EXPERT</h4>
+                                            <blockquote
+                                                class="message">{{$dossierPrestataire->type_expert->designation}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">TYPE PRESTATIONS DISPENSEES</h4>
+                                            @foreach($dossierPrestataire->type_prestation_dispensees as $type_prestation_dispensee)
+                                                <blockquote
+                                                    class="message">{{$type_prestation_dispensee->famille_intervention->designation.' en '.$type_prestation_dispensee->sous_categorie->designation}}</blockquote>
+                                            @endforeach
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">DATE DE MODIFICATION</h4>
+                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">SITUATION DU DOSSIER</h4>
+                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                                <!-- Informations Complementaires -->
+
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+
+                                <!-- Documents fournis -->
                                 <table class="data table table-striped no-margin">
                                     <thead>
                                     <tr>
@@ -91,109 +229,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                                <!-- end user projects -->
-
+                                <!-- Documents fournis -->
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="home-tab">
-
-                                <!-- start recent activity -->
-                                <ul class="messages">
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">N° IDENTIFIANT PRCCE II</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">DATE DE CREATION</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">DATE DE MODIFICATION</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">SITUATION DU DOSSIER</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <!-- end recent activity -->
-
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="home-tab">
-
-                                <!-- start recent activity -->
-                                <ul class="messages">
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">DISPONIBILITE</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">ZONE INTERVENTION</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">TYPE EXPERT</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">TYPE PRESTATIONS DISPENSEES</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">DATE DE MODIFICATION</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
-                                        <div class="message_wrapper">
-                                            <h4 class="heading">SITUATION DU DOSSIER</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
-                                            <br/>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                                <!-- end recent activity -->
-
-                            </div>
-
                         </div>
                     </div>
                 </div>

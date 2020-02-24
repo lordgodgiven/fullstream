@@ -67,6 +67,7 @@ class DossierPrestataireController extends Controller
             ->where('dossier_prestataire_id', $dossier_prestataire->id)->get();
 
 
+        $identifiant_prcce = $this->prcce_identifiant_generator();
         $nationalites = PaysNationalite::all();
         $listePays = PaysNationalite::all();
         $departements = Departement::all();
@@ -96,9 +97,9 @@ class DossierPrestataireController extends Controller
             'nationalites', 'villes', 'email', 'typeExperts',
             'familleInterventions', 'sousCategories', 'typeEmployeurs',
             'langues', 'niveauMaitrises', 'typePrestationDispensees', 'civilites',
-            'genreSexes', 'niveauQualifications',
+            'genreSexes', 'niveauQualifications', 'dossier_prestataire',
             'situationFamilliales', 'individu', 'referenceClients',
-            'employeurs', 'competenceLinguistiqueExperts',
+            'employeurs', 'competenceLinguistiqueExperts', 'identifiant_prcce',
             'typePrestationRetenues', 'experienceChaineValeurExperts', 'utilisateur'));
     }
 
@@ -121,7 +122,7 @@ class DossierPrestataireController extends Controller
 
             Individu::where('id', $dossier_prestataire->individu_id)
                 ->update([
-                    'identifiant_prcceii' => $request->identifiant_prcceii,
+                    'identifiant_prcce' => $request->identifiant_prcce,
                     'pays_nationalite_id' => $request->nationalite,
                     'niu' => $request->niu,
                     'nss' => $request->nss,
@@ -135,13 +136,13 @@ class DossierPrestataireController extends Controller
             DossierPrestataire::where('compte_utilisateur_id', $compte_utilisateur_id->id)
                 ->update([
                     'compte_utilisateur_id' => $compte_utilisateur_id->id,
-                    'identifiant_roster_prcceii' => $request->identifiant_prcceii,
+                    'identifiant_prcce' => $request->identifiant_prcce,
                     'telephone' => $telephone,
                     'disponibilite_id' => $request->disponibilite,
                     'famille_intervention_id' => $request->famille_intervention_id,
                     'zone_intervention_id' => $request->zone_intervention,
                     'type_expert_id' => $request->type_expert,
-                    'situation_a_i_id' => $request->situation_dossier,
+                    //'situation_a_i_id' => $request->situation_dossier,
                 ]);
 
             $notification = array(
@@ -187,7 +188,7 @@ class DossierPrestataireController extends Controller
      */
     public function edit(DossierPrestataire $dossierPrestataire)
     {
-        //
+
     }
 
     /**
@@ -199,7 +200,15 @@ class DossierPrestataireController extends Controller
      */
     public function update(Request $request, DossierPrestataire $dossierPrestataire)
     {
-        //
+        $notification = array(
+            'message' => 'Votre dossier a été soumis avec succès!',
+            'alert-type' => 'info'
+        );
+
+        $dossierPrestataire::where('id', $dossierPrestataire->id)
+            ->update(['soumission_dossier_ok' => "OUI"]);
+
+        return redirect()->route('profile.show', $dossierPrestataire->id)->with($notification);
     }
 
     /**
@@ -211,5 +220,10 @@ class DossierPrestataireController extends Controller
     public function destroy(DossierPrestataire $dossierPrestataire)
     {
         //
+    }
+
+    private function prcce_identifiant_generator()
+    {
+        return $nui = strtoupper("prcce-" . substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36), 0, 6));
     }
 }

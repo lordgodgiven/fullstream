@@ -9,6 +9,9 @@ class DossierPrestataire extends Model
 
 
     protected $guarded = [];
+    protected $with = ['disponibilite',
+        'type_prestation_dispensees', 'situation_familliale',
+        'individu', 'commune_ville', 'departement'];
 
 
     public function competence_informatique_experts()
@@ -63,22 +66,22 @@ class DossierPrestataire extends Model
 
     public function disponibilite()
     {
-        return $this->belongsTo(Disponibilite::class);
+        return $this->belongsTo(Disponibilite::class)->withDefault();
     }
 
     public function individu()
     {
-        return $this->belongsTo(Individu::class);
+        return $this->belongsTo(Individu::class)->withDefault();
     }
 
     public function type_expert()
     {
-        return $this->belongsTo(TypeExpert::class);
+        return $this->belongsTo(TypeExpert::class)->withDefault();
     }
 
     public function zone_intervention()
     {
-        return $this->belongsTo(ZoneIntervention::class);
+        return $this->belongsTo(ZoneIntervention::class)->withDefault();
     }
 
     public function notation_beneficiaires()
@@ -88,11 +91,28 @@ class DossierPrestataire extends Model
 
     public function compte_utilisateur()
     {
-        return $this->belongsTo(CompteUtilisateur::class);
+        return $this->belongsTo(CompteUtilisateur::class)->withDefault();
     }
 
-    public function famille_intervention()
+    public function commune_ville()
     {
-        return $this->belongsTo(FamilleIntervention::class);
+        return $this->belongsTo(CommuneVille::class)->withDefault();
     }
+
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class)->withDefault();
+    }
+
+    public function situation_familliale()
+    {
+        return $this->belongsTo(SituationFamilliale::class)->withDefault();
+    }
+
+    public function decision_eligibilite_prestataires()
+    {
+        return $this->hasMany(DecisionEligibilitePrestataire::class);
+    }
+
+
 }
