@@ -107,6 +107,7 @@ class DossierBeneficiaireController extends Controller
                 'scien' => $request->scien,
                 'sciet' => $request->sciet,
                 'nss' => $request->nss,
+                'numero_patente' => $request->numero_patente,
                 'identifiant_prcce' => $request->identifiant_prcce,
                 'autre_identifiant' => $request->autre_identifiant,
                 'activite_secondaire' => $request->activite_secondaire,
@@ -145,7 +146,7 @@ class DossierBeneficiaireController extends Controller
             'alert-type' => 'info'
         );
 
-        $dossierBeneficiaire = DossierBeneficiaire::with('compte_utilisateur')
+        DossierBeneficiaire::with('compte_utilisateur')
             ->where('compte_utilisateur_id', $id)
             ->update(['soumission_dossier_ok' => "OUI"]);
 

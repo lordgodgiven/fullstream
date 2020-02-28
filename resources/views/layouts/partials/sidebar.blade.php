@@ -57,17 +57,21 @@
                     <ul class="nav child_menu">
                         <li><a href="#">Eligibilité <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu" style="display: block;">
-                                <li><a href="{{route('gestionnaire.prestataire')}}">Prestataire</a>
+                                <li><a href="{{route('gestionnaire.prestataire')}}">Prestataire
+                                        ({{$prestatairesAttenteEligibilite - $prestatairesEligible}})</a>
                                 </li>
-                                <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaire</a>
+                                <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaire
+                                        ({{$beneficiairesAttenteEligibilite - $beneficiairesEligible}})</a>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#">Accréditation <span class="fa fa-chevron-down"></span></a>
+                        <li><a href="#">Accréditation prestataires <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu" style="display: block;">
-                                <li><a href="#level2_1">Prestataire</a>
+                                <li><a href="{{route('gestionnaire.accreditation_level_one')}}">Niveau 1 </a>
                                 </li>
-                                <li><a href="#level2_2">Bénéficiaire</a>
+                                <li><a href="{{route('gestionnaire.accreditation_level_two')}}">Niveau 2</a>
+                                </li>
+                                <li><a href="#">Niveau 3</a>
                                 </li>
                             </ul>
                         </li>
@@ -80,7 +84,11 @@
             @endif
             <li><a><i class="fa fa-user"></i> Mon Compte <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="{{route('profile.show',Auth::user()->id)}}">Profile du compte</a></li>
+                    @if(Auth::user()->type_compte === "prestataire" OR Auth::user()->type_compte === "beneficiaire")
+                        <li><a href="{{route('profile.show',Auth::user()->id)}}">Profile du compte</a></li>
+                    @else
+                        <li><a href="#">Changer mot de passe</a></li>
+                    @endif
                     <li><a href="#">Messagerie</a></li>
                     <li><a href="#">Assitance technique</a></li>
                 </ul>

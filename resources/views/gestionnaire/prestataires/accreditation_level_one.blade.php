@@ -5,7 +5,7 @@
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>En attente d'eligibité</h2>
+                <h2>En attente d'accréditations de niveau 1</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -23,14 +23,10 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>N°PRCCEE</th>
-                                    <th>NIU</th>
-                                    <th>Code départ.</th>
-                                    <th>Civilité</th>
-                                    <th>Sexe</th>
-                                    <th>Nom</th>
-                                    <th>Nom jeune fille</th>
-                                    <th>Prénom</th>
+                                    <th>Identifiant PRCCEE</th>
+                                    <th>Nom(s)</th>
+                                    <th>Prénom(s)</th>
+                                    <th>Téléphone</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -40,16 +36,12 @@
                                 @foreach($dossierPrestataires as $dossierPrestataire)
 
                                     <tr>
-                                        <td>{{$dossierPrestataire->individu->identifiant_prcce ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->niu ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->departement->designation ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->civilite->designation  ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->genre_sexe->designation  ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->nom  ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->nom_jeune_fille  ?? ''}}</td>
-                                        <td>{{$dossierPrestataire->individu->prenom  ?? ''}}</td>
+                                        <td>{{$dossierPrestataire->dossier_prestataire->identifiant_prcce ?? ''}}</td>
+                                        <td>{{$dossierPrestataire->dossier_prestataire->individu->nom ?? ''}}</td>
+                                        <td>{{$dossierPrestataire->dossier_prestataire->individu->prenom ?? ''}}</td>
+                                        <td>{{$dossierPrestataire->dossier_prestataire->telephone  ?? ''}}</td>
                                         <td>
-                                            <a href="{{route('gestionnaire.prestataire.show',$dossierPrestataire->id)}}"
+                                            <a href="{{route('gestionnaire.prestataire.accreditation_level_one',$dossierPrestataire->id)}}"
                                                class="btn btn-outline-danger btn-sm" title="Consulter"><i
                                                     class="fa fa-eye"></i></a>
                                             <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
@@ -66,6 +58,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('stylesheets')

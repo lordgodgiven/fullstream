@@ -35,6 +35,7 @@
     <!--Theme custom css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!--<link rel="stylesheet" href="assets/css/colors/maron.css">-->
+    <link href="{{asset('css/toastr.min.css')}}" rel="stylesheet"/>
 
     <!--Theme Responsive css-->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}"/>
@@ -1158,6 +1159,7 @@
 <script src="{{ asset('assets/js/slick.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.collapse.js') }}"></script>
 <script src="{{ asset('assets/js/bootsnav.js') }}"></script>
+<script src="{{asset('js/toastr.min.js')}}"></script>
 
 
 <!-- paradise slider js -->
@@ -1184,6 +1186,44 @@
 
 <script src="{{ asset('assets/js/plugins.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+        @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch (type) {
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
 
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    @endif
+</script>
 </body>
 </html>

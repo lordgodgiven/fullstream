@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TransitionAccreditation extends Model
 {
     protected $guarded = [];
+    protected $with = ['accreditations'];
 
     public function accreditations()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -10,7 +11,7 @@ class CompteUtilisateur extends Model
 
 
     protected $guarded = [];
-    protected $with = ['type_compte', 'profil_compte_users',
+    protected $with = ['type_compte', 'profil_compte_users', 'document_uploads',
         'civilite', 'genre_sexe', 'dossier_beneficiaires'];
 
     protected $casts = [
@@ -62,5 +63,15 @@ class CompteUtilisateur extends Model
     public function genre_sexe()
     {
         return $this->belongsTo(GenreSexe::class)->withDefault();
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    public function getPhotoAttribute()
+    {
+        return $this->photo;
     }
 }

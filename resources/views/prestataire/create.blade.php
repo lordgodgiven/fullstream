@@ -947,11 +947,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control @error('motivations') is-invalid @enderror" cols="30"
-                                 name="motivations"
-                                 rows="3">
-                                    {{ old('motivations') }}
-                       </textarea>
+                            <textarea class="form-control @error('motivations') is-invalid @enderror" cols="30"
+                                      name="motivations" rows="3">{{ old('motivations') }}</textarea>
                             @error('motivations')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror

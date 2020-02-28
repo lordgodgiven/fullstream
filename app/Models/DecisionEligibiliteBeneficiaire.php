@@ -5,12 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class DecisionEligibilitePrestataire extends Model
+class DecisionEligibiliteBeneficiaire extends Model
 {
 
 
     protected $guarded = [];
-    protected $with = ['avis_decision', 'dossier_prestataire'];
+    protected $with = ['avis_decision'];
 
 
     public function avis_decision()
@@ -18,9 +18,9 @@ class DecisionEligibilitePrestataire extends Model
         return $this->belongsTo(AvisDecision::class)->withDefault();
     }
 
-    public function dossier_prestataire()
+    public function dossier_beneficiaire()
     {
-        return $this->belongsTo(DossierPrestataire::class)->withDefault();
+        return $this->belongsTo(DossierBeneficiaire::class)->withDefault();
     }
 
     public function getCreatedAtAttribute($date)

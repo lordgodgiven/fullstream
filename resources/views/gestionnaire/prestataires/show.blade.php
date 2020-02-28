@@ -442,11 +442,8 @@
                             class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                          <textarea class="form-control" cols="30"
-                                    name="motivations"
-                                    rows="3" readonly>
-                                       {{$dossierPrestataire->motivation}}
-                          </textarea>
+                        <textarea class="form-control" cols="30" name="motivations" rows="3"
+                                  readonly>{{$dossierPrestataire->motivation}}</textarea>
 
                     </div>
                 </div>
@@ -496,6 +493,7 @@
     <!-- Documents fournis -->
 
     <!-- Eligibilite -->
+    @if( $decisionEligibilitePrestataire->avis_decision_id === 2 or $decisionEligibilitePrestataire->avis_decision_id === 3)
     <div class="col-md-12 col-sm-12">
         <div class="x_panel">
             <div class="x_title">
@@ -527,6 +525,10 @@
                               data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                               data-parsley-validation-threshold="10"></textarea>
                     <br/>
+                    <div class="col-md-3 col-sm-3 ">
+
+                    </div>
+                    <br/>
                     <label for="heard">Décision (Eligible, Non éligible):</label>
                     <select id="avis_decision" name="avis_decision" class="form-control" required>
                         <option value="">Votre choix</option>
@@ -539,9 +541,11 @@
                     <button class="btn btn-primary" type="submit">Enregistrer</button>
 
                 </form>
+
             </div>
         </div>
     </div>
+    @endif
     <!-- Eligibilite-->
 
 @endsection

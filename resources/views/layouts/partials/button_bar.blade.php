@@ -1,10 +1,12 @@
 <div class="sidebar-footer hidden-small">
-    <a data-toggle="tooltip" data-placement="top" title="" href="#">
-        <i class="fa fa-question"></i>
-    </a>
+
     @if(Auth::user()->type_compte === "administrateur" )
         <a data-toggle="tooltip" data-placement="top" title="Parametres" href="{{route('administration.home')}}">
             <i class="fa fa-cog"></i>
+        </a>
+    @else
+        <a data-toggle="tooltip" data-placement="top" title="" href="#">
+            <i class="fa fa-question"></i>
         </a>
     @endif
     <a data-toggle="tooltip" data-placement="top" title="Plein écran">

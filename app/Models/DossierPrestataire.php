@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class DossierPrestataire extends Model
@@ -9,7 +10,7 @@ class DossierPrestataire extends Model
 
 
     protected $guarded = [];
-    protected $with = ['disponibilite',
+    protected $with = ['disponibilite', 'compte_utilisateur',
         'type_prestation_dispensees', 'situation_familliale',
         'individu', 'commune_ville', 'departement'];
 
@@ -114,5 +115,14 @@ class DossierPrestataire extends Model
         return $this->hasMany(DecisionEligibilitePrestataire::class);
     }
 
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 
 }

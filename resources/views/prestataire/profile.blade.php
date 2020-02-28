@@ -17,14 +17,15 @@
                         <div id="crop-avatar">
                             <!-- Current avatar -->
                             <img class="img-responsive avatar-view" src="{{asset('images/user.png')}}" alt="Avatar"
-                                 title="Change the avatar">
+                                 title="Change the avatar" data-toggle="modal" data-target="#exampleModalCenter">
                         </div>
                     </div>
                     <h3>{{$compteUtilisateur->nom.' '.$compteUtilisateur->prenom}}</h3>
 
                     <ul class="list-unstyled user_data">
                         <li>Pays/Ville :
-                            <b>{{$infoComplementaires->pays_nationalite->designation.', '.$communeVille->designation}}</b>
+                            <b>{{ optional($infoComplementaires->pays_nationalite)->designation ?? 'PAYS'}}
+                                , {{optional($communeVille)->designation ?? 'VILLE' }}</b>
                         </li>
 
                         <li>
@@ -39,7 +40,7 @@
                             Date de naissance : <b>{{$infoComplementaires->date_naissance}}</b>
                         </li>
                         <li>
-                            Téléphone : <b>{{$dossierPrestataire->telephone}}</b>
+                            Téléphone : <b>{{$dossierPrestataire->telephone ?? '+242123456789'}}</b>
                         </li>
 
                     </ul>
@@ -92,17 +93,35 @@
                                             <br/>
                                         </div>
                                     </li>
-
-                                    <li style="background-color: @if($decisionEligiblitePrestataire->avis_decision->designation === "Eligible") green @else red @endif; color: white; border-radius: 5px 5px 5px 5px">
+                                    @if($decisionEligiblitePrestataire->avis_decision->designation === null)
+                                        <li style="background-color: orange; color: white; border-radius: 5px 5px 5px 5px">
+                                            <img src="{{asset('images/inspection-96.png')}}" class="avatar"
+                                                 alt="Avatar">
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">ELIGIBILITE</h4>
+                                                <blockquote
+                                                    class="message">{{$decisionEligiblitePrestataire->avis_decision->designation ?? ''}}
+                                                    <i class="fa fa-calendar"></i> {{$decisionEligiblitePrestataire->avis_decision->created_at ?? ''}}
+                                                </blockquote>
+                                                <blockquote
+                                                    class="message">{{$decisionEligiblitePrestataire->observation ?? ''}}</blockquote>
+                                                <br/>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    <li style="background-color: @if($decisionEligiblitePrestataire->avis_decision->designation === "Pas encore éligible") orange
+                                    @elseif($decisionEligiblitePrestataire->avis_decision->designation === "Eligible") green
+                                    @elseif($decisionEligiblitePrestataire->avis_decision->designation === "Non éligible") red @endif;
+                                        color: white; border-radius: 5px 5px 5px 5px">
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">ELIGIBILITE</h4>
                                             <blockquote
-                                                class="message">{{$decisionEligiblitePrestataire->avis_decision->designation}}
-                                                <i class="fa fa-calendar"></i> {{$decisionEligiblitePrestataire->avis_decision->created_at}}
+                                                class="message">{{$decisionEligiblitePrestataire->avis_decision->designation ?? ''   }}
+                                                <i class="fa fa-calendar"></i> {{  $decisionEligiblitePrestataire->created_at ?? ''}}
                                             </blockquote>
                                             <blockquote
-                                                class="message">{{$decisionEligiblitePrestataire->observation}}</blockquote>
+                                                class="message">{{$decisionEligiblitePrestataire->observation ?? ''}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -111,7 +130,8 @@
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">NIVEAU ACCREDITATION</h4>
-                                            <blockquote class="message">0</blockquote>
+                                            <blockquote
+                                                class="message">{{$accreditation->niveau_accreditation->designation}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -154,7 +174,7 @@
                                         <div class="message_wrapper">
                                             <h4 class="heading">DISPONIBILITE</h4>
                                             <blockquote
-                                                class="message">{{$dossierPrestataire->disponibilite->designation}}</blockquote>
+                                                class="message">{{$dossierPrestataire->disponibilite->designation ?? ''}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -172,7 +192,7 @@
                                         <div class="message_wrapper">
                                             <h4 class="heading">TYPE EXPERT</h4>
                                             <blockquote
-                                                class="message">{{$dossierPrestataire->type_expert->designation}}</blockquote>
+                                                class="message">{{$dossierPrestataire->type_expert->designation ?? ''}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -182,7 +202,8 @@
                                             <h4 class="heading">TYPE PRESTATIONS DISPENSEES</h4>
                                             @foreach($dossierPrestataire->type_prestation_dispensees as $type_prestation_dispensee)
                                                 <blockquote
-                                                    class="message">{{$type_prestation_dispensee->famille_intervention->designation.' en '.$type_prestation_dispensee->sous_categorie->designation}}</blockquote>
+                                                    class="message">{{$type_prestation_dispensee->famille_intervention->designation ?? ''}}
+                                                    en {{$type_prestation_dispensee->sous_categorie->designation ?? ''}}</blockquote>
                                             @endforeach
                                             <br/>
                                         </div>
@@ -190,16 +211,16 @@
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
-                                            <h4 class="heading">DATE DE MODIFICATION</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
+                                            <h4 class="heading">DATE DE CREATION</h4>
+                                            <blockquote class="message">{{$dossierPrestataire->created_at}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
-                                            <h4 class="heading">SITUATION DU DOSSIER</h4>
-                                            <blockquote class="message">XXXXXXXXXXXXXXXXXXXX</blockquote>
+                                            <h4 class="heading">DATE DE MODIFICATION</h4>
+                                            <blockquote class="message">{{$dossierPrestataire->updated_at}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -233,6 +254,34 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="avatarUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Mise à jour photo de profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <div class="form-group">
+                            <label for="photo">Votre photo</label>
+                            <input type="file" class="form-control-file" id="photo">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary">Enregistrer</button>
                 </div>
             </div>
         </div>

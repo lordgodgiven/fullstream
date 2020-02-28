@@ -142,6 +142,9 @@ class DossierPrestataireController extends Controller
                     'famille_intervention_id' => $request->famille_intervention_id,
                     'zone_intervention_id' => $request->zone_intervention,
                     'type_expert_id' => $request->type_expert,
+                    'departement_id' => $request->departement,
+                    'commune_ville_id' => $request->ville,
+                    'situation_familliale_id' => $request->situation_familliale,
                     //'situation_a_i_id' => $request->situation_dossier,
                 ]);
 
@@ -198,17 +201,19 @@ class DossierPrestataireController extends Controller
      * @param \App\Models\DossierPrestataire $dossierPrestataire
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DossierPrestataire $dossierPrestataire)
+    public function update($id)
     {
+
         $notification = array(
             'message' => 'Votre dossier a été soumis avec succès!',
             'alert-type' => 'info'
         );
 
-        $dossierPrestataire::where('id', $dossierPrestataire->id)
+        DossierPrestataire::with('compte_utilisateur')
+            ->where('compte_utilisateur_id', $id)
             ->update(['soumission_dossier_ok' => "OUI"]);
 
-        return redirect()->route('profile.show', $dossierPrestataire->id)->with($notification);
+        return redirect()->route('profile.show', $id)->with($notification);
     }
 
     /**

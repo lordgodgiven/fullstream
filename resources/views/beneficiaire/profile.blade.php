@@ -16,8 +16,9 @@
                     <div class="profile_img">
                         <div id="crop-avatar">
                             <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="{{asset('images/user.png')}}" alt="Avatar"
-                                 title="Change the avatar">
+                            <img class="img-responsive avatar-view" src="{{asset('images/user.png')}}"
+                                 alt="Cliquer pour changer l'image"
+                                 title="Cliquer pour changer l'image" data-toggle="modal" data-target="#avatarUpdate">
                         </div>
                     </div>
                     <h3>{{$compteUtilisateur->nom.' '.$compteUtilisateur->prenom}}</h3>
@@ -87,7 +88,39 @@
                                         <div class="message_wrapper">
                                             <h4 class="heading">IDENTIFIANT PRCCE</h4>
                                             <blockquote
-                                                class="message">{{$dossierBeneficiaire->identifiant_prcce}}</blockquote>
+                                                class="message">{{$dossierBeneficiaire->identifiant_prcce ?? 'AUCUN'}}</blockquote>
+                                            <br/>
+                                        </div>
+                                    </li>
+                                    @if($decisionEligibiliteBeneficiaire->avis_decision->designation === null)
+                                        <li style="background-color: orange; color: white; border-radius: 5px 5px 5px 5px">
+                                            <img src="{{asset('images/inspection-96.png')}}" class="avatar"
+                                                 alt="Avatar">
+                                            <div class="message_wrapper">
+                                                <h4 class="heading">ELIGIBILITE</h4>
+                                                <blockquote
+                                                    class="message">{{$decisionEligibiliteBeneficiaire->avis_decision->designation ?? ''}}
+                                                    <i class="fa fa-calendar"></i> {{$decisionEligibiliteBeneficiaire->avis_decision->created_at ?? ''}}
+                                                </blockquote>
+                                                <blockquote
+                                                    class="message">{{$decisionEligibiliteBeneficiaire->observation ?? ''}}</blockquote>
+                                                <br/>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    <li style="background-color: @if($decisionEligibiliteBeneficiaire->avis_decision->designation === "Pas encore éligible") orange
+                                    @elseif($decisionEligibiliteBeneficiaire->avis_decision->designation === "Eligible") green
+                                    @elseif($decisionEligibiliteBeneficiaire->avis_decision->designation === "Non éligible") red @endif;
+                                        color: white; border-radius: 5px 5px 5px 5px">
+                                        <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
+                                        <div class="message_wrapper">
+                                            <h4 class="heading">ELIGIBILITE</h4>
+                                            <blockquote
+                                                class="message">{{$decisionEligibiliteBeneficiaire->avis_decision->designation ?? ''   }}
+                                                <i class="fa fa-calendar"></i> {{  $decisionEligibiliteBeneficiaire->created_at ?? ''}}
+                                            </blockquote>
+                                            <blockquote
+                                                class="message">{{$decisionEligibiliteBeneficiaire->observation ?? ''}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -199,6 +232,33 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="avatarUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Mise à jour photo de profil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form enctype="multipart/form-data" method="POST" action="{{ route('profile.update') }}">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="photo">Votre photo de profil</label>
+                            <input type="file" class="form-control-file" id="photo" name="photo">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

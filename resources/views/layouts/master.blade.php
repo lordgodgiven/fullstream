@@ -127,6 +127,7 @@
 <script src="{{ asset('js/file_uploader.js') }}"></script>
 <script src="{{ asset('js/fonctionnalite_loader.js') }}"></script>
 <script src="{{ asset('js/sous_categorie_loader.js') }}"></script>
+<script src="{{ asset('js/compute_note_accreditation_level_one.js') }}"></script>
 <script src="{{ asset('js/custom.min.js') }}"></script>
 
 <script>

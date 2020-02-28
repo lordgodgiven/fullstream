@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class DossierBeneficiaire extends Model
 {
 
     protected $guarded = [];
-
+    protected $with = ['pays_nationalite', 'quartier',
+        'activite_principale', 'secteur_juridique',
+        'commune_ville', 'departement', 'arrondissement', 'situation_structure'];
 
 
     public function notation_beneficiaires()
@@ -61,6 +64,26 @@ class DossierBeneficiaire extends Model
         return $this->belongsTo(PaysNationalite::class)->withDefault();
     }
 
+    public function secteur_juridique()
+    {
+        return $this->belongsTo(SecteurJuridique::class)->withDefault();
+    }
+
+    public function situation_structure()
+    {
+        return $this->belongsTo(SituationStructure::class)->withDefault();
+    }
+
+    public function arrondissement()
+    {
+        return $this->belongsTo(Arrondissement::class)->withDefault();
+    }
+
+    public function quartier()
+    {
+        return $this->belongsTo(Quartier::class)->withDefault();
+    }
+
     public function commune_ville()
     {
         return $this->belongsTo(CommuneVille::class)->withDefault();
@@ -76,5 +99,19 @@ class DossierBeneficiaire extends Model
         return $this->belongsTo(SecteurDomaineActivite::class)->withDefault();
     }
 
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class)->withDefault();
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 
 }

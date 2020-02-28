@@ -6,7 +6,9 @@ namespace App\Models;
 class AccreditationNiveau1 extends Accreditation
 {
 
+
     protected $guarded = [];
+    protected $with = ['accreditation'];
 
     public function accreditation()
     {

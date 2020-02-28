@@ -11,6 +11,6 @@ class DocumentUpload extends Model
 
     public function compte_utilisateur()
     {
-        return $this->belongsTo(CompteUtilisateur::class);
+        return $this->belongsTo(CompteUtilisateur::class)->withDefault();
     }
 }

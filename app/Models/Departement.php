@@ -14,4 +14,9 @@ class Departement extends Model
     {
         return $this->hasMany(DossierPrestataire::class);
     }
+
+    public function dossier_beneficiaires()
+    {
+        return $this->hasMany(DossierBeneficiaire::class);
+    }
 }

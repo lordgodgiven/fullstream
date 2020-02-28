@@ -297,10 +297,11 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
 
-                            Oui <input type="radio" class="flat padding-eighty" name="filiale_multinationale" id="oui"
-                                       value="1" checked="" required/>
+                            Oui <input type="radio" class="flat padding-eighty" name="filiale_multinationale" id="OUI"
+                                       value="OUI" required/>
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                            Non <input type="radio" class="flat" name="filiale_multinationale" id="non" value="0"/>
+                            Non <input type="radio" class="flat" checked="" name="filiale_multinationale" id="NON"
+                                       value="NON"/>
 
                         </div>
                     </div>
