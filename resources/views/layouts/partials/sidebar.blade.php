@@ -33,18 +33,18 @@
                         @if(Auth::user()->type_compte === "beneficiaire")
                             <li><a href="#">Mes demandes de prestations</a></li>
                             <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
-                        @endif
+                            @endif
                     </ul>
                 </li>
             @endif
-            @if(Auth::user()->type_compte === "prestataire" or Auth::user()->type_compte === "beneficiaire")
+            @if(Auth::user()->type_compte === "prestataire" or Auth::user()->type_compte === "beneficiaire" or Auth::user()->type_compte === "gestionnaire")
                 <li><a><i class="fa fa-group"></i> Clusters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         @if(Auth::user()->type_compte === "prestataire")
                             <li><a href="#">Cluster services</a></li>
                         @endif
-                        @if(Auth::user()->type_compte === "beneficiaire")
-                            <li><a href="#"> Clusters PME</a></li>
+                        @if(Auth::user()->type_compte === "beneficiaire" or Auth::user()->type_compte === "gestionnaire")
+                            <li><a href="{{route('cluster-beneficiaire.create')}}"> Clusters PME</a></li>
                     @endif
                     <!--<li><a href="{{route('gestionnaire.prestataire')}}">Prestataires</a></li>
                     <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaires</a></li>
@@ -103,5 +103,4 @@
             @endif
         </ul>
     </div>
-
 </div>

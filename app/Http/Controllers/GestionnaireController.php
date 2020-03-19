@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Accreditation;
 use App\Models\AccreditationNiveau1;
+use App\Models\AccreditationNiveau2;
 use App\Models\Appreciation;
 use App\Models\AvisDecision;
 use App\Models\CompetenceLinExpert;
 use App\Models\DecisionEligibiliteBeneficiaire;
 use App\Models\DecisionEligibilitePrestataire;
 use App\Models\DocumentUpload;
+use App\Models\DomaineCertTechnique;
 use App\Models\DossierBeneficiaire;
 use App\Models\DossierPrestataire;
 use App\Models\EligibiliteBeneficiaire;
 use App\Models\EligibilitePrestataire;
 use App\Models\Employeur;
+use App\Models\EpreuveAccreditation;
 use App\Models\ExperienceChaineValeurExpert;
 use App\Models\Mention;
 use App\Models\NiveauAccreditation;
@@ -52,8 +55,7 @@ class GestionnaireController extends Controller
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
 
-        $dossierPrestataires = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->get();
-
+        $dossierPrestataires = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->latest()->get();
 
         return view('gestionnaire.prestataires.accreditation_level_one', compact(
             'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible',
@@ -94,7 +96,7 @@ class GestionnaireController extends Controller
 
         $dossierPrestataire = DecisionEligibilitePrestataire::where('dossier_prestataire_id', $id)->first();
         $accreditations = Accreditation::with(['transition_accreditation', 'visa_decision', 'niveau_accreditation'])->where('dossier_prestataire_id', $id)->get();
-        //dd($accreditations);
+
 
 
         return view('gestionnaire.prestataires.prestataire_accreditation_level_one', compact(
@@ -106,36 +108,77 @@ class GestionnaireController extends Controller
 
     public function accreditationNiveau1Store(Request $request, $id)
     {
-        //dd($request->all());
-        $notification = array(
-            'message' => 'Vérification terminée!',
-            'alert-type' => 'info'
-        );
 
-        $accreditation = Accreditation::create([
-            'niveau_accreditation_id' => $request->niveau_accreditation,
-            'ref_ancien_accreditation' => $this->refAccreditation($request->ancien_niveau_accreditation),
-            'transition_accreditation_id' => $this->refTransitionAccreditation($request->transition_accreditation),
-            'dossier_prestataire_id' => $id,
-            'visa_decision_id' => $request->visa_decision,
-            'appreciation_id' => $request->appreciation,
-            'date_decision_accreditation' => $request->date_decision,
-            'observation' => $request->observation,
+        if ($request->etat_dossier === "1") {
 
-        ]);
+            $notification = array(
+                'message' => 'Dossier complet!',
+                'alert-type' => 'info'
+            );
+            $accreditation = Accreditation::create([
+                'niveau_accreditation_id' => $request->niveau_accreditation,
+                'ref_ancien_accreditation' => $this->refAccreditation($request->ancien_niveau_accreditation),
+                'transition_accreditation_id' => $this->refTransitionAccreditation($request->transition_accreditation),
+                'dossier_prestataire_id' => $id,
+                'visa_decision_id' => $request->visa_decision,
+                'appreciation_id' => $request->appreciation,
+                'date_decision_accreditation' => $request->date_decision,
+                'observation' => $request->observation,
 
-        $accreditationNiveau1 = AccreditationNiveau1::create([
-            'accreditation_id' => $accreditation->id,
-            'etat_dossier_id' => $request->etat_dossier,
-            'noteA' => (float)$request->noteA,
-            'noteB' => (float)$request->noteB,
-            'noteC' => (float)$request->noteC,
-            'noteD' => (float)$request->noteD,
-            'total' => (float)$request->total,
-            'moyenne' => (float)$request->moyenne,
-        ]);
+            ]);
 
-        return redirect()->route('gestionnaire.prestataire.accreditation_level_one', $id)->with($notification);
+            $accreditationNiveau1 = AccreditationNiveau1::create([
+                'accreditation_id' => $accreditation->id,
+                'etat_dossier_id' => $request->etat_dossier,
+                'noteA' => (float)$request->noteA,
+                'noteB' => (float)$request->noteB,
+                'noteC' => (float)$request->noteC,
+                'noteD' => (float)$request->noteD,
+                'total' => (float)$request->total,
+                'moyenne' => (float)$request->moyenne,
+            ]);
+
+            DossierPrestataire::where('id', $id)
+                ->update([
+                    'niveau1_ok' => "OUI",
+                ]);
+
+
+            return redirect()->route('gestionnaire.prestataire.accreditation_level_one', $id)->with($notification);
+        }
+        if ($request->etat_dossier === "2") {
+
+            $notification = array(
+                'message' => 'Dossier incomplet!',
+                'alert-type' => 'info'
+            );
+            $accreditation = Accreditation::create([
+                'niveau_accreditation_id' => $request->niveau_accreditation,
+                'ref_ancien_accreditation' => $this->refAccreditation($request->ancien_niveau_accreditation),
+                'transition_accreditation_id' => $this->refTransitionAccreditation($request->transition_accreditation),
+                'dossier_prestataire_id' => $id,
+                'visa_decision_id' => $request->visa_decision,
+                'appreciation_id' => $request->appreciation,
+                'date_decision_accreditation' => $request->date_decision,
+                'observation' => $request->observation,
+
+            ]);
+
+            $accreditationNiveau1 = AccreditationNiveau1::create([
+                'accreditation_id' => $accreditation->id,
+                'etat_dossier_id' => $request->etat_dossier,
+                'noteA' => (float)$request->noteA,
+                'noteB' => (float)$request->noteB,
+                'noteC' => (float)$request->noteC,
+                'noteD' => (float)$request->noteD,
+                'total' => (float)$request->total,
+                'moyenne' => (float)$request->moyenne,
+            ]);
+
+            return redirect()->route('gestionnaire.prestataire.accreditation_level_one', $id)->with($notification);
+        }
+
+        return true;
     }
 
 
@@ -155,46 +198,96 @@ class GestionnaireController extends Controller
         $visaDecisions = VisaDecision::all();
         $appreciations = Appreciation::all();
         $mentions = Mention::all();
+        $domainCertTechniques = DomaineCertTechnique::all();
+        $ancieniveauAccrediation = Accreditation::where('dossier_prestataire_id', $id)->get()->last();
 
+        $noteMoyenne = EpreuveAccreditation::where('accreditation_niveau2_id')->avg('note_finale', 'note_evaluateur');
+
+        $accrediationNiveau2s = Accreditation::where('dossier_prestataire_id', $id)->get();
+
+
+        $epreuveAccreditations = EpreuveAccreditation::leftJoin('accreditations', 'accreditations.id', '=',
+            'epreuve_accreditations.accreditation_niveau2_id')
+            ->where('dossier_prestataire_id', $id)
+            ->get();
 
         return view('gestionnaire.prestataires.prestataire_accreditation_level_two', compact(
-            'prestatairesEligible', 'beneficiairesEligible', 'dossierPrestataire', 'transitionAccreditations',
-            'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite',
-            'id', 'visaDecisions', 'appreciations', 'mentions', 'niveauAccreditations'));
+            'prestatairesEligible', 'beneficiairesEligible', 'accrediationNiveau2s',
+            'dossierPrestataire', 'transitionAccreditations', 'epreuveAccreditations',
+            'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite', 'domainCertTechniques', 'noteMoyenne',
+            'id', 'visaDecisions', 'appreciations', 'mentions', 'niveauAccreditations', 'ancieniveauAccrediation'));
     }
 
 
     public function accreditationNiveau2Store(Request $request, $id)
     {
-        $notification = array(
-            'message' => 'Vérification terminée!',
-            'alert-type' => 'info'
-        );
 
-        $accreditation = Accreditation::create([
-            'niveau_accreditation_id' => $request->niveau_accreditation,
-            'ref_ancien_accreditation' => $request->ancien_niveau_accreditation,
-            'transition_accreditation_id' => $request->transition_accreditation,
-            'dossier_prestataire_id' => $id,
-            'visa_decision_id' => $request->visa_decision,
-            'appreciation_id' => $request->appreciation,
-            'date_decision_accreditation' => $request->date_decision,
-            'observation' => $request->observation,
+        $lastIdAccreditation = Accreditation::where('dossier_prestataire_id', $id)->get()->last();
 
-        ]);
+        $etatDossier = AccreditationNiveau1::select('etat_dossier_id')->get()->first();
 
-        $accreditationNiveau1 = AccreditationNiveau1::create([
-            'accreditation_id' => $accreditation->id,
-            'etat_dossier_id' => $request->etat_dossier,
-            'noteA' => (float)$request->noteA,
-            'noteB' => (float)$request->noteB,
-            'noteC' => (float)$request->noteC,
-            'noteD' => (float)$request->noteD,
-            'total' => (float)$request->total,
-            'moyenne' => (float)$request->moyenne,
-        ]);
+        $lastIdEpreuveAccreditation = session('lastId');
 
-        return redirect()->route('gestionnaire.prestataire.accreditation_level_two', $id)->with($notification);
+
+        if ($request->has('note_moyenne')) {
+
+
+            $accreditation = Accreditation::create([
+                'niveau_accreditation_id' => $request->niveau_accreditation,
+                'ref_ancien_accreditation' => $lastIdAccreditation->niveau_accreditation_id,
+                'transition_accreditation_id' => $request->transition_accreditation,
+                'dossier_prestataire_id' => $id,
+                'visa_decision_id' => $request->visa_decision,
+                'appreciation_id' => $request->appreciation,
+                'date_decision_accreditation' => $request->date_decision,
+                'observation' => $request->observation,
+
+            ]);
+
+            $accreditationNiveau2 = AccreditationNiveau2::create([
+                'accreditation_id' => $accreditation->id,
+                'etat_dossier_id' => $etatDossier->etat_dossier_id,
+                'moyenne' => (float)$request->note_moyenne,
+            ]);
+
+            EpreuveAccreditation::where('id', $lastIdEpreuveAccreditation)->update(['accreditation_niveau2_id' => $accreditation->id]);
+
+            $notification = array(
+                'message' => 'Dossier incomplet!',
+                'alert-type' => 'info'
+            );
+
+            return redirect()->route('gestionnaire.prestataire.accreditation_level_two', $id)->with($notification);
+
+        }
+
+        if ($request->has('volume_horaire')) {
+
+            $lastId = EpreuveAccreditation::create([
+                //'accreditation_niveau2_id' => $accreditationNiveau2->id,
+                'domaine_cert_technique_id' => $request->domaine_technique_certification,
+                'appreciation_id' => $request->appreciation,
+                'date_enregistrement' => $request->date_enregistrement,
+                'thematique' => $request->thematique,
+                'volume_horaire' => $request->volume_horaire,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
+                'note_finale' => $request->note_finale_gestionnaire,
+                'note_evaluateur' => $request->note_provisoire_evaluateur,
+                'observation_evaluateur' => $request->commentaire_evaluateur,
+                'observation_gestionnaire' => $request->commentaire_gestionnaire
+            ]);
+
+            session(['lastId' => $lastId->id]);
+
+            $notification = array(
+                'message' => 'Notation épreuve effectuée avec succès!',
+                'alert-type' => 'info'
+            );
+            return redirect()->route('gestionnaire.prestataire.accreditation_level_two', $id)->with($notification);
+
+        }
+
     }
 
 
@@ -289,11 +382,12 @@ class GestionnaireController extends Controller
                 'alert-type' => 'info'
             );
 
-            $decisionEligibilitePrestataire = DecisionEligibilitePrestataire::updateOrCreate(['dossier_prestataire_id' => $id], [
-                'observation' => $request->observation,
-                'dossier_prestataire_id' => $id,
-                'avis_decision_id' => $request->avis_decision
-            ]);
+            $decisionEligibilitePrestataire = DecisionEligibilitePrestataire::updateOrCreate(['dossier_prestataire_id' => $id],
+                [
+                    'observation' => $request->observation,
+                    'dossier_prestataire_id' => $id,
+                    'avis_decision_id' => $request->avis_decision
+                ]);
 
 
             EligibilitePrestataire::where('dossier_prestataire_id', $id)
@@ -330,13 +424,6 @@ class GestionnaireController extends Controller
             DossierPrestataire::where('id', $id)
                 ->update(['situation_dossier' => 'COMPLET']);
 
-
-            EligibilitePrestataire::where('dossier_prestataire_id', $id)
-                ->update([
-                    'observation' => $request->observation,
-                    'dossier_prestataire_id' => $id,
-                    'decision_eligibilite_id' => $decisionEligibilitePrestataire->id
-                ]);
 
             EligibilitePrestataire::where('dossier_prestataire_id', $id)
                 ->update([

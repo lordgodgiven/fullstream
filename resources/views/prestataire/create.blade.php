@@ -50,7 +50,7 @@
 
     <!-- sous formulaire identitté -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <div class="x_title">
                 <h2>Identité</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -362,7 +362,7 @@
 
     <!-- Types de prestations dispensées (Chaîne de valeur) -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <form class="form-horizontal form-label-left" method="POST" action="{{route('type-prest-dis.store')}}">
                 @csrf
                 <div class="x_title">
@@ -448,7 +448,7 @@
 
     <!-- Employeur(s) actuel(s) (si applicable) -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <form class="form-horizontal form-label-left" method="POST" action="{{route('employeur.store')}}">
                 @csrf
                 <div class="x_title">
@@ -581,7 +581,7 @@
 
     <!-- Maîtrise des langues (Compétences linguistiques) -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <form class="form-horizontal form-label-left" method="POST" action="{{route('compet-ling-expert.store')}}">
                 @csrf
                 <div class="x_title">
@@ -671,7 +671,7 @@
 
     <!-- Expériences (tableau types d'expériences pour chaque famille d'intervention avec au moins une année d'expérience) -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <form class="form-horizontal form-label-left" method="POST"
                   action="{{route('exp-chaine-valeur-exps.store')}}">
                 @csrf
@@ -779,7 +779,7 @@
 
     <!-- Références clients -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <form class="form-horizontal form-label-left" method="POST" action="{{route('ref-client-exps.store')}}">
                 @csrf
                 <div class="x_title">
@@ -929,7 +929,7 @@
 
     <!-- Motivations -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <div class="x_title">
                 <h2>Motivations</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -971,7 +971,7 @@
 
     <!-- /Pièces à fournir -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <div class="x_title">
                 <h2>Pièces à fournir</h2>
                 <ul class="nav navbar-right panel_toolbox">

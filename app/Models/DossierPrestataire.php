@@ -12,7 +12,7 @@ class DossierPrestataire extends Model
     protected $guarded = [];
     protected $with = ['disponibilite', 'compte_utilisateur',
         'type_prestation_dispensees', 'situation_familliale',
-        'individu', 'commune_ville', 'departement'];
+        'individu', 'commune_ville', 'departement', 'accreditations'];
 
 
     public function competence_informatique_experts()

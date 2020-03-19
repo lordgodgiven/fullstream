@@ -30,7 +30,7 @@
 
     <!-- sous formulaire identitté -->
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <div class="x_title">
                 <h2>Identité</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -190,11 +190,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control @error('activite_secondaire') is-invalid @enderror" cols="30"
-                                 name="activite_secondaire"
-                                 rows="3">
-                                    {{ old('activite_secondaire') }}
-                       </textarea>
+                            <textarea class="form-control @error('activite_secondaire') is-invalid @enderror" cols="30"
+                                      name="activite_secondaire" rows="3">{{ old('activite_secondaire') }}</textarea>
                             @error('activite_secondaire')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -244,11 +241,9 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control @error('presentation_generale') is-invalid @enderror" cols="30"
-                                 name="presentation_generale"
-                                 rows="3">
-                                    {{ old('presentation_generale') }}
-                       </textarea>
+                            <textarea class="form-control @error('presentation_generale') is-invalid @enderror"
+                                      cols="30" name="presentation_generale"
+                                      rows="3">{{ old('presentation_generale') }}</textarea>
                             @error('presentation_generale')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -324,7 +319,7 @@
                                 <option value="">Votre choix</option>
                                 @foreach($listePays as $pays)
                                     <option value="{{$pays->id}}"
-                                            @if(old('pay')==$pays->id) selected="selected" @endif>{{$pays->designation}}</option>
+                                            @if(old('pays')==$pays->id) selected="selected" @endif>{{$pays->designation}}</option>
                                 @endforeach
                             </select>
                             @error('pays')
@@ -418,7 +413,7 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="fax" id="fax" class="form-control ">
+                            <input type="text" name="fax" id="fax" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -454,17 +449,13 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control @error('motivations') is-invalid @enderror" cols="30"
-                                 name="motivations"
-                                 rows="3">
-                                    {{ old('motivations') }}
-                       </textarea>
+                            <textarea class="form-control @error('motivations') is-invalid @enderror" cols="30"
+                                      name="motivations" rows="3">{{old('motivations')}}</textarea>
                             @error('motivations')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
@@ -479,7 +470,7 @@
     <!-- /sous formulaire identité-->
 
     <div class="col-md-12 col-sm-12">
-        <div class="x_panel">
+        <div class="x_panel collapsed">
             <div class="x_title">
                 <h2>Pièces joindre au dossier</h2>
                 <ul class="nav navbar-right panel_toolbox">
@@ -497,7 +488,7 @@
 
                     <div class="col-md-6 col-sm-6 ">
                         <form method="POST" action="{{url('document/upload/store')}}" enctype="multipart/form-data"
-                              class="dropzone dropzone form-horizontal form-label-left" id="dropzone">
+                              class="dropzone dropzone fform-horizontal form-label-left" id="dropzone">
                             @csrf
                         </form>
                     </div>

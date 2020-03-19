@@ -41,6 +41,9 @@ Route::post('/dossier-benefiaires/store', 'DossierBeneficiaireController@store')
 Route::get('/dossier-benefiaires/create', 'DossierBeneficiaireController@create')->name('dossier-beneficiaire.create');
 Route::patch('/dossier-benefiaires/{id}', 'DossierBeneficiaireController@update')->name('dossier-beneficiaire.update');
 
+Route::get('/cluster/create', 'ClusterController@create')->name('cluster-beneficiaire.create');
+Route::post('/cluster/store', 'ClusterController@store')->name('cluster-beneficiaire.store');
+
 
 Route::post('/individus', 'IndividuController@store')->name('individu.store');
 
@@ -59,6 +62,15 @@ Route::post('/exp-chaine-valeur-exps', 'ExperienceChaineValeurExpertController@s
 Route::post('/compte-utilisateurs', 'CompteUtilisateurController@store');
 Route::get('/compte-utilisateurs/{compteUtilisateur}/profile', 'CompteUtilisateurController@show')->name('profile.show');
 Route::post('/compte-utilisateurs/profile', 'CompteUtilisateurController@updatePhoto')->name('profile.update');
+Route::post('/compte-utilisateurs/password', 'CompteUtilisateurController@updatePassword')->name('password.update');
+
+Route::post('/assemblee-generale/store', 'AssembleeGeneraleController@store')->name('assemblee-generale.store');
+Route::post('/projet-cluster/store', 'ProjetClusterController@store')->name('projet-cluster.store');
+Route::post('/risque-projet/store', 'RisqueProjetController@store')->name('risque-projet.store');
+Route::post('/resultat-projet/store', 'ResultatProjetController@store')->name('resultat-projet.store');
+Route::post('/reunion-projet/store', 'ReunionProjetController@store')->name('reunion-projet.store');
+Route::post('/activite-projet/store', 'ActiviteProjetController@store')->name('activite-projet.store');
+Route::post('/adhesion-cluster/store', 'AdhesionClusterController@store')->name('adhesion-cluster.store');
 
 Auth::routes();
 

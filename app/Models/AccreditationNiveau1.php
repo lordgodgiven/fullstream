@@ -12,12 +12,12 @@ class AccreditationNiveau1 extends Accreditation
 
     public function accreditation()
     {
-        return $this->belongsTo(Accreditation::class);
+        return $this->belongsTo(Accreditation::class)->withDefault();
     }
 
-    public function atestation_accreditation()
+    public function attestation_accreditation()
     {
-        return $this->belongsTo(AttestationAccreditation::class);
+        return $this->belongsTo(AttestationAccreditation::class)->withDefault();
     }
 
 }

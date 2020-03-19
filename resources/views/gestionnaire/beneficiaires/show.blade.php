@@ -361,12 +361,8 @@
                             class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control" cols="30"
-                                 name="motivations"
-                                 rows="3" readonly>
-                                  {{$dossierBeneficiaire->motivations}}
-                       </textarea>
-
+                        <textarea class="form-control" cols="30" name="motivations" rows="3"
+                                  readonly>{{$dossierBeneficiaire->motivations}} </textarea>
                     </div>
                 </div>
             </div>

@@ -16,39 +16,40 @@
                     <div class="profile_img">
                         <div id="crop-avatar">
                             <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="{{asset('images/user.png')}}"
-                                 alt="Cliquer pour changer l'image"
-                                 title="Cliquer pour changer l'image" data-toggle="modal" data-target="#avatarUpdate">
+                            @if (auth()->user()->image)
+                                <img class="img-responsive avatar-view" src="{{ asset(auth()->user()->image) }}"
+                                     alt="Cliquer pour changer l'image" style="width: 200px; height: 200px;"
+                                     title="Cliquer pour changer l'image" data-toggle="modal"
+                                     data-target="#avatarUpdate">
+                            @else
+                                <img class="img-responsive avatar-view" src="{{ asset('images/user.png') }}"
+                                     alt="Cliquer pour changer l'image" style="width: 200px; height: 200px;"
+                                     title="Cliquer pour changer l'image" data-toggle="modal"
+                                     data-target="#avatarUpdate">
+                            @endif
                         </div>
                     </div>
                     <h3>{{$compteUtilisateur->nom.' '.$compteUtilisateur->prenom}}</h3>
-
                     <ul class="list-unstyled user_data">
                         <li>Pays/Ville :
                             <b>{{$dossierBeneficiaire->pays_nationalite->designation.', '.$dossierBeneficiaire->commune_ville->designation}}</b>
                         </li>
-
                         <li>
-
                             Sexe: <b>{{$compteUtilisateur->genre_sexe->designation}}</b>
-
                         </li>
                         <li>
                             Email : <b>{{$dossierBeneficiaire->email}}</b>
                         </li>
                         <li>
-
                             Téléphone : <b>{{$dossierBeneficiaire->telephone}}</b>
-
                         </li>
-
                     </ul>
                     <div class="row">
                         <div class="col-md-6 col-sm-6"><a class="btn btn-outline-primary btn-sm">Changer mot de
                                 passe</a></div>
                         @if($dossierBeneficiaire->soumission_dossier_ok==="NON")
                             <div class="col-md-6 col-sm-6"><a class="btn btn-outline-warning btn-sm" onclick="event.preventDefault();
-                        document.getElementById('submit-form-beneficaire').submit();">Soumettre le dossier</a></div>
+                    document.getElementById('submit-form-beneficaire').submit();">Soumettre le dossier</a></div>
 
                             <form id="submit-form-beneficaire"
                                   action="{{ route('dossier-beneficiaire.update', Auth::user()->id)  }}" method="POST"
@@ -58,7 +59,6 @@
                             </form>
                         @endif
                     </div>
-
                     <br/>
                 </div>
                 <div class="col-md-9 col-sm-9 ">
@@ -78,9 +78,7 @@
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
-
                             <div role="tabpanel" class="tab-pane active" id="tab_content1" aria-labelledby="home-tab">
-
                                 <!-- Informations PRCCE-->
                                 <ul class="messages">
                                     <li>
@@ -154,17 +152,16 @@
 
                                 </ul>
                                 <!-- Informations PRCCE -->
-
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="home-tab">
-
                                 <!-- start recent activity -->
                                 <ul class="messages">
                                     <li>
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">NIU</h4>
-                                            <blockquote class="message">{{$dossierBeneficiaire->niu}}</blockquote>
+                                            <blockquote
+                                                class="message">{{$dossierBeneficiaire->niu ?? 'AUCUN NIU FOURNIS'}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -172,7 +169,8 @@
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">RCCM</h4>
-                                            <blockquote class="message">{{$dossierBeneficiaire->rccm}}</blockquote>
+                                            <blockquote
+                                                class="message">{{$dossierBeneficiaire->rccm ?? 'AUCUN RCCM FOURNIS'}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -180,7 +178,8 @@
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">SCIEN</h4>
-                                            <blockquote class="message">{{$dossierBeneficiaire->scien}}</blockquote>
+                                            <blockquote
+                                                class="message">{{$dossierBeneficiaire->scien ?? 'AUCUN SCIEN FOURNIS'}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -188,7 +187,8 @@
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">SCIET</h4>
-                                            <blockquote class="message">{{$dossierBeneficiaire->sciet}}</blockquote>
+                                            <blockquote
+                                                class="message">{{$dossierBeneficiaire->sciet ?? 'AUCUN SCIET FOURNIS'}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
@@ -196,38 +196,41 @@
                                         <img src="{{asset('images/inspection-96.png')}}" class="avatar" alt="Avatar">
                                         <div class="message_wrapper">
                                             <h4 class="heading">NSS</h4>
-                                            <blockquote class="message">{{$dossierBeneficiaire->nss}}</blockquote>
+                                            <blockquote
+                                                class="message">{{$dossierBeneficiaire->nss ?? 'AUCUN NSS FOURNIS'}}</blockquote>
                                             <br/>
                                         </div>
                                     </li>
-
                                 </ul>
                                 <!-- end recent activity -->
-
                             </div>
                             <div role="tabpane3" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-
                                 <!-- Documents fournis -->
-                                <table class="data table table-striped no-margin">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nom du document</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($filenames as $filename)
+                                @unless($filenames->count())
+                                    <h2 class="text-center">Aucun document fournis</h2>
+                                @else
+                                    <table class="data table table-striped no-margin">
+                                        <thead>
                                         <tr>
-                                            <td>{{$filename->id}}</td>
-                                            <td><a href="/documents/{{$filename->filename}}"
-                                                   target="_blank"><i
-                                                        class="fa fa-paperclip"></i> {{$filename->filename}}</a></td>
+                                            <th>#</th>
+                                            <th>Nom du document</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- Documents fournis -->
-
+                                        </thead>
+                                        <tbody>
+                                        @foreach($filenames as $filename)
+                                            <tr>
+                                                <td>{{$filename->id}}</td>
+                                                <td><a href="/documents/{{$filename->filename}}"
+                                                       target="_blank"><i class="fa fa-paperclip"></i>
+                                                        {{$filename->filename}}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                            @endunless
+                            <!-- Documents fournis -->
                             </div>
                         </div>
                     </div>

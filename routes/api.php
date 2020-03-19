@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::apiResource('/sous-categories', 'Api\SousCategorieFamilleInterventionController');
 Route::apiResource('/fonctionnalites', 'Api\FonctionnaliteController');
+Route::apiResource('/beneficiaires', 'Api\BeneficiaireController');

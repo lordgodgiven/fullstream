@@ -9,7 +9,13 @@
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
                        data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{asset('images/user.png')}}" alt="">{{Auth::user()->prenom. ' ' .Auth::user()->nom}}
+                        @if (auth()->user()->image)
+                            <img class="img-responsive avatar-view" src="{{ asset(auth()->user()->image) }}"
+                                 alt="Image profil">
+                        @else
+                            <img class="img-responsive avatar-view" src="{{ asset('images/user.png') }}"
+                                 alt="Image profil">
+                        @endif{{Auth::user()->prenom. ' ' .Auth::user()->nom}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('profile.show',Auth::user()->id)}}">Mon compte</a>

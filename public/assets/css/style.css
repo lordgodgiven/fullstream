@@ -117,7 +117,7 @@ section { overflow: hidden; }*/
 }
 
 .text-primary {
-    color: #ff6863 !important;;
+    color: #fcd615 !important;;
 }
 
 .text-finence {
@@ -125,7 +125,7 @@ section { overflow: hidden; }*/
 }
 
 .text-mega {
-    color: #ff6863 !important;;
+    color: #fcd615 !important;;
 }
 
 .text-white {
@@ -318,7 +318,7 @@ h3 span,
 h4 span,
 h5 span,
 p span {
-    color: #ff6863;
+    color: #fcd615;
 }
 
 p {
@@ -418,21 +418,21 @@ Separator
     width: 85px;
     height: 2px;
     margin: 20px 0px;
-    background: #ff6863;
+    background: #fcd615;
 }
 
 .separator_auto {
     width: 85px;
     height: 2px;
     margin: 20px auto;
-    background: #ff6863;
+    background: #fcd615;
 }
 
 .separator_small {
     width: 30px;
     height: 2px;
     margin: 20px 0px;
-    background: #ff6863;
+    background: #fcd615;
 }
 
 /*
@@ -463,22 +463,22 @@ Button
 }
 
 .btn-default:hover {
-    border-color: #ff6863;
-    background-color: #ff6863;
+    border-color: #fcd615;
+    background-color: #fcd615;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #ff6863;
+    background-color: #fcd615;
     border: 1px solid;
-    border-color: #ff6863;
+    border-color: #fcd615;
     padding: 1rem 2rem;
 }
 
 .btn-primary:hover {
     background-color: #eee;
     border-color: #eee;
-    color: #ff6863;
+    color: #fcd615;
 }
 
 .btn-success {
@@ -1140,7 +1140,7 @@ Nav Menu style
 }
 
 .btn-cart {
-    background-color: #ff6863;
+    background-color: #fcd615;
     padding: 2px 10px;
     color: #fff !important;
     border: 0px solid;
@@ -1208,7 +1208,7 @@ About section style
     height: 60px;
     line-height: 60px;
     font-size: 1.5rem;
-    background-color: #ff6863;
+    background-color: #fcd615;
     color: #fff;
     display: inline-block;
     text-align: center;
@@ -1557,7 +1557,7 @@ Skill Section style
 .teamskillbar-bar {
     height: 10px;
     width: 0px;
-    background: #ff6863;
+    background: #fcd615;
     position: absolute;
     left: 0px;
     top: 0px;
@@ -1638,7 +1638,7 @@ Pricing Section style
 .pricing_top_border {
     height: 4px;
     width: 100%;
-    background-color: #ff6863;
+    background-color: #fcd615;
 }
 
 .pricing_item {
@@ -1652,7 +1652,7 @@ Pricing Section style
 }
 
 .pricing_price_border {
-    background-color: #ff6863;
+    background-color: #fcd615;
     padding: 10px;
     border-radius: 50%;
     margin: 0 auto;
@@ -1665,7 +1665,7 @@ Pricing Section style
 }
 
 .pricing_price_border .pricing_price {
-    background-color: #ff6863;
+    background-color: #fcd615;
     border: 2px solid;
     border-color: #fff;
     width: 130px;
@@ -1823,7 +1823,7 @@ Maps Section style
     height: 20px;
     line-height: 20px;
     border-radius: 50%;
-    background-color: #ff6863;
+    background-color: #fcd615;
     font-size: 1rem;
     display: inline-block;
     top: -5px;
@@ -1863,7 +1863,7 @@ Contact Section style
 }
 
 .widget_socail ul li a:hover i {
-    background-color: #ff6863;
+    background-color: #fcd615;
 }
 
 
@@ -1931,7 +1931,7 @@ Footer Section style
 }
 
 .scrollup:hover {
-    background: #ff6863;
+    background: #fcd615;
     opacity: 1;
 }
 

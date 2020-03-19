@@ -154,6 +154,11 @@ var randNum = function () {
 
 // Panel toolbox
 $(document).ready(function () {
+    $('.collapsed')
+        .css('height', 'auto')
+        .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()
+        .find('.x_content').css('display', 'none');
+
     $('.collapse-link').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
@@ -5369,5 +5374,6 @@ $(document).ready(function () {
     init_autocomplete();
 
 });
+
 
 

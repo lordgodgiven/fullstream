@@ -70,8 +70,8 @@ class CompteUtilisateur extends Model
         return Carbon::parse($date)->format('d/m/Y');
     }
 
-    public function getPhotoAttribute()
+    public function getImageAttribute()
     {
-        return $this->photo;
+        return $this->profile_image;
     }
 }

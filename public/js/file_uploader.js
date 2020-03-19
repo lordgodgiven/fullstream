@@ -22,6 +22,7 @@ Dropzone.options.dropzone =
                 data: {filename: name},
                 success: function (data) {
                     console.log("File has been successfully removed!!");
+                    console.log(data);
                 },
                 error: function (e) {
                     console.log(e);

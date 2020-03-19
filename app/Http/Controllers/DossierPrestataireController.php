@@ -139,7 +139,6 @@ class DossierPrestataireController extends Controller
                     'identifiant_prcce' => $request->identifiant_prcce,
                     'telephone' => $telephone,
                     'disponibilite_id' => $request->disponibilite,
-                    'famille_intervention_id' => $request->famille_intervention_id,
                     'zone_intervention_id' => $request->zone_intervention,
                     'type_expert_id' => $request->type_expert,
                     'departement_id' => $request->departement,

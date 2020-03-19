@@ -1,22 +1,17 @@
-$(document).ready(function () {
+function calculMoyenne() {
 
-    var noteD = $("#noteD");
+    var noteAValue = parseFloat($('#noteA').val());
+    var noteBValue = parseFloat($('#noteB').val());
+    var noteCValue = parseFloat($('#noteC').val());
+    var noteDValue = parseFloat($('#noteD').val());
 
-    noteD.keyup(function () {
+    var somme = isNaN(noteAValue + noteBValue + noteCValue + noteDValue) ? 0 : (noteAValue + noteBValue + noteCValue + noteDValue);
+    $("#total").val(somme);
+    $("#moyenne").val(somme / 4);
 
-        var somme = ($("#noteA").val() + $("#noteB").val + $("#noteC").val() + noteD.val());
+}
 
-
-        console.log(somme);
-    });
-
-
+$('#noteA, #noteB, #noteB, #noteC, #noteD').keyup(function () {
+    calculMoyenne();
 });
 
-/*$(document).ready(function(){
-    var qty=$("#qty");
-    qty.keyup(function(){
-        var total=isNaN(parseInt(qty.val()* $("#price").val())) ? 0 :(qty.val()* $("#price").val())
-        $("#total").val(total);
-    });
-});*/

@@ -9,6 +9,7 @@ class Accreditation extends Model
 {
     protected $guarded = [];
     protected $dates = ['date_decision_accreditation'];
+    protected $with = ['niveau_accreditation', 'visa_decision'];
 
 
     public function dossier_prestataire()
@@ -48,7 +49,12 @@ class Accreditation extends Model
 
     public function accreditation_niveau1()
     {
-        return $this->hasMany(Accreditation::class);
+        return $this->hasMany(AccreditationNiveau1::class);
+    }
+
+    public function accreditation_niveau2()
+    {
+        return $this->hasMany(AccreditationNiveau2::class);
     }
 
     public function getDateDecisionAccreditationAttribute($date)

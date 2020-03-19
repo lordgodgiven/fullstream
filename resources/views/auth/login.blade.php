@@ -32,7 +32,8 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-                <img src="{{ asset('images/logo_prcce.png') }}" height="150px" width="150px">
+                <a href="/"> <img src="{{ asset('images/logo_prcce.png') }}" height="150px" width="150px"
+                                  alt="Logo Cluster Congo" title="Acceuil"></a>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <h1>Connexion</h1>

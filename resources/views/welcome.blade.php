@@ -80,10 +80,10 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li><a href="#hello">Accueil</a></li>
-                    <li><a href="#service">PRCCE II</a></li>
-                    <li><a href="#about">Clusters PME</a></li>
+                    <li><a href="#about">PRCCE II</a></li>
+                    <li><a href="#service">Clusters PME</a></li>
                     <li><a href="#portfolio">Chaines de valeurs</a></li>
-                    <li><a href="#pricing">Espace Prestaires</a></li>
+                    <li><a href="#pricing">Espace Prestataires</a></li>
                     <li><a href="#pricing">Espace Bénéficiaires</a></li>
                     <li><a href="{{ route('login') }}">Mon compte</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -137,117 +137,137 @@
                 <div class="main_about">
                     <div class="col-md-6">
                         <div class="about_content">
-                            <h2>ABOUT US</h2>
+                            <h2>PRCCE II</h2>
                             <div class="separator_left"></div>
 
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                                quis nostrud exerci tation ullamcorper suscipit lobortis
-                                nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor
-                                sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                                euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                Ut wisi enim ad minim veniam, quis nostrud exerci tation
-                                ullamcorper suscipit lobortis nisl ut aliquip
-                                ex ea commodo consequat. </p>
-
-                            <div class="about_btns m-top-40">
-                                <a href="" class="btn btn-primary">DOWNLOAD NOW</a>
-                            </div>
+                            <p>Financée sous le 11è FED (Fonds européen de développement) à hauteur de 12,4 millions
+                                d’euros (soit 8 milliards de FCFA) par l’Union européenne, pour la période 2017-2020, la
+                                2e phase du Programme de renforcement des capacités commerciales et entrepreneuriales
+                                (PRCCE-II) a été lancée mardi 7 mars 2017 à Brazzaville( Congo) par le ministre d’Etat,
+                                ministre de la Construction, de l’urbanisme de la ville et du Cadre de vie, Claude
+                                Alphonse N’Silou, représentant le Premier ministre, chef du gouvernement, Clément
+                                Mouamba.</p><br>
+                            <p>Ce projet vise la formation de 5000 Petites et moyennes entreprises (PME), associations
+                                et créateurs d’entreprises ; la structuration de 1250 PME en clusters ; et le
+                                renforcement des capacités de 200 bureaux d’études et de cabinets de conseil locaux
+                                chaque année. L’objectif est d’atteindre 6.000 bénéficiaires en l’espace de 4 ans du
+                                projet.</p>
+                            <br>
+                            <p>Les PME étant des moteurs de la croissance économique dans les pays développés, L’Union
+                                européenne est donc convaincue qu’elles ont le même rôle central à jouer dans la
+                                croissance et la diversification de l’économie congolaise.</p>
+                            <br>
+                            <p>
+                                Pour y parvenir, l’Union européenne a réuni depuis 2008 l’ensemble de ses programmes et
+                                instruments d’appui aux PME dans un cadre politique complet intitulé « Small Business
+                                Act » ou « Loi sur les Petites entreprises ». Cette Loi repose sur trois piliers, à
+                                savoir :
+                                <b>
+                                    <ol style="color: #e4be00;">
+                                        <li>
+                                            La règlementation intelligente ou simplification des formalités ;
+                                        </li>
+                                        <li>
+                                            L’accès au financement ;
+                                        </li>
+                                        <li>
+                                            La mise en réseau des entreprises et la promotion de la culture et de
+                                            l’esprit d’entreprise.
+                                        </li>
+                                    </ol>
+                                </b>
+                            </p>
+                            <br>
+                            <p>
+                                Enfin, le prcce se donne aussi un objectif de réduire les obstacles qui empêchent
+                                certains groupes de la population, notamment les femmes, les jeunes ou les personnes
+                                vivant avec handicap d’exploiter leur potentiel d’entreprendre.
+                            </p>
                         </div>
                     </div>
+                    <br><br><br><br><br>
                     <div class="col-md-6">
                         <div class="about_accordion wow fadeIn">
                             <div id="faq_main_content" class="faq_main_content">
-                                <h6><i class="fa fa-angle-right"></i> UNIQUE DESIGN </h6>
-                                <div>
+                                <h6 class="open" style="background-color: #fcd615; height: 75px;"><i
+                                        class="fa fa-angle-right"></i>Renforcement du secteur privé et developpement
+                                    durable des PME</h6>
+                                <div class="open">
                                     <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                            magna aliquam erat volutpat. Ut wisi enim ad minim veniam, </p>
+                                        <p>
+                                            Pour optimiser ses impacts sur la société congolaise, le programme va
+                                            concentrer ses fonds sur le renforcement des acteurs économiques de la
+                                            chaîne de valeur Maïs.
+                                        </p>
+                                        <p>
+                                            En collaboration avec le ministre des petites et moyennes entreprises, de
+                                            l'artisanat et du secteur informel, le PRCCE II appuiera les PME Congolaises
+                                            dans le developpement de réseaux d'entreprises spécialisées dans la
+                                            transformation du maïs, l'aviculture, la boulangerie et la transformation
+                                            des fruits et des plantes.
+                                        </p>
+                                        <p>
+                                            Les secteurs des services aux entreprises et industries et du numérique
+                                            bénéficieront aussi d'un accompagnement transversal. Enfin, pour prolonger
+                                            l'implication de l'Union Européenne dans la gouvernance forestière,le
+                                            secteur du bois (menuiserie) sera également concerné.
+                                        </p>
 
                                     </div>
                                 </div> <!-- End off accordion item-1 -->
 
-                                <h6 class="open"><i class="fa fa-angle-right"></i> EXPERIENCE TEAM</h6>
+                                <h6 class="open" style="background-color: #fcd615;  height: 75px;"><i
+                                        class="fa fa-angle-right"></i> Amélioration du climat des affaires</h6>
                                 <div class="open">
                                     <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                            magna aliquam erat volutpat. Ut wisi enim ad minim veniam, </p>
+                                        <p>
+                                            Pour optimiser ses impacts sur la société congolaise, le programme va
+                                            concentrer ses fonds sur le renforcement des acteurs économiques de la
+                                            chaîne de valeur Maïs.
+                                        </p>
+                                        <p>
+                                            En collaboration avec le ministre des petites et moyennes entreprises, de
+                                            l'artisanat et du secteur informel, le PRCCE II appuiera les PME Congolaises
+                                            dans le developpement de réseaux d'entreprises spécialisées dans la
+                                            transformation du maïs, l'aviculture, la boulangerie et la transformation
+                                            des fruits et des plantes.
+                                        </p>
+                                        <p>
+                                            Les secteurs des services aux entreprises et industries et du numérique
+                                            bénéficieront aussi d'un accompagnement transversal. Enfin, pour prolonger
+                                            l'implication de l'Union Européenne dans la gouvernance forestière,le
+                                            secteur du bois (menuiserie) sera également concerné.
+                                        </p>
+
                                     </div>
                                 </div> <!-- End off accordion item-2 -->
 
-                                <h6><i class="fa fa-angle-right"></i> GREAT SERVICE </h6>
-                                <div>
+                                <h6 class="open" style="background-color: #fcd615;  height: 75px;"><i
+                                        class="fa fa-angle-right"></i> Appui aux négociations commerciales</h6>
+                                <div class="open">
                                     <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                            magna aliquam erat volutpat. Ut wisi enim ad minim veniam, </p>
+                                        <p>
+                                            Pour optimiser ses impacts sur la société congolaise, le programme va
+                                            concentrer ses fonds sur le renforcement des acteurs économiques de la
+                                            chaîne de valeur Maïs.
+                                        </p>
+                                        <p>
+                                            En collaboration avec le ministre des petites et moyennes entreprises, de
+                                            l'artisanat et du secteur informel, le PRCCE II appuiera les PME Congolaises
+                                            dans le developpement de réseaux d'entreprises spécialisées dans la
+                                            transformation du maïs, l'aviculture, la boulangerie et la transformation
+                                            des fruits et des plantes.
+                                        </p>
+                                        <p>
+                                            Les secteurs des services aux entreprises et industries et du numérique
+                                            bénéficieront aussi d'un accompagnement transversal. Enfin, pour prolonger
+                                            l'implication de l'Union Européenne dans la gouvernance forestière,le
+                                            secteur du bois (menuiserie) sera également concerné.
+                                        </p>
+
                                     </div>
                                 </div> <!-- End off accordion item-3 -->
-
-                                <h6><i class="fa fa-angle-right"></i> FREE UPDATES </h6>
-                                <div>
-                                    <div class="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                            sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                            magna aliquam erat volutpat. Ut wisi enim ad minim veniam, </p>
-                                    </div>
-                                </div> <!-- End off accordion item-4 -->
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--End off row-->
-        </div><!--End off container -->
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <hr/>
-        <br/>
-        <br/>
-        <div class="container">
-            <div class="row">
-                <div class="about_bottom_content">
-                    <div class="col-md-4">
-                        <div class="about_bottom_item m-top-20">
-                            <div class="ab_head">
-                                <div class="ab_head_icon">
-                                    <i class="icofont icofont-fire-burn"></i>
-                                </div>
-                                <h6 class="m-top-20"> WE’RE CREATIVE</h6>
-                            </div>
-                            <p class="m-top-20">Lorem ipsum dolor sit amet, consectetuer adipiscing ealit,
-                                sed diaim nonummy nibsih euismod tincidiunt laorieet doloire
-                                magna diam aliquafm erat voluitpati. </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="about_bottom_item m-top-20">
-                            <div class="ab_head">
-                                <div class="ab_head_icon">
-                                    <i class="icofont icofont-speech-comments"></i>
-                                </div>
-                                <h6 class="m-top-20">WE'RE FRIENDLY</h6>
-                            </div>
-                            <p class="m-top-20">Lorem ipsum dolor sit amet, consectetuer adipiscing ealit,
-                                sed diaim nonummy nibsih euismod tincidiunt laorieet doloire
-                                magna diam aliquafm erat voluitpati. </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="about_bottom_item m-top-20">
-                            <div class="ab_head">
-                                <div class="ab_head_icon">
-                                    <i class="icofont icofont-heart"></i>
-                                </div>
-                                <h6 class="m-top-20">WE LOVE MINIMALISM</h6>
-                            </div>
-                            <p class="m-top-20">Lorem ipsum dolor sit amet, consectetuer adipiscing ealit,
-                                sed diaim nonummy nibsih euismod tincidiunt laorieet doloire
-                                magna diam aliquafm erat voluitpati. </p>
                         </div>
                     </div>
                 </div>
@@ -255,28 +275,105 @@
         </div><!--End off container -->
     </section> <!--End off About section -->
 
-
-    <!--Video section-->
-    <section id="video" class="video">
-        <div class="overlay"></div>
-        <div class="main_video roomy-100 m-top-100 m-bottom-100 text-center">
-            <div class="video_text text-center">
-                <a href="http://www.youtube.com/watch?v=7HKoqNJtMTQ" class="video-link"><span class="fa fa-play"></span></a>
-            </div>
-        </div>
-    </section><!--End off video section -->
-
-
-    <div class="container">
+    <div class="container service" id="service">
         <div class="row">
             <div class="main_featured m-top-100">
                 <div class="col-sm-12">
-                    <div class="head_title text-center">
-                        <h2>FEATURED WORK</h2>
+                    <div class="head_title">
+                        <h2 class="text-center">Clusters PME</h2>
                         <div class="separator_auto"></div>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                            sed diam nonummy nibh euismod nostrud exerci tation ullamcorper
-                            suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                        <p class="text-center" style="font-weight: bolder;">Avec le programme PRCCE II, le gouvernement
+                            congolais et l'Union européenne se mobilisent pour les entreprises. </p>
+                        <p style="font-weight: bold;">
+                        <ol><br>
+                            <li>
+                                Faire émerger une génération de TPE/PME solides, solidaires
+                                et compétitives.
+                                <ol>
+                                    <li>
+                                        Construire des chaînes de valeur porteuses de croissance et d'emploi :
+                                        maïs/aviculture,
+                                        fruits et plantes, menuiserie/bois.
+                                    </li>
+                                    <li>
+                                        Pour répondre à la demande du marché.
+                                    </li>
+                                </ol>
+                            </li>
+                            <br><br>
+                            <li>
+                                Autour d'une démarche innovante, participative et collective.
+                                <ol><br>
+                                    <li>
+                                        Autour d'une démarche innovante, participative et collective
+                                        • Amener les TPE, les PME et les grandes entreprises à travailler ensemble, en
+                                        "clusters".
+                                        Pour mieux répondre à leurs problématiques respectives et mutualiser leurs
+                                        ressources.
+                                    </li>
+                                    <li>
+                                        En parallèle, renforcer et coordonner les services publics pour améliorer climat
+                                        des affaires
+                                        et échanges commerciaux.
+                                    </li>
+                                </ol>
+                            </li>
+                            <br><br>
+                            <li>
+                                Avec des solutions concrètes et une large gamme de services.
+                                <ol><br>
+                                    <li>
+                                        Mise à disposition de 5 000 journées d'expertise, à tous les niveaux des chaînes
+                                        de valeur.
+                                    </li>
+                                    <li>
+                                        Création d'un "Helpdesk" et formations OHADA avec la CCIAM de Pointe-Noire.
+                                    </li>
+                                    <li>
+                                        Résolution des litiges commerciaux avec les CEMACO de Brazzaville et
+                                        Pointe-Noire.
+                                    </li>
+                                    <li>
+                                        Normalisation avec l'ACONOQ, pour garantir la qualité des produits mis sur le
+                                        marché.
+                                    </li>
+                                </ol>
+                            </li>
+                            <br><br>
+                            <li>
+                                Dans un cadre réglementaire redéfini pour lever les blocages.
+                                <ol><br>
+                                    <li>
+                                        Sur les principaux aspects liés à la vie de l'entreprise, quelle que soit sa
+                                        taille : juridique,
+                                        comptable, normalisation et qualité, politique de prix, négociations
+                                        commerciales, etc.
+                                    </li>
+                                    <li>
+                                        Au plus haut niveau, grâce à l'implication de tous les partenaires : ministères,
+                                        agences
+                                        nationales, organisations intermédiaires, l'UE et ses États-membres.
+                                    </li>
+                                </ol>
+                            </li>
+                            <br><br>
+                            <li>
+                                Pour la valorisation des produits congolais
+                                <ol><br>
+                                    <li>
+                                        Des produits de qualité, compétitifs et attractifs sur les marchés locaux,
+                                        régionaux et
+                                        internationaux (500 millions de consommateurs potentiels dans l'UE).
+                                    </li>
+                                    <li>
+                                        Des produits à valeur ajoutée pour des entreprises plus rentables, avec de
+                                        meilleures
+                                        marges bénéficiaires.
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -318,13 +415,13 @@
 
 
     <!--Service Section-->
-    <section id="service" class="service">
+    <section>
         <div class="container">
             <div class="row">
                 <div class="main_service roomy-100">
                     <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
                         <div class="head_title text-center">
-                            <h2>OUR SERVICES</h2>
+                            <h2>Chaines de valeurs</h2>
                             <div class="separator_auto"></div>
                             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
                                 sed diam nonummy nibh euismod nostrud exerci tation ullamcorper
@@ -690,9 +787,9 @@
                         <div class="head_title text-center">
                             <h2>Creation de compte</h2>
                             <div class="separator_auto"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt tation ullamcorper
-                                suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                            <p>Chers prestataires et bénéficaire de service, dans le cadre de l'appel à expression
+                                d'intérêt, nous proposons aux prestataires de services une un formulaire
+                                d'enregistrement en ligne de vos candidatures.</p>
                         </div>
                         <!--Formulaire création compte-->
                         <div>
@@ -923,143 +1020,6 @@
     </section> <!--End off Pricing section -->
 
 
-    <!--client brand section-->
-    <section id="cbrand" class="cbrand">
-        <div class="container">
-            <div class="row">
-                <div class="main_cbrand text-center roomy-100">
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img src="{{ asset('assets/images/clients/1.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img src="{{ asset('assets/images/clients/2.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img class="" src="{{ asset('assets/images/clients/5.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img src="{{ asset('assets/images/clients/4.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img src="{{ asset('assets/images/clients/3.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <div class="cbrand_item m-bottom-10">
-                            <a href=""><img src="{{ asset('assets/images/clients/1.jpg') }}" alt=""/></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End off row -->
-        </div><!-- End off container -->
-    </section><!-- End off Cbrand section -->
-
-
-    <!--Subscribe section-->
-    <section id="subscribe" class="subscribe roomy-100 fix">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="main_subscribe text-center">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <h2 class="text-white">SUBSCRIBE US</h2>
-                        <p class="m-top-30 text-white">At vero eos et accusamus et iusto odio dignissimos
-                            ducimus qui blanditiis praesentium</p>
-                    </div>
-                    <div class="col-sm-10 col-sm-offset-1">
-                        <div class="subscribe_btns m-top-40">
-
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="inputEmail2"
-                                           placeholder="Email Address">
-                                </div>
-                                <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </div><!--End off row -->
-        </div><!--End off container -->
-    </section><!-- End off Impress section-->
-
-
-    <!--Blog Section-->
-    <section id="blog" class="blog">
-        <div class="container">
-            <div class="row">
-                <div class="main_blog text-center roomy-100">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <div class="head_title text-center">
-                            <h2>RECENT BLOGS</h2>
-                            <div class="separator_auto"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt tation ullamcorper
-                                suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="blog_item m-top-20">
-                            <div class="blog_item_img">
-                                <img src="{{ asset('assets/images/Blog/1.jpg') }}" alt=""/>
-                            </div>
-                            <div class="blog_text roomy-40">
-                                <h6>PLEASUARE WITHOUT CONSCIENCE</h6>
-                                <p><em><a href="">May 15, 2016</a> /<a href="">admin</a>/<a href=""> Co-working</a></em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="blog_item m-top-20">
-                            <div class="blog_item_img">
-                                <img src="{{ asset('assets/images/Blog/2.jpg') }}" alt=""/>
-                            </div>
-                            <div class="blog_text roomy-40">
-                                <h6>PLEASUARE WITHOUT CONSCIENCE</h6>
-                                <p><em><a href="">May 15, 2016</a> /<a href="">admin</a>/<a href=""> Co-working</a></em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="blog_item m-top-20">
-                            <div class="blog_item_img">
-                                <img src="{{ asset('assets/images/Blog/3.jpg') }}" alt=""/>
-                            </div>
-                            <div class="blog_text roomy-40">
-                                <h6>PLEASUARE WITHOUT CONSCIENCE</h6>
-                                <p><em><a href="">May 15, 2016</a> /<a href="">admin</a>/<a href=""> Co-working</a></em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--End off row -->
-        </div><!--End off container -->
-    </section><!-- End off Blog section-->
-
-
-    <!--Maps Section-->
-    <div class="main_maps text-center fix">
-        <div class="overlay"></div>
-        <div class="maps_text">
-            <h3 class="text-white" onclick="showmap()">FIND US ON THE MAP <i class="fa fa-angle-down"></i></h3>
-            <div id="map_canvas" class="mapheight"></div>
-        </div>
-    </div><!-- End off Maps Section-->
-
-
     <!--Contact Us Section-->
     <section id="contact" class="contact bg-mega fix">
         <div class="container">
@@ -1071,11 +1031,19 @@
                                 <h3 class="text-white">Clusters PME Congo</h3>
                                 <div class="separator_small"></div>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                                quis nostrud exerci tation ullamcorper suscipit lobortis nisl
-                                ut aliquip ex ea commodo consequat. </p>
+                            <p>
+                            <ul>
+                                <li>
+                                    <span><i class="fa fa-envelope-square"></i> info@clusterscongo.cg</span>
+                                </li>
+                                <li>
+                                    <span><i class="fa fa-phone-square"></i> +242069712618</span>
+                                </li>
+                                <li>
+                                    <span><i class="fa fa-map"></i> Centre ville, Ministère du plan</span>
+                                </li>
+                            </ul>
+                            </p>
 
                             <div class="widget_socail m-top-30">
                                 <ul class="list-inline">
@@ -1093,21 +1061,22 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input id="first_name" name="first_name" type="text" placeholder="Nom"
+                                        <input id="first_name" name="first_name" type="text" placeholder="Votre Nom"
                                                class="form-control" required="">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input id="phone" name="phone" type="text" placeholder="Téléphone"
+                                        <input id="phone" name="phone" type="text" placeholder="Votre Téléphone"
                                                class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="6" placeholder="Message"></textarea>
+                                        <textarea class="form-control" rows="6"
+                                                  placeholder="Tapez votre message"></textarea>
                                     </div>
                                     <div class="form-group text-center">
                                         <a href="" class="btn btn-primary">Envoyer</a>
@@ -1135,11 +1104,9 @@
             <div class="row">
                 <div class="main_footer text-center p-top-40 p-bottom-30">
                     <p class="wow fadeInRight" data-wow-duration="1s">
-                        Made with
-                        <i class="fa fa-heart"></i>
-                        by
-                        <a target="_blank" href="http://bootstrapthemes.co">Bootstrap Themes</a>
-                        2016. All Rights Reserved
+                        Developpeed by
+                        <a target="_blank" href="http://bootstrapthemes.co">IMAGINE TECHNOLOGY</a>
+                        2020.Clusters PME Congo All Rights Reserved
                     </p>
                 </div>
             </div>

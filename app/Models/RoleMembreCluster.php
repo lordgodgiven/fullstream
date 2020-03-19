@@ -9,9 +9,5 @@ class RoleMembreCluster extends Model
 
     protected $guarded = [];
 
-    public function membre_cluster()
-    {
-        return $this->hasMany(MembreCluster::class);
-    }
 
 }

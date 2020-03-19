@@ -14,11 +14,20 @@ use App\Models\EligibiliteBeneficiaire;
 use App\Models\EligibilitePrestataire;
 use App\Models\Individu;
 use App\Models\User;
+use App\Traits\ImageUploaderTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CompteUtilisateurController extends Controller
 {
+    use ImageUploaderTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -124,6 +133,13 @@ class CompteUtilisateurController extends Controller
 
         } else if ($request['type_compte'] === "beneficiaire") {
 
+            $individu_last_id = Individu::create([
+                'nom' => $request['nom'],
+                'prenom' => $request['prenom'],
+                'civilite_id' => $request['civilite'],
+                'genre_sexe_id' => $request['sexe']
+            ]);
+
             $compte_utilisateur_last_id = CompteUtilisateur::create([
                 'civilite_id' => $request['civilite'],
                 'genre_sexe_id' => $request['sexe'],
@@ -144,7 +160,8 @@ class CompteUtilisateurController extends Controller
                 'compte_utilisateur_id' => $compte_utilisateur_last_id->id,
                 'nom' => $request['nom'],
                 'prenom' => $request['prenom'],
-                'email' => $request['email']
+                'email' => $request['email'],
+                'individu_id' => $individu_last_id->id,
             ]);
 
             $decisionEligibiliteBeneficaire = DecisionEligibiliteBeneficiaire::create([
@@ -191,14 +208,15 @@ class CompteUtilisateurController extends Controller
 
             $filenames = DocumentUpload::where('compte_utilisateur_id', $compteUtilisateur->id)->get();
 
-            $accreditation = Accreditation::where('dossier_prestataire_id', $dossierPrestataire->id)->first();
+            $accreditation = Accreditation::with('accreditation_niveau1')
+                ->where('dossier_prestataire_id', $dossierPrestataire->id)->latest()->first();
 
             return view('prestataire.profile', compact('compteUtilisateur', 'decisionEligiblitePrestataire',
                 'infoComplementaires', 'communeVille', 'dossierPrestataire', 'filenames', 'accreditation'));
 
         } else if ($compteUtilisateur->type_compte === "beneficiaire") {
 
-            $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', $compteUtilisateur->id)->last();
+            $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', $compteUtilisateur->id)->first();
             $filenames = DocumentUpload::where('compte_utilisateur_id', $compteUtilisateur->id)->get();
             $decisionEligibiliteBeneficiaire = DecisionEligibiliteBeneficiaire::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->first();
 
@@ -244,27 +262,34 @@ class CompteUtilisateurController extends Controller
 
     public function updatePhoto(Request $request)
     {
+        $notification = array(
+            'message' => 'Votre photo de profil a été mise à jour avec succès!',
+            'alert-type' => 'success'
+        );
 
-        dd('Implementation encours');
-        $image = $request->file('photo');
-        $fileOwner = Auth::user()->id;
-        $imageName = $image->getClientOriginalName();
-        $image->move(public_path('/photos/profil'), $imageName);
+        $request->validate([
 
-        /* $imageUpload = new DocumentUpload();
-         $imageUpload->filename = $imageName;
-         $imageUpload->compte_utilisateur_id = $fileOwner;
-         $imageUpload->save();
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
 
-         if($request->hasFile('avatar')){
-             $avatar = $request->file('avatar');
-             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-             Image::make($avatar)->resize(300, 300)->save( public_path('/photos/profil/' . $filename ) );
-             $user = Auth::user();
-             $user->avatar = $filename;
-             $user->save();
-         }
-         return view('profile', ['user' => Auth::user()] );*/
+        $beneficiare = CompteUtilisateur::findOrFail(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
+
+        if ($request->has('photo')) {
+            $image = $request->file('photo');
+            $name = Str::slug($beneficiare->id . '_' . $beneficiare->nom . '_' . $beneficiare->prenom . '_' . time());
+            $folder = '/photos/profil/';
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            $this->uploadOne($image, $folder, 'uploads', $name);
+            $beneficiare->profile_image = $filePath;
+            $user->profile_image = $filePath;
+        }
+
+        $beneficiare->save();
+        $user->save();
+
+        return redirect()->route('profile.show', Auth::user())->with($notification);
+
     }
 
 }

@@ -207,14 +207,16 @@
                         <label for="total" class="col-form-label col-md-7 col-sm-7">Note total calculée (somme des 4
                             notes) NT = A + B + C + D <span class="required">*</span></label>
                         <div class="col-md-2 col-sm-2">
-                            <input id="total" class="form-control" type="text" name="total" placeholder="NT  /100">
+                            <input id="total" class="form-control" type="text" name="total" placeholder="NT  /100"
+                                   readonly>
                         </div>
                     </div>
                     <div class="item form-group">
                         <label for="moyenne" class="col-form-label col-md-7 col-sm-7">Note moyenne NTM = (A + B + C +
                             D)/4 <span class="required">*</span></label>
                         <div class="col-md-2 col-sm-2 ">
-                            <input id="moyenne" class="form-control" type="text" name="moyenne" placeholder="NM  /20">
+                            <input id="moyenne" class="form-control" type="text" name="moyenne" placeholder="NM  /20"
+                                   readonly>
                         </div>
                     </div>
                     <div class="item form-group">
@@ -309,5 +311,7 @@
 @endpush
 
 @push('scripts')
+
+
 
 @endpush

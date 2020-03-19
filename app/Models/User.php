@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'login', 'password', 'nom', 'prenom', 'email', 'type_compte'
+        'login', 'password', 'nom', 'prenom', 'email', 'type_compte', 'profile_image'
     ];
 
     /**
@@ -44,5 +44,10 @@ class User extends Authenticatable
     public function type_compte()
     {
         return $this->belongsTo(TypeCompte::class)->withDefault();
+    }
+
+    public function getImageAttribute()
+    {
+        return $this->profile_image;
     }
 }

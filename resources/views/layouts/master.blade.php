@@ -2,9 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Dieudonné NIEME">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_token" content="{{csrf_token()}}"/>
     <link rel="icon" href="{{ asset('images/logo_prcce.png') }}" type="image/ico"/>
@@ -129,7 +129,7 @@
 <script src="{{ asset('js/sous_categorie_loader.js') }}"></script>
 <script src="{{ asset('js/compute_note_accreditation_level_one.js') }}"></script>
 <script src="{{ asset('js/custom.min.js') }}"></script>
-
+@stack('scripts')
 <script>
     toastr.options = {
         "closeButton": false,

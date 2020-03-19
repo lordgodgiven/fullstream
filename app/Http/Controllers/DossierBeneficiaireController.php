@@ -11,6 +11,7 @@ use App\Models\Departement;
 use App\Models\Disponibilite;
 use App\Models\DossierBeneficiaire;
 use App\Models\FamilleIntervention;
+use App\Models\Individu;
 use App\Models\Langue;
 use App\Models\PaysNationalite;
 use App\Models\Quartier;
@@ -76,6 +77,7 @@ class DossierBeneficiaireController extends Controller
             'activitePrincipales', 'secteurJuriques', 'situationStructures', 'arrondissements', 'quartiers'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -89,6 +91,18 @@ class DossierBeneficiaireController extends Controller
             'message' => 'Bénéficiaire votre dossier a été crée avec succès!',
             'alert-type' => 'success'
         );
+        $compte_utilisateur_id = CompteUtilisateur::find(Auth::user()->id);
+        $dossier_beneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', $compte_utilisateur_id->id)->first();
+        Individu::where('id', $dossier_beneficiaire->individu_id)
+            ->update([
+                'identifiant_prcce' => $request->identifiant_prcce,
+                'pays_nationalite_id' => $request->nationalite,
+                'niu' => $request->niu,
+                'nss' => $request->nss,
+                'date_naissance' => $request->date_naissance,
+                'situation_familliale_id' => $request->situation_familliale,
+                'adresse_personnelle' => $request->adresse,
+            ]);
 
         DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)
             ->update([

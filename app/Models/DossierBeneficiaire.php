@@ -114,4 +114,5 @@ class DossierBeneficiaire extends Model
         return Carbon::parse($date)->format('d/m/Y');
     }
 
+
 }
