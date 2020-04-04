@@ -104,6 +104,11 @@ class DossierBeneficiaire extends Model
         return $this->belongsTo(Departement::class)->withDefault();
     }
 
+    public function demande_prestations()
+    {
+        return $this->hasMany(DemandePrestation::class);
+    }
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::parse($date)->format('d/m/Y');

@@ -1,9 +1,6 @@
 <?php
 
 
-Route::get('/passgenerator', function () {
-    return bcrypt('admin');
-});
 Route::get('/', 'welcomeController@home')->name('home');
 
 Route::get('/administrations', 'AdministrationController@index')->name('administration.home');
@@ -27,9 +24,18 @@ Route::get('/gestionnaires/prestataire', 'GestionnaireController@indexPrestatair
 Route::get('/gestionnaires/beneficiaire', 'GestionnaireController@indexBeneficiaire')->name('gestionnaire.beneficiaire');
 Route::get('/gestionnaires/{id}/prestataire', 'GestionnaireController@showPrestataire')->name('gestionnaire.prestataire.show');
 Route::get('/gestionnaires/{id}/benficiaire', 'GestionnaireController@showBeneficiaire')->name('gestionnaire.beneficiaire.show');
+Route::get('/gestionnaires/cluster/create', 'GestionnaireController@createCluster')->name('gestionnaire-cluster.create');
+Route::post('/gestionnaires/cluster/store', 'GestionnaireController@storeCluster')->name('gestionnaire-cluster.store');
+Route::post('/gestionnaires/cluster/adhesion/store', 'GestionnaireController@storeClusterAdhesion')->name('gestionnaire-cluster-adhresion.store');
 
 Route::post('/gestionnaires/{id}/prestataire', 'GestionnaireController@eligibilitePrestataire')->name('gestionnaire.prestataire.eligibilite');
 Route::post('/gestionnaires/{id}/beneficiaire', 'GestionnaireController@eligibiliteBeneficiaire')->name('gestionnaire.beneficiaire.eligibilite');
+Route::get('/gestionnaires/tdr/create', 'GestionnaireController@createTdr')->name('gestionnaire.tdr.create');
+Route::post('/gestionnaires/tdr/store', 'GestionnaireController@storeTdr')->name('gestionnaire.tdr.store');
+Route::post('/gestionnaires/tdr/circuit-validation/store', 'GestionnaireController@storeCircuitValidation')->name('gestionnaire.tdr.circuit-validation.store');
+Route::get('/gestionnaires/rapport-analyse/create', 'GestionnaireController@createRapportAnalyse')->name('gestionnaire.rapport.analyse.create');
+Route::get('/gestionnaires/contrats/create', 'GestionnaireController@createContrat')->name('gestionnaire.contrat.create');
+Route::get('/gestionnaires/contribution-beneficiaire/create', 'GestionnaireController@createContributionBeneficiaire')->name('gestionnaire.contribution.beneficiaire.create');
 
 Route::get('/dossier-prestataires', 'DossierPrestataireController@index')->name('dossier-prestataire.home');
 Route::post('/dossier-prestataires/store', 'DossierPrestataireController@store')->name('dossier-prestataire.store');
@@ -40,6 +46,8 @@ Route::get('/dossier-benefiaires', 'DossierBeneficiaireController@index')->name(
 Route::post('/dossier-benefiaires/store', 'DossierBeneficiaireController@store')->name('dossier-beneficiaire.store');
 Route::get('/dossier-benefiaires/create', 'DossierBeneficiaireController@create')->name('dossier-beneficiaire.create');
 Route::patch('/dossier-benefiaires/{id}', 'DossierBeneficiaireController@update')->name('dossier-beneficiaire.update');
+Route::get('/dossier-benefiaires/prestation/create', 'DossierBeneficiaireController@prestationCreate')->name('dossier-beneficiaire.prestation.create');
+Route::post('/dossier-benefiaires/prestation/prestationStore', 'DossierBeneficiaireController@prestationStore')->name('dossier-beneficiaire.prestation.store');
 
 Route::get('/cluster/create', 'ClusterController@create')->name('cluster-beneficiaire.create');
 Route::post('/cluster/store', 'ClusterController@store')->name('cluster-beneficiaire.store');

@@ -176,8 +176,10 @@ jQuery(document).ready(function ($) {
 });
 
 
-
-
+$(window).load(function () {
+    $('.preloader').fadeOut('slow');
+    $('html,body').css({overflow: 'auto'});
+});
 
 
 

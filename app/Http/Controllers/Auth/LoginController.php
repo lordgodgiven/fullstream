@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -74,6 +75,10 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
 
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
         if ($user->type_compte === "prestataire") {
             $notification = array(
                 'message' => 'Connexion prestataire effectuée avec succès!',
@@ -101,6 +106,11 @@ class LoginController extends Controller
         }
 
 
+    }
+
+    protected function redirectTo($request)
+    {
+        return route('login');
     }
 
 

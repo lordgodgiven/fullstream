@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cluster extends Model
 {
 
+    protected $primaryKey = 'dossier_beneficiaire_id';
     protected $guarded = [];
     protected $with = ['chaine_valeur', 'commune_ville', 'departement'];
 
@@ -39,4 +40,11 @@ class Cluster extends Model
     {
         return $this->belongsTo(Departement::class)->withDefault();
     }
+
+    public function adhesions()
+    {
+        return $this->hasMany(Adhesion::class);
+    }
+
+
 }

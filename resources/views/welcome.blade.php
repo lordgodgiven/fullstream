@@ -44,7 +44,9 @@
 </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse">
-
+<!-- Preloader -->
+<div class="preloader"></div>
+<!--End off Preloader -->
 
 <div class="culmn">
     <!--Home page style-->

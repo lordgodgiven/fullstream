@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Accreditation;
 use App\Models\AccreditationNiveau1;
 use App\Models\AccreditationNiveau2;
+use App\Models\Adhesion;
 use App\Models\Appreciation;
 use App\Models\AvisDecision;
+use App\Models\ChaineValeur;
+use App\Models\Cluster;
+use App\Models\CommuneVille;
 use App\Models\CompetenceLinExpert;
 use App\Models\DecisionEligibiliteBeneficiaire;
 use App\Models\DecisionEligibilitePrestataire;
+use App\Models\Departement;
 use App\Models\DocumentUpload;
 use App\Models\DomaineCertTechnique;
 use App\Models\DossierBeneficiaire;
@@ -22,6 +27,8 @@ use App\Models\ExperienceChaineValeurExpert;
 use App\Models\Mention;
 use App\Models\NiveauAccreditation;
 use App\Models\ReferenceClientExpert;
+use App\Models\RoleMembreCluster;
+use App\Models\Tdr;
 use App\Models\TransitionAccreditation;
 use App\Models\TypePrestationDispensee;
 use App\Models\VisaDecision;
@@ -30,6 +37,10 @@ use Illuminate\Http\Request;
 class GestionnaireController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -371,6 +382,148 @@ class GestionnaireController extends Controller
     }
 
 
+    public function createCluster()
+    {
+
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $clusters = Cluster::all();
+        //dd($clusters);
+        $chaineValeurs = ChaineValeur::all();
+        $villes = CommuneVille::all();
+        $departements = Departement::all();
+        $roleMembreClusters = RoleMembreCluster::all();
+        $structureBeneficiaires = DossierBeneficiaire::all();
+
+        return view('gestionnaire.cluster.create', compact('prestatairesAttenteEligibilite', 'clusters',
+            'beneficiairesAttenteEligibilite', 'villes', 'departements', 'roleMembreClusters',
+            'prestatairesEligible', 'beneficiairesEligible', 'chaineValeurs', 'structureBeneficiaires'));
+    }
+
+    public function createTdr()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.trd.create', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+    public function storeTdr(Request $request)
+    {
+
+        $tdr = Tdr::create([
+            'reference_trd' => $request->numero_tdr,
+            'titre_mission' => $request->titre_mission,
+            'objet_mission' => $request->objet_mission,
+            'prestation_demandees' => $request->prestations_demandees,
+            'livrable_attendus' => $request->resultats_attendus,
+            'montant_depense_accessoires' => $request->depenses_accessoires,
+            'date_debut_mision' => $request->date_debut,
+            'date_fin_mision' => $request->date_fin,
+            'duree_mission' => $request->duree_mission,
+            'date_demarrage' => $request->date_demarrage,
+            'lieu_execution' => $request->lieu_execution,
+            'responsable_suivi' => $request->responsable_suivi,
+            'date_limite_remise_livrable' => $request->date_limite_remise_livrables,
+            'montant_honoraires' => $request->honoraires,
+        ]);
+
+        session(['trd_lastId' => $tdr->id]);
+    }
+
+    public function storCircuitVlidation(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function createRapportAnalyse()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.rapports.create', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+
+    public function createContrat()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.contrat.create', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+
+    public function createContributionBeneficiaire()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.contrat.contribution.create', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+    public function storeCluster(Request $request)
+    {
+
+
+        $dossierBeneficiaire = DossierBeneficiaire::where('identifiant_prcce', $request->identifiant_prcce)->get()->first();
+        Cluster::create([
+            'dossier_beneficiaire_id' => $dossierBeneficiaire->id,
+            'compte_utilisateur_id' => $dossierBeneficiaire->compte_utilisateur_id,
+            'chaine_valeur_id' => $request->chaine_valeur,
+            'president_inidividu_id' => $request->president_id,
+            'secretaire_individu_id' => $request->secretaire_id,
+            'commune_ville_id' => $request->ville,
+            'departement_id' => $request->departement,
+            'identificiant_prcce' => $request->identifiant_prcce,
+            'numero_enregistrement' => $request->numero_enregistrement,
+            'nom_cluster' => $request->nom_cluster,
+            'structure_responsable' => $request->structure_responsable_cluster,
+            'date_creation' => $request->date_creation,
+            'auteur' => $request->auteur_cluster,
+        ]);
+        return redirect()->route('gestionnaire-cluster.create');
+    }
+
+    public function storeClusterAdhesion(Request $request)
+    {
+
+        //$dossierBeneficiaire = DossierBeneficiaire::where('id',$request->structure_beneficiaire)->get()->first();
+        $dossierBeneficiaire = DossierBeneficiaire::where('id', 2)->get()->first();
+        //dd($dossierBeneficiaire);
+        Adhesion::create([
+            'cluster_dossier_beneficiaire_id' => $dossierBeneficiaire->id,
+            'role_membre_cluster_id' => $request->role_membre_cluster,
+            'structure_beneficiaire' => $request->structure_beneficiaire,
+            'date_entree' => $request->date_entree,
+            'date_sortie' => $request->date_sortie,
+            'motif_sortie' => $request->motif_sortie,
+            'commentaire' => $request->commentaire_gestionnaire
+        ]);
+        return redirect()->route('gestionnaire-cluster.create');
+    }
+
+
     public function eligibilitePrestataire(Request $request, $id)
     {
 
@@ -507,6 +660,7 @@ class GestionnaireController extends Controller
 
     }
 
+
     protected function refAccreditation($accreditation_label)
     {
         switch ($accreditation_label) {
@@ -523,6 +677,7 @@ class GestionnaireController extends Controller
                 return 4;
         }
     }
+
 
     protected function refTransitionAccreditation($transition_accreditation_label)
     {

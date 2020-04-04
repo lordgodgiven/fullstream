@@ -77,6 +77,18 @@ class DocumentUploadController extends Controller
                 return response()->json(['success' => $name]);
             }
 
+            if ($request->has('demande_prestations')) {
+                $document = $request->file('file');
+                $name = Str::slug('demande-prestations' . '_' . Auth::user()->id . '_' . Auth::user()->nom . '_' . Auth::user()->prenom . '_' . time());
+                $folder = '/documents/prestation/demande_prestations';
+                $this->uploadOne($document, $folder, 'uploads', $name);
+                $doc = new DocumentUpload();
+                $doc->filename = $name . '.' . $document->getClientOriginalExtension();
+                $doc->compte_utilisateur_id = Auth::user()->id;
+                $doc->save();
+                return response()->json(['success' => $name]);
+            }
+
         }
         $image = $request->file('file');
         $fileOwner = Auth::user()->id;

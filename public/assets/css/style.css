@@ -1947,3 +1947,24 @@ Footer Section style
     text-decoration: none;
 
 }
+
+html, body {
+    overflow: hidden;
+}
+
+/** Preloader **/
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-image: url('../images/hourglass.gif');
+    background-repeat: no-repeat;
+    background-color: #FFF;
+    background-position: center;
+    opacity: .8;
+}
+
+/** Preloader **/

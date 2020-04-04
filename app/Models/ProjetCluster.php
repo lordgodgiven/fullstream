@@ -12,7 +12,7 @@ class ProjetCluster extends Model
 
     public function cluster()
     {
-        return $this->belongsTo(Cluster::class);
+        return $this->belongsTo(Cluster::class)->withDefault();
     }
 
     public function statut_projet()

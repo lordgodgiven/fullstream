@@ -64,7 +64,6 @@
             </div>
         </div>
     </div>
-
     <!-- Gestion des clusters-->
 
     <!-- Identité -->
@@ -186,7 +185,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nom:
                             <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 ">
+                        <div class="col-md-6 col-sm-6">
                             <input type="text" name="nom_president" required="required" class="form-control"
                                    value="{{$dossierBeneficiaire->nom ?? ''}}" readonly>
                         </div>
@@ -342,11 +341,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
@@ -363,11 +360,11 @@
                                 @foreach($membreClusters as $membreCluster)
                                     <tr>
                                         <td>{{$membreCluster->id}}</td>
-                                        <td>XXXX</td>
-                                        <td>XXXX</td>
-                                        <td>XXXX</td>
-                                        <td>XXXX</td>
-                                        <td>XXXX</td>
+                                        <td>{{$membreCluster->nom_cluster}}</td>
+                                        <td>{{$membreCluster->chaine_valeur}}</td>
+                                        <td>{{$membreCluster->structure_membre}}</td>
+                                        <td>{{$membreCluster->role}}</td>
+                                        <td>{{$membreCluster->date_entree}}</td>
                                         <td>
                                             <a href=""
                                                class="btn btn-outline-danger btn-sm" title="Consulter"><i
@@ -390,7 +387,8 @@
                             :
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nom_cluster" name="nom_cluster" value="{{$cluster->nom_cluster}}"
+                            <input type="text" id="nom_cluster" name="nom_cluster"
+                                   value="{{$clusterBeneficiaire->nom_cluster ?? ''}}"
                                    class="form-control" readonly>
                         </div>
                     </div>
@@ -399,7 +397,8 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="chaine_valeur" name="chaine_valeur"
-                                   value="{{$cluster->chaine_valeur->designation}}" class="form-control" readonly>
+                                   value="{{$clusterBeneficiaire->chaine_valeur->designation ?? ''}}"
+                                   class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -454,6 +453,10 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="motif_sortie" id="motif_sortie" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($motifs as $motif)
+                                    <option value="{{$motif->id}}"
+                                            @if(old('motif_sortie')==$motif->id) selected="selected" @endif>{{$motif->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -639,7 +642,8 @@
                                 class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nom_cluster" name="nom_cluster" value="{{$cluster->nom_cluster}}"
+                            <input type="text" id="nom_cluster" name="nom_cluster"
+                                   value="{{$cluster->nom_cluster ?? ''}}"
                                    class="form-control" readonly>
                         </div>
                     </div>
@@ -649,7 +653,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="chaine_valeur" name="chaine_valeur"
-                                   value="{{$cluster->chaine_valeur->designation}}" class="form-control" readonly>
+                                   value="{{$cluster->chaine_valeur->designation ?? ''}}" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -859,11 +863,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-
                             <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                 <tr>
@@ -875,21 +877,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                <tr>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>
-                                        <a href=""
-                                           class="btn btn-outline-danger btn-sm" title="Consulter"><i
-                                                class="fa fa-eye"></i></a>
-                                        <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
-                                                class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-
+                                @foreach($risqueProjets as $risqueProjet)
+                                    <tr>
+                                        <td>{{$risqueProjet->id}}</td>
+                                        <td>{{$risqueProjet->risque_identifie_mise_œuvre_projet}}</td>
+                                        <td>{{$risqueProjet->proposition_mitigation}}</td>
+                                        <td>{{$risqueProjet->designation}}</td>
+                                        <td>
+                                            <a href=""
+                                               class="btn btn-outline-danger btn-sm" title="Consulter"><i
+                                                    class="fa fa-eye"></i></a>
+                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -899,12 +901,25 @@
                       action="{{route('risque-projet.store')}}">
                     @csrf
                     <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Projet cluster<span
+                                class="required">*</span>:
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select name="projet_cluster" id="niveau_risque" class="form-control">
+                                <option value="">Votre choix</option>
+                                @foreach($projetClusters as $projetCluster)
+                                    <option value="{{$projetCluster->id}}"
+                                            @if(old('projet_cluster')==$projetCluster->id) selected="selected" @endif>{{$projetCluster->intitule_projet_cluster}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Risque identifié
                             dans la mise en œuvre du projet: <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control" cols="30" name="risque_identifie" rows="3">
-                       </textarea>
+                            <textarea class="form-control" cols="30" name="risque_identifie" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -912,8 +927,7 @@
                             mitigation: <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                       <textarea class="form-control" cols="30" name="proposition_mitigation" rows="3">
-                       </textarea>
+                            <textarea class="form-control" cols="30" name="proposition_mitigation" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -923,6 +937,10 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="niveau_risque" id="niveau_risque" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($niveauRisques as $niveauRisque)
+                                    <option value="{{$niveauRisque->id}}"
+                                            @if(old('niveau_risque')==$niveauRisque->id) selected="selected" @endif>{{$niveauRisque->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -1399,36 +1417,76 @@
         </div>
     </div>
     <!--  Réunions du projet cluster -->
-    <!-- Modal -->
-    <div class="modal fade" id="listeBeneficiaires" tabindex="-1" role="dialog" aria-labelledby="listeBeneficiaires"
+    <!-- Membres du cluster-->
+
+    <!-- Modal Sécretaires-->
+    <div class="modal fade" id="listeBeneficiaireSecretaires" tabindex="-1" role="dialog"
+         aria-labelledby="listeBeneficiaireSecretaires"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Liste des bénéficiaires</h5>
+                    <h5 class="modal-title">Liste des bénéficiaires <img src="{{asset('images/hourglass.gif')}}"
+                                                                         id="label_loading_liste_beneficiaire_secretaire"
+                                                                         height="10%" width="25%"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect2">Choix de la sécrétaire</label>
-                        <select multiple class="form-control" id="liste_beneficiaire" name="liste_beneficiaire">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <label for="liste_beneficiaire_secretaire" id="label_choix_secretaire">Choix de la
+                            sécrétaire</label>
+                        <div class="text-center">
+                            <img src="{{asset('images/hourglass.gif')}}" id="loading_liste_beneficiaire_secretaire"
+                                 height="25%" width="25%">
+                        </div>
+                        <select multiple class="form-control" id="liste_beneficiaire_secretaire"
+                                name="liste_beneficiaire_secretaire">
                         </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" id="btn-load">Charger</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal Sécretaires-->
+
+    <!-- Modal Présidents-->
+    <div class="modal fade" id="listeBeneficiairePresidents" tabindex="-1" role="dialog"
+         aria-labelledby="listeBeneficiairePresidents"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Liste des bénéficiaires <img src="{{asset('images/hourglass.gif')}}"
+                                                                         id="label_loading_liste_beneficiaire_president"
+                                                                         height="10%" width="25%"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="liste_beneficiaire_president" id="label_choix_president">Choix du président</label>
+                        <div class="text-center">
+                            <img src="{{asset('images/hourglass.gif')}}" id="loading_liste_beneficiaire_president"
+                                 height="25%" width="25%">
+                        </div>
+                        <select multiple class="form-control" id="liste_beneficiaire_president"
+                                name="liste_beneficiaire_president">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Présidents-->
 @endsection
 
 @push('stylesheets')
@@ -1436,6 +1494,7 @@
 @endpush
 
 @push('scripts')
-    <script src="{{asset('js/liste_beneficiaires.js')}}"></script>
+    <script src="{{asset('js/liste_beneficiaire_secretaires.js')}}"></script>
+    <script src="{{asset('js/liste_beneficiaire_presidents.js')}}"></script>
 @endpush
 

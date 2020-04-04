@@ -31,9 +31,11 @@
                             <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
                         @endif
                         @if(Auth::user()->type_compte === "beneficiaire")
-                            <li><a href="#">Mes demandes de prestations</a></li>
+                            <li><a href="{{route('dossier-beneficiaire.prestation.create')}}">Mes demandes de
+                                    prestations</a></li>
                             <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
-                            @endif
+                            <li><a href="#">Mes Clusters</a></li>
+                        @endif
                     </ul>
                 </li>
             @endif
@@ -43,8 +45,12 @@
                         @if(Auth::user()->type_compte === "prestataire")
                             <li><a href="#">Cluster services</a></li>
                         @endif
-                        @if(Auth::user()->type_compte === "beneficiaire" or Auth::user()->type_compte === "gestionnaire")
+                        @if(Auth::user()->type_compte === "beneficiaire")
                             <li><a href="{{route('cluster-beneficiaire.create')}}"> Clusters PME</a></li>
+                            <li><a href="">Suivi des actions de structuration des clusters</a></li>
+                        @endif
+                        @if(Auth::user()->type_compte === "gestionnaire")
+                            <li><a href="{{route('gestionnaire-cluster.create')}}"> Clusters PME</a></li>
                     @endif
                     <!--<li><a href="{{route('gestionnaire.prestataire')}}">Prestataires</a></li>
                     <li><a href="{{route('gestionnaire.beneficiaire')}}">Bénéficiaires</a></li>
@@ -75,9 +81,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="typography.html">Validation</a></li>
-                        <li><a href="typography.html">Offre de prestation</a></li>
-                        <li><a href="icons.html">Demandes de prestations</a></li>
+                        <li><a href="#">Validation</a></li>
+                        <li><a href="#">Offre de prestation</a></li>
+                        <li><a href="{{route('gestionnaire.tdr.create')}}">Gestion des TDR</a></li>
+                        <li><a href="{{route('gestionnaire.rapport.analyse.create')}}">Gestion des rapports d'analyse
+                                sommaires</a></li>
+                        <li><a href="{{route('gestionnaire.contrat.create')}}">Gestion des contrats de prestation</a>
+                        </li>
+                        <li><a href="{{route('gestionnaire.contribution.beneficiaire.create')}}">Versement de la
+                                contribution de bénéficiaires</a></li>
                         <li><a href="icons.html">Suivi & Evaluation</a></li>
                     </ul>
                 </li>

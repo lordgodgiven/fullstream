@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ActivitePrincipale;
 use App\Models\Arrondissement;
+use App\Models\Cluster;
 use App\Models\CommuneVille;
 use App\Models\CompteUtilisateur;
 use App\Models\DegreMaitrise;
+use App\Models\DemandePrestation;
 use App\Models\Departement;
 use App\Models\Disponibilite;
 use App\Models\DossierBeneficiaire;
@@ -16,8 +18,10 @@ use App\Models\Langue;
 use App\Models\PaysNationalite;
 use App\Models\Quartier;
 use App\Models\SecteurJuridique;
+use App\Models\SituationDemande;
 use App\Models\SituationStructure;
 use App\Models\SousCategorie;
+use App\Models\TypeDemande;
 use App\Models\TypeEmployeur;
 use App\Models\TypeExpert;
 use App\Models\TypePrestationDispensee;
@@ -75,6 +79,47 @@ class DossierBeneficiaireController extends Controller
             'familleInterventions', 'sousCategories', 'typeEmployeurs',
             'langues', 'degreMaitrises', 'typePrestationDispensees', 'identifiant_prcce',
             'activitePrincipales', 'secteurJuriques', 'situationStructures', 'arrondissements', 'quartiers'));
+    }
+
+
+    public function prestationCreate()
+    {
+        $situationDemandes = SituationDemande::all();
+        $typePrestations = TypePrestationDispensee::all();
+        $familleInterventions = FamilleIntervention::all();
+        $typeDemandes = TypeDemande::all();
+        $clusters = Cluster::where('compte_utilisateur_id', Auth::user()->id)->get();
+        $zoneInterventions = ZoneIntervention::all();
+        $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->first();
+        $demandePrestations = DemandePrestation::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->get();
+
+        return view('beneficiaire.prestation.create', compact('situationDemandes', 'clusters',
+            'typeDemandes', 'familleInterventions', 'typeDemandes', 'typePrestations', 'zoneInterventions', 'demandePrestations'));
+    }
+
+    public function prestationStore(Request $request)
+    {
+        $notification = array(
+            'message' => 'Votre demande a été crée avec succès!',
+            'alert-type' => 'success'
+        );
+        $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->first();
+        DemandePrestation::create([
+            'dossier_beneficiaire_id' => $dossierBeneficiaire->id,
+            'date_creation' => $request->date_creation,
+            'date_modification' => $request->date_modification,
+            'date_debut' => $request->date_debut,
+            'date_fin' => $request->date_fin,
+            'famille_intervention_id' => $request->famille_intervention,
+            'sous_categorie_id' => $request->sous_categorie,
+            'situation_demande_id' => $request->situation_demande,
+            'zone_intervention_id' => $request->zone_intervention,
+            'type_demande_id' => $request->type_demande,
+            'cluster_id' => $request->cluster,
+            'duree_homme_jour' => $request->cluster,
+            'motivation' => $request->motivations,
+        ]);
+        return redirect()->route('dossier-beneficiaire.prestation.create')->with($notification);
     }
 
 

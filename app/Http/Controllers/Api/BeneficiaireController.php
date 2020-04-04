@@ -32,8 +32,8 @@ class BeneficiaireController
     public function show($id)
     {
 
-        $beneificiare = DossierBeneficiaire::where('id', $id)->get()->first();
+        $beneficiaire = DossierBeneficiaire::where('id', $id)->get()->first();
 
-        return response()->json($beneificiare);
+        return response()->json($beneficiaire);
     }
 }
