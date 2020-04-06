@@ -1,4 +1,3 @@
-<!-- Navbar -->
 <div class="top_nav">
     <div class="nav_menu">
         <div class="nav toggle">
@@ -17,6 +16,7 @@
                                  alt="Image profil">
                         @endif{{Auth::user()->prenom. ' ' .Auth::user()->nom}}
                     </a>
+
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('profile.show',Auth::user()->id)}}">Mon compte</a>
                         <a class="dropdown-item" href="#">Messagerie</a>
@@ -40,4 +40,5 @@
         </nav>
     </div>
 </div>
-<!-- /.navbar -->
+
+

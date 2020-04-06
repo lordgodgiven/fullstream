@@ -51,6 +51,10 @@ Route::post('/dossier-benefiaires/prestation/prestationStore', 'DossierBeneficia
 
 Route::get('/cluster/create', 'ClusterController@create')->name('cluster-beneficiaire.create');
 Route::post('/cluster/store', 'ClusterController@store')->name('cluster-beneficiaire.store');
+Route::get('/cluster/index', 'ClusterController@index')->name('cluster-beneficiaire.index');
+Route::get('/cluster/structuration/index', 'ClusterController@indexStructuration')->name('cluster-beneficiaire.structuration.index');
+Route::get('/cluster/structuration/create', 'ClusterController@createStructuration')->name('cluster-beneficiaire.structuration.create');
+Route::post('/cluster/structuration/store', 'ClusterController@storeStructuration')->name('cluster-beneficiaire.structuration.store');
 
 
 Route::post('/individus', 'IndividuController@store')->name('individu.store');

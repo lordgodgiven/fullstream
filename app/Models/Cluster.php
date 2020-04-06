@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Cluster extends Model
@@ -9,7 +10,8 @@ class Cluster extends Model
 
     protected $primaryKey = 'dossier_beneficiaire_id';
     protected $guarded = [];
-    protected $with = ['chaine_valeur', 'commune_ville', 'departement'];
+    protected $with = ['chaine_valeur', 'commune_ville', 'departement', 'individu'];
+    protected $dates = ['date_creation'];
 
     public function membre_clusters()
     {
@@ -46,5 +48,14 @@ class Cluster extends Model
         return $this->hasMany(Adhesion::class);
     }
 
+    public function individu()
+    {
+        return $this->belongsTo(Individu::class)->withDefault();
+    }
+
+    public function getDateCreationAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 
 }

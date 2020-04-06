@@ -1,6 +1,5 @@
 <div class="sidebar-footer hidden-small">
-
-    @if(Auth::user()->type_compte === "administrateur" )
+     @if(Auth::user()->type_compte === "administrateur" )
         <a data-toggle="tooltip" data-placement="top" title="Parametres" href="{{route('administration.home')}}">
             <i class="fa fa-cog"></i>
         </a>
@@ -23,3 +22,4 @@
         @csrf
     </form>
 </div>
+

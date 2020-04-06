@@ -160,7 +160,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="structure_responsable_cluster" class="form-control "
-                                   value="{{$dossierBeneficiaire->denomination_raison_sociale}}" readonly>
+                                   value="{{$dossierBeneficiaire->nom.' '.$dossierBeneficiaire->prenom}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -176,7 +176,8 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="auteur_cluster" required="required" class="form-control ">
+                            <input type="text" name="auteur_cluster" required="required" class="form-control"
+                                   value="{{ Auth::user()->nom.' '.Auth::user()->prenom }}" readonly>
                         </div>
                     </div>
                     <hr>
@@ -186,8 +187,10 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6">
-                            <input type="text" name="nom_president" required="required" class="form-control"
-                                   value="{{$dossierBeneficiaire->nom ?? ''}}" readonly>
+                            <input type="text" name="nom_president" id="nom_president" required="required"
+                                   class="form-control">
+                            <span class="fa fa-user-circle-o form-control-feedback right" aria-hidden="true"
+                                  title="liste des beneficiaires"></span>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -195,8 +198,8 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="prenom_president" required="required" class="form-control"
-                                   value="{{$dossierBeneficiaire->prenom ?? ''}}" readonly>
+                            <input type="text" name="prenom_president" id="prenom_president" required="required"
+                                   class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -204,8 +207,9 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="numero_telephone_president1" required="required"
-                                   class="form-control" value="{{$dossierBeneficiaire->telephone ?? ''}}" readonly>
+                            <input type="text" name="numero_telephone_president1" id="numero_telephone_president1"
+                                   required="required"
+                                   class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -214,7 +218,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="numero_telephone_president2" required="required"
+                            <input type="text" name="numero_telephone_president2" id="numero_telephone_president2"
+                                   required="required"
                                    class="form-control">
                         </div>
                     </div>
@@ -224,8 +229,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="numero_fax_president" required="required" class="form-control"
-                                   value="{{$dossierBeneficiaire->fax ?? ''}}" readonly>
+                            <input type="text" name="numero_fax_president" id="numero_fax_president" required="required"
+                                   class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -233,8 +238,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="email" name="email_president" required="required" class="form-control"
-                                   value="{{$dossierBeneficiaire->email ?? ''}}" readonly>
+                            <input type="email" name="email_president" id="email_president" required="required"
+                                   class="form-control">
                         </div>
                     </div>
                     <hr>
@@ -289,7 +294,6 @@
                                       rows="3"></textarea>
                         </div>
                     </div>
-
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
@@ -298,20 +302,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Identité pièces jointes</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
+                <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pièces jointes (si
                         applicable):
@@ -553,20 +544,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Pièces jointes assemblée générale</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
+                <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pièces jointes:
                     </label>
@@ -820,20 +798,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Projets clusters pièces jointes</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
+                <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pièces jointes:
                     </label>
@@ -1389,20 +1354,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Réunions du projet cluster pièces jointes</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
+                <hr>
                 <div class="form-group row">
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Pièces jointes:</label>
                     <div class="col-md-6 col-sm-6 ">
@@ -1417,7 +1369,6 @@
         </div>
     </div>
     <!--  Réunions du projet cluster -->
-    <!-- Membres du cluster-->
 
     <!-- Modal Sécretaires-->
     <div class="modal fade" id="listeBeneficiaireSecretaires" tabindex="-1" role="dialog"

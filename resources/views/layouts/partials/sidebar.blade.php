@@ -34,7 +34,7 @@
                             <li><a href="{{route('dossier-beneficiaire.prestation.create')}}">Mes demandes de
                                     prestations</a></li>
                             <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
-                            <li><a href="#">Mes Clusters</a></li>
+                            <li><a href="{{route('cluster-beneficiaire.index')}}">Mes Clusters</a></li>
                         @endif
                     </ul>
                 </li>
@@ -47,7 +47,8 @@
                         @endif
                         @if(Auth::user()->type_compte === "beneficiaire")
                             <li><a href="{{route('cluster-beneficiaire.create')}}"> Clusters PME</a></li>
-                            <li><a href="">Suivi des actions de structuration des clusters</a></li>
+                            <li><a href="{{route('cluster-beneficiaire.structuration.index')}}">Suivi des actions de
+                                    structuration des clusters</a></li>
                         @endif
                         @if(Auth::user()->type_compte === "gestionnaire")
                             <li><a href="{{route('gestionnaire-cluster.create')}}"> Clusters PME</a></li>
@@ -116,3 +117,4 @@
         </ul>
     </div>
 </div>
+
