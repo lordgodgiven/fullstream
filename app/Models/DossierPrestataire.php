@@ -11,7 +11,7 @@ class DossierPrestataire extends Model
 
     protected $guarded = [];
     protected $with = ['disponibilite', 'compte_utilisateur',
-        'type_prestation_dispensees', 'situation_familliale',
+        'type_prestation_dispensees', 'situation_familliale', 'competence_linguistique_experts',
         'individu', 'commune_ville', 'departement', 'accreditations'];
 
 

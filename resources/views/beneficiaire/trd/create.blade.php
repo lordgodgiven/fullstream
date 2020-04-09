@@ -29,32 +29,32 @@
                                     <th>Cluster</th>
                                     <th>Date de soumission</th>
                                     <th>Date de validation</th>
-                                    <th>Cluster</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-
-                                <tr>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>
-                                        <a href=""
-                                           class="btn btn-outline-danger btn-sm" title="Consulter"><i
-                                                class="fa fa-eye"></i></a>
-                                        <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
-                                                class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-
+                                @foreach($tdrs as $tdr)
+                                    <tr>
+                                        <td>{{$tdr->reference_tdr}}</td>
+                                        <td>{{$tdr->titre_mission}}</td>
+                                        <td>{{$tdr->composante_sous_composante}}</td>
+                                        <td>{{$tdr->objet_mission}}</td>
+                                        <td>{{$tdr->beneficiaire}}</td>
+                                        <td>{{$tdr->cluster}}</td>
+                                        <td>{{$tdr->date_soumission_tdr}}</td>
+                                        <td>{{$tdr->date_approbation_tdr_on}}</td>
+                                        <td>
+                                            <a href=""
+                                               class="btn btn-outline-warning btn-sm" title="Modifier"><i
+                                                    class="fa fa-eye"></i></a>
+                                            <a href="#" class="btn btn-outline-success btn-sm" title="Consulter"><i
+                                                    class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -75,7 +75,7 @@
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" method="POST"
-                      action="{{route('gestionnaire.tdr.store')}}">
+                      action="{{route('dossier-benefiaires.tdr.store')}}">
                     @csrf
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">N°TDR
@@ -89,6 +89,14 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="titre_mission" name="titre_mission" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Composante/Sous-componsante
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input type="text" id="composante_sous_componsante" name="composante_sous_componsante"
+                                   class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -120,7 +128,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Beneficiaire:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="beneficiare" name="beneficiare" class="form-control" readonly>
+                            <input type="text" id="beneficiare" name="beneficiare" class="form-control"
+                                   value="{{$beneficiare->nom.' '.$beneficiare->prenom}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -207,6 +216,9 @@
                         <div class="col-md-2 col-sm-2">
                             <select name="devise" id="devise" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($devises as $devise)
+                                    <option value="{{$devise->id}}">{{$devise->code}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="last-name">Taux en € (= 1, si
@@ -232,7 +244,7 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="motivations" rows="3"></textarea>
+                            <textarea class="form-control" cols="30" name="profil_expert" rows="3"></textarea>
                         </div>
                     </div>
                     <div class="ln_solid"></div>
@@ -274,171 +286,6 @@
     </div>
     <!-- Gestion des TDR  -->
 
-    <!-- Circuit de validation des TDR (ON, DUE)  -->
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Circuit de validation des TDR (ON, DUE) </h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <form class="form-horizontal form-label-left" method="POST"
-                      action="">
-                    @csrf
-                    <strong>Visas</strong>
-                    <br/>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Date de validation
-                            / soumission par le Gestionnaire
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_validation" name="date_validation" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Visa de l'ONs :
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-2 col-sm-2">
-                            <select name="visa_ons" id="visa_ons" class="form-control">
-                                <option value="">Votre choix</option>
-                            </select>
-                        </div>
-                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="last-name">Date visa ONs :
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-2 col-sm-2">
-                            <input type="date" name="date_visa_ons" id="date_visa_ons" required="required"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Visa de la DUE :
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-2 col-sm-2">
-                            <select name="visa_due" id="visa_due" class="form-control">
-                                <option value="">Votre choix</option>
-                            </select>
-                        </div>
-                        <label class="col-form-label col-md-2 col-sm-2 label-align" for="last-name">Date visa DUE :
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-2 col-sm-2">
-                            <input type="date" name="date_visa_due" id="date_visa_due" required="required"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <hr>
-                    <strong>Approbation des TDR</strong>
-                    <br/>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date soumission des
-                            TDR:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="date_soumission_tdr" name="date_soumission_tdr" class="form-control"
-                                   readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date approbation des
-                            TDR par l’ON: <span
-                                class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_approdation_tdr_on" name="date_approdation_tdr_on"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date approbation des
-                            TDR par la DUE:
-                            <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_approbation_tdr_due" name="date_approbation_tdr_due"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <hr>
-                    <strong>Approbation des CV</strong>
-                    <br/>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date de réception
-                            des CV siège l’AT AGRER:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_reception_cv" name="date_reception_cv" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date d’approbation
-                            des CV par l’ON:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_approbation_cv_on" name="date_approbation_cv"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date d’approbation
-                            des CV par la DUE:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_approbation_cv_due" name="date_approbation_cv"
-                                   class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Observation:
-                        </label>
-                        <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="observations" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="ln_solid"></div>
-                    <div class="item form-group">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button class="btn btn-primary" type="reset">Effacer</button>
-                            <button type="submit" class="btn btn-success">Enregistrer</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 col-sm-12">
-        <div class="x_panel collapsed">
-            <div class="x_title">
-                <h2>Documents joints</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <div class="form-group row">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Indiquer la liste des
-                        pièces (si applicable):
-                    </label>
-
-                    <div class="col-md-6 col-sm-6 ">
-                        <form method="POST" action="{{url('document/upload/store')}}" enctype="multipart/form-data"
-                              class="dropzone dropzone fform-horizontal form-label-left" id="dropzone">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Circuit de validation des TDR (ON, DUE)  -->
 @endsection
 
 @push('stylesheets')

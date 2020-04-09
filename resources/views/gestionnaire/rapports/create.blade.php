@@ -32,37 +32,38 @@
                                     <th>Nationalité</th>
                                     <th>Maîtrise de langue</th>
                                     <th>Niveau d’accréditation</th>
-                                    <th>Niveau d’accréditation</th>
                                     <th>Note moyenne générale des bénéficiaire</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-
                                 <tbody>
-
-                                <tr>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>XXXXXXXXXX</td>
-                                    <td>
-                                        <a href=""
-                                           class="btn btn-outline-danger btn-sm" title="Consulter"><i
-                                                class="fa fa-eye"></i></a>
-                                        <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
-                                                class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-
+                                @foreach($dossierPrestataires as $dossierPrestataire)
+                                    <tr>
+                                        <td>{{$dossierPrestataire->id}}</td>
+                                        <td>{{$dossierPrestataire->identifiant_prcce}}</td>
+                                        <td>{{$dossierPrestataire->departement->code}}</td>
+                                        <td>{{$dossierPrestataire->compte_utilisateur->civilite->designation}}</td>
+                                        <td>{{$dossierPrestataire->compte_utilisateur->genre_sexe->designation}}</td>
+                                        <td>{{$dossierPrestataire->compte_utilisateur->nom}}</td>
+                                        <td>{{$dossierPrestataire->individu->nom_jeune_fille}}</td>
+                                        <td>{{$dossierPrestataire->compte_utilisateur->prenom}}</td>
+                                        <td>{{$dossierPrestataire->individu->pays_nationalite->designation}}</td>
+                                        @foreach($comptenceLinguistiques as $comptenceLinguistique)
+                                            <td>{{$comptenceLinguistique->niveau_maitrise->designation.'->'.$comptenceLinguistique->langue->designation}}</td>
+                                        @endforeach
+                                        @foreach($dossierPrestataire->accreditations as $accreditation)
+                                            <td>{{$accreditation->niveau_accreditation->designation}}</td>
+                                        @endforeach
+                                        <td>XXXXXXXXXX</td>
+                                        <td>
+                                            <a href=""
+                                               class="btn btn-outline-danger btn-sm" title="Consulter"><i
+                                                    class="fa fa-eye"></i></a>
+                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
+                                                    class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -120,8 +121,12 @@
                             d‘intervention:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select name="famille_intervention" id="type_prestation" class="form-control">
+                            <select name="famille_intervention" id="famille_intervention" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($familleInterventions as $familleIntervention)
+                                    <option
+                                        value="{{$familleIntervention->id}}">{{$familleIntervention->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -148,6 +153,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="departement" id="departement" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($departements as $departement)
+                                    <option value="{{$departement->id}}">{{$departement->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -156,8 +164,12 @@
                             langue:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select name="degre_maitrise_langue" id="departement" class="form-control">
+                            <select name="degre_maitrise_langue" id="degre_maitrise_langue" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($degreMaitriseLangues as $degreMaitriseLangue)
+                                    <option
+                                        value="{{$degreMaitriseLangue->id}}">{{$degreMaitriseLangue->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -168,6 +180,10 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="niveau_accreditation" id="niveau_accreditation" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($niveauAccreditations as $niveauAccreditation)
+                                    <option
+                                        value="{{$niveauAccreditation->id}}">{{$niveauAccreditation->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -186,6 +202,10 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="zone_intervention" id="zone_intervention" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($zoneInterventions as $zoneIntervention)
+                                    <option
+                                        value="{{$zoneIntervention->id}}">{{$zoneIntervention->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -195,6 +215,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="disponibilite" id="disponibilite" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($disponiblites as $disponiblite)
+                                    <option value="{{$disponiblite->id}}">{{$disponiblite->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -204,6 +227,9 @@
                         <div class="col-md-6 col-sm-6">
                             <select name="nationalite" id="nationalite" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($nationalites as $nationalite)
+                                    <option value="{{$nationalite->id}}">{{$nationalite->designation}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -257,6 +283,10 @@
                     <div class="col-md-2 col-sm-2">
                         <select name="prestataire1" id="prestataire1" class="form-control">
                             <option value="">Votre choix</option>
+                            @foreach($dossierPrestataires as $dossierPrestataire)
+                                <option
+                                    value="{{$dossierPrestataire->id}}">{{$dossierPrestataire->identifiant_prcce}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-7 col-sm-7 checkbox">
@@ -275,6 +305,10 @@
                     <div class="col-md-2 col-sm-2">
                         <select name="prestataire2" id="prestataire2" class="form-control">
                             <option value="">Votre choix</option>
+                            @foreach($dossierPrestataires as $dossierPrestataire)
+                                <option
+                                    value="{{$dossierPrestataire->id}}">{{$dossierPrestataire->identifiant_prcce}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-7 col-sm-7 checkbox">
@@ -293,6 +327,10 @@
                     <div class="col-md-2 col-sm-2">
                         <select name="prestataire3" id="prestataire3" class="form-control">
                             <option value="">Votre choix</option>
+                            @foreach($dossierPrestataires as $dossierPrestataire)
+                                <option
+                                    value="{{$dossierPrestataire->id}}">{{$dossierPrestataire->identifiant_prcce}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-7 col-sm-7 checkbox">

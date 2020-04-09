@@ -14,7 +14,9 @@ use App\Models\CommuneVille;
 use App\Models\CompetenceLinExpert;
 use App\Models\DecisionEligibiliteBeneficiaire;
 use App\Models\DecisionEligibilitePrestataire;
+use App\Models\DemandePrestation;
 use App\Models\Departement;
+use App\Models\Disponibilite;
 use App\Models\DocumentUpload;
 use App\Models\DomaineCertTechnique;
 use App\Models\DossierBeneficiaire;
@@ -24,14 +26,18 @@ use App\Models\EligibilitePrestataire;
 use App\Models\Employeur;
 use App\Models\EpreuveAccreditation;
 use App\Models\ExperienceChaineValeurExpert;
+use App\Models\FamilleIntervention;
 use App\Models\Mention;
 use App\Models\NiveauAccreditation;
+use App\Models\NiveauMaitrise;
+use App\Models\PaysNationalite;
 use App\Models\ReferenceClientExpert;
 use App\Models\RoleMembreCluster;
 use App\Models\Tdr;
 use App\Models\TransitionAccreditation;
 use App\Models\TypePrestationDispensee;
 use App\Models\VisaDecision;
+use App\Models\ZoneIntervention;
 use Illuminate\Http\Request;
 
 class GestionnaireController extends Controller
@@ -106,6 +112,7 @@ class GestionnaireController extends Controller
         $mentions = Mention::all();
 
         $dossierPrestataire = DecisionEligibilitePrestataire::where('dossier_prestataire_id', $id)->first();
+//dd($dossierPrestataire);
         $accreditations = Accreditation::with(['transition_accreditation', 'visa_decision', 'niveau_accreditation'])->where('dossier_prestataire_id', $id)->get();
 
 
@@ -392,7 +399,7 @@ class GestionnaireController extends Controller
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
         $clusters = Cluster::all();
-        //dd($clusters);
+
         $chaineValeurs = ChaineValeur::all();
         $villes = CommuneVille::all();
         $departements = Departement::all();
@@ -404,7 +411,73 @@ class GestionnaireController extends Controller
             'prestatairesEligible', 'beneficiairesEligible', 'chaineValeurs', 'structureBeneficiaires'));
     }
 
-    public function createTdr()
+
+    public function storeCircuitValidation(Request $request)
+    {
+
+        $notification = array(
+            'message' => 'Votre TDR validé avec succès!',
+            'alert-type' => 'success'
+        );
+
+        $tdr = Tdr::where('id', $request->tdr_id)->get()->first();
+        $fullName = $tdr->beneficiaire;
+        $parts = explode(' ', $fullName);
+
+        $lastname = $parts[0];
+        $firstname = $parts[1];
+        $matchThese = ['nom' => trim($lastname), 'prenom' => trim($firstname)];
+        $dossierBeneficiaire = DossierBeneficiaire::where($matchThese)->get()->first();
+
+        $demandePrestation = DemandePrestation::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->get()->last();
+
+        Tdr::where('id', $request->tdr_id)
+            ->update([
+                'visa_due' => $request->visa_due,
+                'visa_ons' => $request->visa_ons,
+                'demande_prestation_id' => $demandePrestation->id,
+                'date_approbation_tdr_on' => $request->date_approbation_tdr_on,
+                'date_approbation_tdr_due' => $request->date_approbation_tdr_due,
+                'date_approbation_cv_on' => $request->date_approbation_cv_on,
+                'date_approbation_cv_due' => $request->date_approbation_cv_due,
+                'date_reception_cv_siege_agrer' => $request->date_reception_cv_siege_agrer,
+                'observations' => $request->observations,
+            ]);
+        return redirect()->route('gestionnaire.tdr.circuit-validation.create')->with($notification);
+    }
+
+
+    public function showTdr(Request $request, Tdr $tdr)
+    {
+
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.validation.demande.show', compact('tdr',
+            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
+    }
+
+
+    public function showValidation(Request $request, Tdr $tdr)
+    {
+
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $visaDecisions = VisaDecision::all();
+
+        return view('gestionnaire.validation.demande.valider', compact('visaDecisions', 'tdr',
+            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
+    }
+
+
+    public function createCircuitValidation()
     {
         $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
         $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
@@ -412,37 +485,13 @@ class GestionnaireController extends Controller
         $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
-        return view('gestionnaire.trd.create', compact('prestatairesAttenteEligibilite',
-            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+        $tdrs = Tdr::all();
+        $visaDecisions = VisaDecision::all();
+
+        return view('gestionnaire.validation.demande.create', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible', 'tdrs', 'visaDecisions'));
     }
 
-    public function storeTdr(Request $request)
-    {
-
-        $tdr = Tdr::create([
-            'reference_trd' => $request->numero_tdr,
-            'titre_mission' => $request->titre_mission,
-            'objet_mission' => $request->objet_mission,
-            'prestation_demandees' => $request->prestations_demandees,
-            'livrable_attendus' => $request->resultats_attendus,
-            'montant_depense_accessoires' => $request->depenses_accessoires,
-            'date_debut_mision' => $request->date_debut,
-            'date_fin_mision' => $request->date_fin,
-            'duree_mission' => $request->duree_mission,
-            'date_demarrage' => $request->date_demarrage,
-            'lieu_execution' => $request->lieu_execution,
-            'responsable_suivi' => $request->responsable_suivi,
-            'date_limite_remise_livrable' => $request->date_limite_remise_livrables,
-            'montant_honoraires' => $request->honoraires,
-        ]);
-
-        session(['trd_lastId' => $tdr->id]);
-    }
-
-    public function storCircuitVlidation(Request $request)
-    {
-        dd($request->all());
-    }
 
     public function createRapportAnalyse()
     {
@@ -452,10 +501,47 @@ class GestionnaireController extends Controller
         $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
+        $dossierPrestataires = DossierPrestataire::with(['individu', 'decision_eligibilite_prestataires'])
+            ->where('soumission_dossier_ok', 'OUI')
+            ->where('niveau1_ok', 'OUI')
+            ->get();
+        $ids = array();
+        foreach ($dossierPrestataires as $dossierPrestataire) {
+            $ids[] = $dossierPrestataire->id;
+        }
+        $familleInterventions = FamilleIntervention::all();
+        $departements = Departement::all();
+        $degreMaitriseLangues = NiveauMaitrise::all();
+        $niveauAccreditations = NiveauAccreditation::all();
+        $zoneInterventions = ZoneIntervention::all();
+        $disponiblites = Disponibilite::all();
+        $nationalites = PaysNationalite::all();
+
+
+        $comptenceLinguistiques = CompetenceLinExpert::whereIn('dossier_prestataire_id', $ids)->get();
+
         return view('gestionnaire.rapports.create', compact('prestatairesAttenteEligibilite',
-            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+            'zoneInterventions', 'disponiblites', 'nationalites', 'comptenceLinguistiques', 'familleInterventions',
+            'departements', 'degreMaitriseLangues', 'niveauAccreditations', 'beneficiairesAttenteEligibilite',
+            'prestatairesEligible', 'beneficiairesEligible', 'dossierPrestataires'));
     }
 
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        if ($q != "") {
+            $users = User::where('last_name', 'LIKE', '%' . $q . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $q . '%')
+                ->paginate(5);
+            if ($users != null) {
+                return view('user.index', compact('users'));
+            }
+
+        } else {
+            $users = User::orderBy('last_name', 'asc')->paginate(10);
+            return view('user.index', compact('users'));
+        }
+    }
 
     public function createContrat()
     {
@@ -482,6 +568,7 @@ class GestionnaireController extends Controller
             'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
     }
 
+
     public function storeCluster(Request $request)
     {
 
@@ -504,6 +591,7 @@ class GestionnaireController extends Controller
         ]);
         return redirect()->route('gestionnaire-cluster.create');
     }
+
 
     public function storeClusterAdhesion(Request $request)
     {

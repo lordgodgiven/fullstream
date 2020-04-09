@@ -27,14 +27,17 @@
                         @endif
                         @if(Auth::user()->type_compte === "prestataire")
                             <li><a href="#">Mes accréditations</a></li>
-                            <li><a href="#">Mes contrats</a></li>
-                            <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
+                            <li><a href="#">Cluster service</a></li>
+                            <li><a href="#">Demandes de prestations</a></li>
+                            <li><a href="#">Mes dossiers de mise en oeuvre de prestations</a></li>
                         @endif
                         @if(Auth::user()->type_compte === "beneficiaire")
                             <li><a href="{{route('dossier-beneficiaire.prestation.create')}}">Mes demandes de
                                     prestations</a></li>
-                            <li><a href="#">Mes dossiers de mise en oeuvre</a></li>
+                            <li><a href="#">Mes dossiers de mise en oeuvre de prestations</a></li>
+                            <li><a href="{{route('dossier-benefiaires.tdr.create')}}">Gestion des TDR</a></li>
                             <li><a href="{{route('cluster-beneficiaire.index')}}">Mes Clusters</a></li>
+                            <li><a href="#">Cluster services</a></li>
                         @endif
                     </ul>
                 </li>
@@ -82,16 +85,21 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#">Validation</a></li>
+                        <li><a href="#">Validation <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" style="display: block;">
+                                <li class="sub_menu"><a href="{{route('gestionnaire.tdr.circuit-validation.create')}}">Demande
+                                        de préstation</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li><a href="#">Offre de prestation</a></li>
-                        <li><a href="{{route('gestionnaire.tdr.create')}}">Gestion des TDR</a></li>
                         <li><a href="{{route('gestionnaire.rapport.analyse.create')}}">Gestion des rapports d'analyse
                                 sommaires</a></li>
                         <li><a href="{{route('gestionnaire.contrat.create')}}">Gestion des contrats de prestation</a>
                         </li>
                         <li><a href="{{route('gestionnaire.contribution.beneficiaire.create')}}">Versement de la
                                 contribution de bénéficiaires</a></li>
-                        <li><a href="icons.html">Suivi & Evaluation</a></li>
+                        <li><a href="#">Suivi & Evaluation</a></li>
                     </ul>
                 </li>
             @endif

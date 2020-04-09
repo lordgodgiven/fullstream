@@ -18,7 +18,7 @@
                     <label class="col-form-label col-md-1 col-sm-1" for="last-name">Motivation: </label>
                     <div class="col-md-11 col-sm-11 ">
                         <textarea class="form-control" cols="100" name="motivations" rows="5"
-                                  readonly>{{$dossierPrestataire->dossier_prestataire->motivation}}</textarea>
+                                  readonly>{{$dossierPrestataire->dossier_prestataire->motivation ?? ''}}</textarea>
                     </div>
                 </div>
                 <div class="ln_solid"></div>

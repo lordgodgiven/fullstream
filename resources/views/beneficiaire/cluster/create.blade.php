@@ -374,27 +374,29 @@
                       action="{{route('adhesion-cluster.store')}}">
                     @csrf
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nom du cluster
-                            :
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Nom du cluster<span
+                                class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="nom_cluster" name="nom_cluster"
-                                   value="{{$clusterBeneficiaire->nom_cluster ?? ''}}"
-                                   class="form-control" readonly>
+                            <input type="text" id="nom_cluster" name="nom_cluster" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Chaine de valeur:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="chaine_valeur" name="chaine_valeur"
-                                   value="{{$clusterBeneficiaire->chaine_valeur->designation ?? ''}}"
-                                   class="form-control" readonly>
+                            <select name="chaine_valeur" id="chaine_valeur" class="form-control">
+                                <option value="">Votre choix</option>
+                                @foreach($chaineValeurs as $chaineValeur)
+                                    <option value="{{$chaineValeur->id}}"
+                                            @if(old('chaine_valeur')==$chaineValeur->id) selected="selected" @endif>{{$chaineValeur->designation}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Structure
-                            Bénéficiaire:
+                            Bénéficiaire
                             <span class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -408,8 +410,8 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Rôle* :
-
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Rôle<span
+                                class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <select name="role_membre_cluster" id="role_membre_cluster" class="form-control">
@@ -422,24 +424,24 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date d'entrée: <span
-                                class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Date d'entrée <span
+                                class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="date" id="date_entree" name="date_entree" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date de sortie :
-                            <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date de sortie<span
+                                class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="date" id="date_sortie" name="date_sortie" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Motif de sortie:
-                            <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Motif de sortie<span
+                                class="required">*</span>:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <select name="motif_sortie" id="motif_sortie" class="form-control">
@@ -750,15 +752,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date prévisionnelle.
-                            de lancement: <span class="required">*</span>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date prévisionnelle
+                            lancement: <span class="required">*</span>
                         </label>
                         <div class="col-md-2 col-sm-2">
                             <input type="date" name="date_previsionnelle_lancement" id="date_previsionnelle_lancement"
                                    class="form-control">
                         </div>
-                        <label class="col-form-label col-md-3 col-sm-3 col-lg-pull-5 label-align" for="last-name">Date
-                            effect. de lancement: <span class="required">*</span>
+                        <label class="col-form-label col-md-2 col-sm-2" for="last-name">Date effective lancement:<span
+                                class="required">*</span>
                         </label>
                         <div class="col-md-2 col-sm-2">
                             <input type="date" name="date_effective_lancement" id="date_effective_lancement"
@@ -766,15 +768,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align">Date prévisionnelle de clôture:
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Date prévisionnelle clôture:
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-2 col-sm-2">
                             <input type="date" name="date_previsionnelle_cloture" id="date_previsionnelle_cloture"
                                    class="form-control">
                         </div>
-                        <label class="col-form-label col-md-3 col-sm-3 col-lg-pull-5 label-align">Date effective de
-                            clôture: <span class="required">*</span>
+                        <label class="col-form-label col-md-2 col-sm-2">Date effective clôture:<span
+                                class="required">*</span>
                         </label>
                         <div class="col-md-2 col-sm-2">
                             <input type="date" name="date_effective_cloture" id="date_effective_cloture"

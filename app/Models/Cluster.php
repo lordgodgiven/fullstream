@@ -10,7 +10,7 @@ class Cluster extends Model
 
     protected $primaryKey = 'dossier_beneficiaire_id';
     protected $guarded = [];
-    protected $with = ['chaine_valeur', 'commune_ville', 'departement', 'individu'];
+    protected $with = ['chaine_valeur', 'commune_ville', 'departement', 'individu', 'compte_utilisateur', 'dossier_beneficiaire'];
     protected $dates = ['date_creation'];
 
     public function membre_clusters()
@@ -51,6 +51,16 @@ class Cluster extends Model
     public function individu()
     {
         return $this->belongsTo(Individu::class)->withDefault();
+    }
+
+    public function compte_utilisateur()
+    {
+        return $this->belongsTo(CompteUtilisateur::class)->withDefault();
+    }
+
+    public function dossier_beneficiaire()
+    {
+        return $this->belongsTo(DossierBeneficiaire::class)->withDefault();
     }
 
     public function getDateCreationAttribute($date)

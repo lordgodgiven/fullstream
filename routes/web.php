@@ -30,9 +30,11 @@ Route::post('/gestionnaires/cluster/adhesion/store', 'GestionnaireController@sto
 
 Route::post('/gestionnaires/{id}/prestataire', 'GestionnaireController@eligibilitePrestataire')->name('gestionnaire.prestataire.eligibilite');
 Route::post('/gestionnaires/{id}/beneficiaire', 'GestionnaireController@eligibiliteBeneficiaire')->name('gestionnaire.beneficiaire.eligibilite');
-Route::get('/gestionnaires/tdr/create', 'GestionnaireController@createTdr')->name('gestionnaire.tdr.create');
-Route::post('/gestionnaires/tdr/store', 'GestionnaireController@storeTdr')->name('gestionnaire.tdr.store');
+
 Route::post('/gestionnaires/tdr/circuit-validation/store', 'GestionnaireController@storeCircuitValidation')->name('gestionnaire.tdr.circuit-validation.store');
+Route::get('/gestionnaires/tdr/circuit-validation/create', 'GestionnaireController@createCircuitValidation')->name('gestionnaire.tdr.circuit-validation.create');
+Route::get('/gestionnaires/tdr/circuit-validation/{tdr}/show', 'GestionnaireController@showTdr')->name('gestionnaire.tdr.circuit-validation.show');
+Route::get('/gestionnaires/tdr/circuit-validation/{tdr}/validation', 'GestionnaireController@showValidation')->name('gestionnaire.tdr.circuit-validation.validation');
 Route::get('/gestionnaires/rapport-analyse/create', 'GestionnaireController@createRapportAnalyse')->name('gestionnaire.rapport.analyse.create');
 Route::get('/gestionnaires/contrats/create', 'GestionnaireController@createContrat')->name('gestionnaire.contrat.create');
 Route::get('/gestionnaires/contribution-beneficiaire/create', 'GestionnaireController@createContributionBeneficiaire')->name('gestionnaire.contribution.beneficiaire.create');
@@ -48,6 +50,8 @@ Route::get('/dossier-benefiaires/create', 'DossierBeneficiaireController@create'
 Route::patch('/dossier-benefiaires/{id}', 'DossierBeneficiaireController@update')->name('dossier-beneficiaire.update');
 Route::get('/dossier-benefiaires/prestation/create', 'DossierBeneficiaireController@prestationCreate')->name('dossier-beneficiaire.prestation.create');
 Route::post('/dossier-benefiaires/prestation/prestationStore', 'DossierBeneficiaireController@prestationStore')->name('dossier-beneficiaire.prestation.store');
+Route::get('/dossier-benefiaires/tdr/create', 'DossierBeneficiaireController@createTdr')->name('dossier-benefiaires.tdr.create');
+Route::post('/dossier-benefiaires/tdr/store', 'DossierBeneficiaireController@storeTdr')->name('dossier-benefiaires.tdr.store');
 
 Route::get('/cluster/create', 'ClusterController@create')->name('cluster-beneficiaire.create');
 Route::post('/cluster/store', 'ClusterController@store')->name('cluster-beneficiaire.store');

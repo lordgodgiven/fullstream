@@ -40,7 +40,7 @@
                                         <td>{{$cluster->chaine_valeur->designation}}</td>
                                         <td>{{$cluster->commune_ville->designation}}</td>
                                         <td>{{$cluster->departement->designation}}</td>
-                                        <td>{{$cluster->individu->nom}}</td>
+                                        <td>{{$cluster->compte_utilisateur->nom}}</td>
                                         <td>{{$cluster->date_creation}}</td>
                                         <td>
                                             <a href=""

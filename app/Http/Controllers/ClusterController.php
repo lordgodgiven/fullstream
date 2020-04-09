@@ -48,9 +48,10 @@ class ClusterController extends Controller
 
         $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+        $clusters = Cluster::where('compte_utilisateur_id', Auth::user()->id)->get();
 
         return view('beneficiaire.cluster.index', compact('beneficiairesEligible', 'prestatairesEligible',
-            'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite'));
+            'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite', 'clusters'));
     }
 
     public function indexStructuration()
@@ -90,7 +91,7 @@ class ClusterController extends Controller
             'cluster_id' => $request->cluster,
             'phase_mise_en_oeuvre_id' => $request->phase,
             'type_action_structure_id' => $request->type_action_structuration,
-            'ref_trd_id' => $request->numero_tdr,
+            'ref_tdr_id' => $request->numero_tdr,
             'date_debut_prevue' => $request->date_debut_previsionnelle,
             'date_fin_prevue' => $request->date_fin_previsionnelle,
             'duree_homme_jour_prevue' => $request->duree_expertise_prevue,
@@ -150,7 +151,7 @@ class ClusterController extends Controller
 
         $projetCluster = ProjetCluster::where('cluster_beneficiaire_id',optional($clusterBeneficiaire)->dossier_beneficiaire_id ?? 0)->get()->first();
 
-        //dd(optional($projetCluster)->id);
+
         $reunionProjets = ReunionProjet::where('projet_cluster_id',optional($projetCluster)->id ?? 0)->get();
         $resultatProjets = ResultatProjet::where('projet_cluster_id', optional($projetCluster)->id ?? 0)->get();
         $activiteProjets = ActiviteProjet::leftJoin('resultat_projets','activite_projets.resultat_projet_id','=','resultat_projets.id')

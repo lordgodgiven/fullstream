@@ -7,11 +7,15 @@ use App\Models\Arrondissement;
 use App\Models\Cluster;
 use App\Models\CommuneVille;
 use App\Models\CompteUtilisateur;
+use App\Models\DecisionEligibiliteBeneficiaire;
+use App\Models\DecisionEligibilitePrestataire;
 use App\Models\DegreMaitrise;
 use App\Models\DemandePrestation;
 use App\Models\Departement;
+use App\Models\Devise;
 use App\Models\Disponibilite;
 use App\Models\DossierBeneficiaire;
+use App\Models\DossierPrestataire;
 use App\Models\FamilleIntervention;
 use App\Models\Individu;
 use App\Models\Langue;
@@ -21,11 +25,13 @@ use App\Models\SecteurJuridique;
 use App\Models\SituationDemande;
 use App\Models\SituationStructure;
 use App\Models\SousCategorie;
+use App\Models\Tdr;
 use App\Models\TypeDemande;
 use App\Models\TypeEmployeur;
 use App\Models\TypeExpert;
 use App\Models\TypePrestationDispensee;
 use App\Models\ZoneIntervention;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,10 +99,12 @@ class DossierBeneficiaireController extends Controller
         $typePrestations = TypePrestationDispensee::all();
         $familleInterventions = FamilleIntervention::all();
         $typeDemandes = TypeDemande::all();
-        $clusters = Cluster::where('compte_utilisateur_id', Auth::user()->id)->get();
         $zoneInterventions = ZoneIntervention::all();
         $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->first();
+        $clusters = Cluster::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->get();
+
         $demandePrestations = DemandePrestation::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->get();
+
 
         return view('beneficiaire.prestation.create', compact('situationDemandes', 'clusters',
             'typeDemandes', 'familleInterventions', 'typeDemandes', 'typePrestations', 'zoneInterventions', 'demandePrestations'));
@@ -218,6 +226,64 @@ class DossierBeneficiaireController extends Controller
 
 
     }
+
+
+    public function createTdr()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $beneficiare = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
+        $noms = $beneficiare->nom . ' ' . $beneficiare->prenom;
+        $demandePrestations = demandePrestation::where('dossier_beneficiaire_id', $beneficiare->id)->get();
+
+        $tdrs = Tdr::where('beneficiaire', $noms)->get();
+        $devises = Devise::all();
+
+        return view('beneficiaire.trd.create', compact('prestatairesAttenteEligibilite', 'tdrs',
+            'beneficiairesAttenteEligibilite', 'devises', 'prestatairesEligible', 'beneficiairesEligible', 'beneficiare'));
+    }
+
+    public function storeTdr(Request $request)
+    {
+
+        $notification = array(
+            'message' => 'Votre TDR a été crée avec succès!',
+            'alert-type' => 'success'
+        );
+        $dossierBeneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
+        $demandePrestation = DemandePrestation::where('dossier_beneficiaire_id', $dossierBeneficiaire->id)->get()->last();
+
+        $tdr = Tdr::create([
+            'reference_tdr' => $request->numero_tdr,
+            'titre_mission' => $request->titre_mission,
+            'objet_mission' => $request->objet_mission,
+            'prestation_demandees' => $request->prestations_demandees,
+            'livrable_attendus' => $request->resultats_attendus,
+            'montant_depense_accessoires' => $request->depenses_accessoires,
+            'composante_sous_composante' => $request->composante_sous_componsante,
+            'date_debut_mision' => $request->date_debut,
+            'date_fin_mision' => $request->date_fin,
+            'duree_mission' => $request->duree_mission,
+            'date_demarrage' => $request->date_demarrage,
+            'lieu_execution' => $request->lieu_execution,
+            'responsable_suivi' => $request->responsable_suivi,
+            'date_limite_remise_livrable' => $request->date_limite_remise_livrables,
+            'montant_honoraires' => $request->honoraires,
+            'beneficiaire' => $request->beneficiare,
+            'cluster' => $request->cluster,
+            'demande_prestation_id' => $demandePrestation->id,
+            'profils_experts_competences_exigees' => $request->profil_expert,
+            'date_soumission_tdr' => carbon::now()->format('Y/m/d')
+        ]);
+
+        session(['trd_lastId' => $tdr->id]);
+        return redirect()->route('dossier-benefiaires.tdr.create')->with($notification);
+    }
+
 
     /* public function update(DossierBeneficiaire $dossierBeneficiaire)
      {

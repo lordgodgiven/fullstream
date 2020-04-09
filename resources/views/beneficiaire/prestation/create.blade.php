@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title','Gestion des demandes de prestataires')
+@section('title','Gestion des demandes de prestations')
 @section('content')
-    <!-- Gestion des demandes de prestataires  -->
+    <!-- Gestion des demandes de prestations  -->
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2> Gestion des demandes de prestataires </h2>
+                <h2> Gestion des demandes de prestations </h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -46,7 +46,9 @@
                                         <td>{{$demandePrestation->famille_intervention->designation}}</td>
                                         <td>{{$demandePrestation->date_creation}}</td>
                                         <td>{{$demandePrestation->type_demande->designation}}</td>
-                                        <td>{{$demandePrestation->cluster->nom_cluster}}</td>
+                                        @foreach($clusters as $cluster)
+                                            <td>{{$cluster->nom_cluster}}</td>
+                                        @endforeach
                                         <td>
                                             <a href=""
                                                class="btn btn-outline-danger btn-sm" title="Consulter"><i

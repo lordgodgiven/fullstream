@@ -8,6 +8,7 @@ class NiveauMaitrise extends Model
 {
 
     protected $guarded = [];
+    protected $with = ['competence_linguistique_experts'];
 
     public function competence_linguistique_experts()
     {

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Civilite;
 use App\Models\CommuneVille;
 use App\Models\CompteUtilisateur;
+use App\Models\DecisionEligibiliteBeneficiaire;
+use App\Models\DecisionEligibilitePrestataire;
+use App\Models\DossierBeneficiaire;
 use App\Models\DossierPrestataire;
 use App\Models\Droit;
 use App\Models\Fonctionnalite;
@@ -26,25 +29,43 @@ class AdministrationController extends Controller
      */
     public function index()
     {
-        return view('administration.index');
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('administration.index', compact('prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
     }
 
     public function indexUtilisateur()
     {
 
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
         $utilisateurs = CompteUtilisateur::all();
 
 
-        return view('administration.utilisateurs.index', compact('utilisateurs'));
+        return view('administration.utilisateurs.index', compact('utilisateurs',
+            'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
         $sexes = GenreSexe::all();
         $civilites = Civilite::all();
         $typeComptes = TypeCompte::all();
@@ -54,9 +75,9 @@ class AdministrationController extends Controller
         $fonctionnalites = Fonctionnalite::all();
         $modules = Module::all();
 
-        return view('administration.utilisateurs.create', compact('sexes',
-            'civilites', 'typeComptes', 'profilCompteUtilisateurs',
-            'profilUtilisateurs', 'droits', 'modules', 'fonctionnalites'));
+        return view('administration.utilisateurs.create', compact('sexes', 'prestatairesAttenteEligibilite',
+            'civilites', 'typeComptes', 'profilCompteUtilisateurs', 'prestatairesEligible', 'beneficiairesAttenteEligibilite',
+            'profilUtilisateurs', 'droits', 'modules', 'fonctionnalites', 'beneficiairesAttenteEligibilite', 'beneficiairesEligible'));
     }
 
     /**
@@ -118,10 +139,15 @@ class AdministrationController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(CompteUtilisateur $utilisateur)
     {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
         $infoComplementaires = Individu::where('compte_utilisateur_id', $utilisateur->id)->first();
         //dd($infoComplementaires);
@@ -133,16 +159,15 @@ class AdministrationController extends Controller
 
         $communeVille = CommuneVille::where('pays_nationalite_id', $infoComplementaires->pays_nationalite_id)->first();
 
-        return view('administration.utilisateurs.show', compact('utilisateur',
-            'communeVille',
-            'infoComplementaires', 'typeCompte'));
+        return view('administration.utilisateurs.show', compact('utilisateur', 'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite',
+            'communeVille', 'infoComplementaires', 'typeCompte', 'prestatairesEligible', 'beneficiairesEligible'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param CompteUtilisateur $utilisateur
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(CompteUtilisateur $utilisateur)
     {
