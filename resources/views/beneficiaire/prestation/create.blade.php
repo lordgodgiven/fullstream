@@ -47,7 +47,7 @@
                                         <td>{{$demandePrestation->date_creation}}</td>
                                         <td>{{$demandePrestation->type_demande->designation}}</td>
                                         @foreach($clusters as $cluster)
-                                            <td>{{$cluster->nom_cluster}}</td>
+                                            <td>{{$cluster->nom_cluster ?? "AUCUN"}}</td>
                                         @endforeach
                                         <td>
                                             <a href=""

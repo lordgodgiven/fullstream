@@ -16,6 +16,7 @@ use App\Models\DecisionEligibiliteBeneficiaire;
 use App\Models\DecisionEligibilitePrestataire;
 use App\Models\DemandePrestation;
 use App\Models\Departement;
+use App\Models\Devise;
 use App\Models\Disponibilite;
 use App\Models\DocumentUpload;
 use App\Models\DomaineCertTechnique;
@@ -36,6 +37,7 @@ use App\Models\RoleMembreCluster;
 use App\Models\Tdr;
 use App\Models\TransitionAccreditation;
 use App\Models\TypePrestationDispensee;
+use App\Models\Versement;
 use App\Models\VisaDecision;
 use App\Models\ZoneIntervention;
 use Illuminate\Http\Request;
@@ -389,6 +391,20 @@ class GestionnaireController extends Controller
     }
 
 
+    public function indexCluster()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $clusters = Cluster::all();
+
+        return view('gestionnaire.cluster.index', compact('prestatairesAttenteEligibilite', 'clusters',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
     public function createCluster()
     {
 
@@ -411,6 +427,51 @@ class GestionnaireController extends Controller
             'prestatairesEligible', 'beneficiairesEligible', 'chaineValeurs', 'structureBeneficiaires'));
     }
 
+
+    public function showTdr(Request $request, Tdr $tdr)
+    {
+
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        return view('gestionnaire.validation.demande.show', compact('tdr',
+            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
+    }
+
+
+    public function showValidation(Request $request, Tdr $tdr)
+    {
+
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $visaDecisions = VisaDecision::all();
+
+        return view('gestionnaire.validation.demande.valider', compact('visaDecisions', 'tdr',
+            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
+    }
+
+
+    public function indexTdr()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $tdrs = Tdr::all();
+        $visaDecisions = VisaDecision::all();
+
+        return view('gestionnaire.validation.demande.index', compact('prestatairesAttenteEligibilite',
+            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible', 'tdrs', 'visaDecisions'));
+    }
 
     public function storeCircuitValidation(Request $request)
     {
@@ -447,52 +508,6 @@ class GestionnaireController extends Controller
     }
 
 
-    public function showTdr(Request $request, Tdr $tdr)
-    {
-
-        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
-        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
-
-        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
-        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
-
-        return view('gestionnaire.validation.demande.show', compact('tdr',
-            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
-    }
-
-
-    public function showValidation(Request $request, Tdr $tdr)
-    {
-
-        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
-        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
-
-        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
-        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
-
-        $visaDecisions = VisaDecision::all();
-
-        return view('gestionnaire.validation.demande.valider', compact('visaDecisions', 'tdr',
-            'prestatairesEligible', 'beneficiairesEligible', 'beneficiairesAttenteEligibilite', 'prestatairesAttenteEligibilite'));
-    }
-
-
-    public function createCircuitValidation()
-    {
-        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
-        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
-
-        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
-        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
-
-        $tdrs = Tdr::all();
-        $visaDecisions = VisaDecision::all();
-
-        return view('gestionnaire.validation.demande.create', compact('prestatairesAttenteEligibilite',
-            'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible', 'tdrs', 'visaDecisions'));
-    }
-
-
     public function createRapportAnalyse()
     {
         $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
@@ -526,22 +541,12 @@ class GestionnaireController extends Controller
             'prestatairesEligible', 'beneficiairesEligible', 'dossierPrestataires'));
     }
 
-    public function search(Request $request)
-    {
-        $q = $request->get('q');
-        if ($q != "") {
-            $users = User::where('last_name', 'LIKE', '%' . $q . '%')
-                ->orWhere('first_name', 'LIKE', '%' . $q . '%')
-                ->paginate(5);
-            if ($users != null) {
-                return view('user.index', compact('users'));
-            }
 
-        } else {
-            $users = User::orderBy('last_name', 'asc')->paginate(10);
-            return view('user.index', compact('users'));
-        }
+    public function storeRapportAnalyse()
+    {
+
     }
+
 
     public function createContrat()
     {
@@ -551,8 +556,17 @@ class GestionnaireController extends Controller
         $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
-        return view('gestionnaire.contrat.create', compact('prestatairesAttenteEligibilite',
+        $tdrs = Tdr::all();
+
+        return view('gestionnaire.contrat.create', compact('prestatairesAttenteEligibilite', 'tdrs',
             'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+
+    public function storeContrat(Request $request)
+    {
+
+
     }
 
 
@@ -564,8 +578,69 @@ class GestionnaireController extends Controller
         $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
         $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
 
-        return view('gestionnaire.contrat.contribution.create', compact('prestatairesAttenteEligibilite',
+        $devises = Devise::all();
+
+        return view('gestionnaire.contrat.contribution.create', compact('prestatairesAttenteEligibilite', 'devises',
             'beneficiairesAttenteEligibilite', 'prestatairesEligible', 'beneficiairesEligible'));
+    }
+
+
+    public function storeContributionBeneficiaire(Request $request)
+    {
+        dd($request->all());
+        $notification = array(
+            'message' => 'Quote part enregistrée avec succès!',
+            'alert-type' => 'success'
+        );
+
+        $versement = Versement::create([
+            'date_enregistrement' => $request->date_enregistrement,
+            'date_versement' => $request->date_versement,
+            'montant_contribution' => $request->montant_contribution,
+            'taux_contribution' => $request->taux_contribution,
+            'devise' => $request->devise,
+            'taux' => $request->taux,
+            'observation' => $request->observations,
+        ]);
+        return redirect()->route('gestionnaire.contribution.beneficiaire.create')->with($notification);
+    }
+
+
+    public function search(Request $request)
+    {
+        //dd($request->all());
+        $query = $request->get('query');
+        if ($query != "") {
+            $users = User::where('last_name', 'LIKE', '%' . $query . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $query . '%')
+                ->paginate(5);
+            if ($users != null) {
+                return view('user.index', compact('users'));
+            }
+
+        } else {
+            $users = User::orderBy('last_name', 'asc')->paginate(10);
+            return view('user.index', compact('users'));
+        }
+    }
+
+
+    public function advancedSearch(Request $request)
+    {
+        //dd($request->all());
+        $query = $request->get('query');
+        if ($query != "") {
+            $users = User::where('last_name', 'LIKE', '%' . $query . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $query . '%')
+                ->paginate(5);
+            if ($users != null) {
+                return view('user.index', compact('users'));
+            }
+
+        } else {
+            $users = User::orderBy('last_name', 'asc')->paginate(10);
+            return view('user.index', compact('users'));
+        }
     }
 
 

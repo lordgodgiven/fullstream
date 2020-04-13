@@ -55,7 +55,7 @@ class DossierBeneficiaireController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -129,7 +129,7 @@ class DossierBeneficiaireController extends Controller
             'zone_intervention_id' => $request->zone_intervention,
             'type_demande_id' => $request->type_demande,
             'cluster_id' => $request->cluster,
-            'duree_homme_jour' => $request->cluster,
+            'duree_homme_jour' => $request->duree,
             'motivation' => $request->motivations,
         ]);
         return redirect()->route('dossier-beneficiaire.prestation.create')->with($notification);
@@ -171,7 +171,7 @@ class DossierBeneficiaireController extends Controller
                 'commune_ville_id' => $request->ville,
                 'arrondissement_id' => $request->arrondissement,
                 'quartier_id' => $request->quartier,
-                'code_departement_id' => $request->departement,
+                'departement_id' => $request->departement,
                 'denomination_raison_sociale' => $request->raison_sociale,
                 'sigle_abbreviation' => $request->abreviation,
                 'rccm' => $request->rccm,
@@ -228,7 +228,7 @@ class DossierBeneficiaireController extends Controller
     }
 
 
-    public function createTdr()
+    public function indexTdr()
     {
         $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
         $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
@@ -243,7 +243,31 @@ class DossierBeneficiaireController extends Controller
         $tdrs = Tdr::where('beneficiaire', $noms)->get();
         $devises = Devise::all();
 
-        return view('beneficiaire.trd.create', compact('prestatairesAttenteEligibilite', 'tdrs',
+        return view('beneficiaire.trd.index', compact('prestatairesAttenteEligibilite', 'tdrs',
+            'beneficiairesAttenteEligibilite', 'devises', 'prestatairesEligible', 'beneficiairesEligible', 'beneficiare'));
+    }
+
+    public function showTdr(Tdr $tdr)
+    {
+        $beneficiare = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
+
+        return view('beneficiaire.trd.show', compact('tdr', 'beneficiare'));
+    }
+
+    public function createTdr()
+    {
+        $prestatairesAttenteEligibilite = DossierPrestataire::where('soumission_dossier_ok', 'OUI')->count();
+        $prestatairesEligible = DecisionEligibilitePrestataire::where('avis_decision_id', 1)->count();
+
+        $beneficiairesAttenteEligibilite = DossierBeneficiaire::where('soumission_dossier_ok', 'OUI')->count();
+        $beneficiairesEligible = DecisionEligibiliteBeneficiaire::where('avis_decision_id', 1)->count();
+
+        $beneficiare = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
+        $noms = $beneficiare->nom . ' ' . $beneficiare->prenom;
+        $demandePrestations = demandePrestation::where('dossier_beneficiaire_id', $beneficiare->id)->get();
+        $devises = Devise::all();
+
+        return view('beneficiaire.trd.create', compact('prestatairesAttenteEligibilite',
             'beneficiairesAttenteEligibilite', 'devises', 'prestatairesEligible', 'beneficiairesEligible', 'beneficiare'));
     }
 
@@ -262,7 +286,8 @@ class DossierBeneficiaireController extends Controller
             'titre_mission' => $request->titre_mission,
             'objet_mission' => $request->objet_mission,
             'prestation_demandees' => $request->prestations_demandees,
-            'livrable_attendus' => $request->resultats_attendus,
+            'livrable_attendus' => $request->livrable_attendus,
+            'resultat_attendus' => $request->resultats_attendus,
             'montant_depense_accessoires' => $request->depenses_accessoires,
             'composante_sous_composante' => $request->composante_sous_componsante,
             'date_debut_mision' => $request->date_debut,

@@ -17,20 +17,20 @@ $(document).ready(function () {
             },
 
             success: function (data) {
+                if (!$.trim(data)) {
+                    $('#listeBeneficiairePresidents').modal('hide');
+                    toastr.warning("Aucun bénéficiaire");
+                } else {
+                    $('#liste_beneficiaire_president').empty();
 
-                $('#liste_beneficiaire_president').empty();
+                    $.each(data, function (key, value) {
+                        $("#loading_liste_beneficiaire_president").hide();
+                        $("#label_choix_president").show();
+                        $('#liste_beneficiaire_president').show();
+                        $('#liste_beneficiaire_president').append('<option value="' + key + '">' + value + '</option>');
 
-                $.each(data, function (key, value) {
-                    $("#loading_liste_beneficiaire_president").hide();
-                    $("#label_choix_president").show();
-                    $('#liste_beneficiaire_president').show();
-                    $('#liste_beneficiaire_president').append('<option value="' + key + '">' + value + '</option>');
-
-                });
-
-            },
-            complete: function () {
-
+                    });
+                }
             }
         });
     });

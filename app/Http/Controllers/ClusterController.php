@@ -37,9 +37,8 @@ class ClusterController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -54,6 +53,9 @@ class ClusterController extends Controller
             'prestatairesAttenteEligibilite', 'beneficiairesAttenteEligibilite', 'clusters'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function indexStructuration()
     {
 
@@ -127,56 +129,59 @@ class ClusterController extends Controller
         $statutResultats = StatutResultat::all();
         $villes = CommuneVille::all();
         $assembleeGenerales = AssembleeGenerale::all();
-        $niveauRisques= NiveauRisque::all();
-        $clusterBeneficiaire = Cluster::where('compte_utilisateur_id',Auth::user()->id)->get()->first();
+        $niveauRisques = NiveauRisque::all();
+        $clusterBeneficiaire = Cluster::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
 
-        $risqueProjets = RisqueProjet::leftJoin('projet_clusters','risque_projets.projet_cluster_id','=','projet_clusters.id')
-            ->leftJoin('niveau_risques','risque_projets.niveau_risque_id','=','niveau_risques.id')
-            ->leftJoin('clusters','projet_clusters.cluster_beneficiaire_id','=','clusters.dossier_beneficiaire_id')
-            ->select('risque_projets.id','risque_projets.proposition_mitigation','risque_projets.risque_identifie_mise_œuvre_projet',
+        $risqueProjets = RisqueProjet::leftJoin('projet_clusters', 'risque_projets.projet_cluster_id', '=', 'projet_clusters.id')
+            ->leftJoin('niveau_risques', 'risque_projets.niveau_risque_id', '=', 'niveau_risques.id')
+            ->leftJoin('clusters', 'projet_clusters.cluster_beneficiaire_id', '=', 'clusters.dossier_beneficiaire_id')
+            ->select('risque_projets.id', 'risque_projets.proposition_mitigation', 'risque_projets.risque_identifie_mise_œuvre_projet',
                 'niveau_risques.designation')
-            ->where('clusters.compte_utilisateur_id',Auth::user()->id)
+            ->where('clusters.compte_utilisateur_id', Auth::user()->id)
             ->get();
 
-        $membreClusters = Adhesion::leftJoin('clusters','adhesions.cluster_dossier_beneficiaire_id','=','clusters.dossier_beneficiaire_id')
-            ->leftJoin('dossier_beneficiaires','adhesions.structure_beneficiaire','=','dossier_beneficiaires.id')
-            ->leftJoin('role_membre_clusters','adhesions.role_membre_cluster_id','=','role_membre_clusters.id')
-            ->leftJoin('chaine_valeurs','clusters.chaine_valeur_id','=','chaine_valeurs.id')
-            ->select('role_membre_clusters.designation as role','adhesions.date_entree','clusters.nom_cluster',
+        $membreClusters = Adhesion::leftJoin('clusters', 'adhesions.cluster_dossier_beneficiaire_id', '=', 'clusters.dossier_beneficiaire_id')
+            ->leftJoin('dossier_beneficiaires', 'adhesions.structure_beneficiaire', '=', 'dossier_beneficiaires.id')
+            ->leftJoin('role_membre_clusters', 'adhesions.role_membre_cluster_id', '=', 'role_membre_clusters.id')
+            ->leftJoin('chaine_valeurs', 'clusters.chaine_valeur_id', '=', 'chaine_valeurs.id')
+            ->select('role_membre_clusters.designation as role', 'adhesions.date_entree', 'clusters.nom_cluster',
                 'dossier_beneficiaires.denomination_raison_sociale as structure_membre',
-                'chaine_valeurs.designation as chaine_valeur','adhesions.id')
+                'chaine_valeurs.designation as chaine_valeur', 'adhesions.id')
             ->get();
 
-        $projetClusters = ProjetCluster::where('cluster_beneficiaire_id',$dossierBeneficiaire->id)->get();
+        $projetClusters = ProjetCluster::where('cluster_beneficiaire_id', $dossierBeneficiaire->id)->get();
 
-        $projetCluster = ProjetCluster::where('cluster_beneficiaire_id',optional($clusterBeneficiaire)->dossier_beneficiaire_id ?? 0)->get()->first();
+        $projetCluster = ProjetCluster::where('cluster_beneficiaire_id', optional($clusterBeneficiaire)->dossier_beneficiaire_id ?? 0)->get()->first();
 
 
-        $reunionProjets = ReunionProjet::where('projet_cluster_id',optional($projetCluster)->id ?? 0)->get();
+        $reunionProjets = ReunionProjet::where('projet_cluster_id', optional($projetCluster)->id ?? 0)->get();
         $resultatProjets = ResultatProjet::where('projet_cluster_id', optional($projetCluster)->id ?? 0)->get();
-        $activiteProjets = ActiviteProjet::leftJoin('resultat_projets','activite_projets.resultat_projet_id','=','resultat_projets.id')
-            ->leftJoin('projet_clusters','resultat_projets.projet_cluster_id','=','projet_clusters.id')
-            ->leftJoin('statut_resultats','resultat_projets.statut_resultat_id','=','statut_resultats.id')
-            ->where('cluster_beneficiaire_id',optional($clusterBeneficiaire)->dossier_beneficiaire_id ?? 0)
+        $activiteProjets = ActiviteProjet::leftJoin('resultat_projets', 'activite_projets.resultat_projet_id', '=', 'resultat_projets.id')
+            ->leftJoin('projet_clusters', 'resultat_projets.projet_cluster_id', '=', 'projet_clusters.id')
+            ->leftJoin('statut_resultats', 'resultat_projets.statut_resultat_id', '=', 'statut_resultats.id')
+            ->where('cluster_beneficiaire_id', optional($clusterBeneficiaire)->dossier_beneficiaire_id ?? 0)
             ->get();
 
 
-        return view('beneficiaire.cluster.create',compact('dossierBeneficiaire','clusters','projetClusters',
-            'villes','departements','beneficiairesEligible','prestatairesEligible','chaineValeurs','assembleeGenerales','membreClusters',
-            'prestatairesAttenteEligibilite','motifs','niveauRisques','risqueProjets',
-            'villes','statutResultats','resultatProjets','activiteProjets','structureBeneficiaires',
-            'beneficiairesAttenteEligibilite','clusterBeneficiaire','statutProjets','reunionProjets','roleMembreClusters'));
+        return view('beneficiaire.cluster.create', compact('dossierBeneficiaire', 'clusters', 'projetClusters',
+            'villes', 'departements', 'beneficiairesEligible', 'prestatairesEligible', 'chaineValeurs', 'assembleeGenerales', 'membreClusters',
+            'prestatairesAttenteEligibilite', 'motifs', 'niveauRisques', 'risqueProjets',
+            'villes', 'statutResultats', 'resultatProjets', 'activiteProjets', 'structureBeneficiaires',
+            'beneficiairesAttenteEligibilite', 'clusterBeneficiaire', 'statutProjets', 'reunionProjets', 'roleMembreClusters'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-
+        $notification = array(
+            'message' => 'Cluster a été crée avec succès!',
+            'alert-type' => 'success'
+        );
         $dossier_beneficiaire = DossierBeneficiaire::where('compte_utilisateur_id', Auth::user()->id)->get()->first();
         Cluster::create([
             'dossier_beneficiaire_id' => $dossier_beneficiaire->id,
@@ -193,13 +198,15 @@ class ClusterController extends Controller
             'date_creation' => $request->date_creation,
             'auteur' => $request->auteur_cluster,
         ]);
+
+        return redirect()->route('cluster-beneficiaire.index')->with($notification);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function show($id)
     {
@@ -209,8 +216,8 @@ class ClusterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function edit($id)
     {
@@ -220,9 +227,9 @@ class ClusterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -232,8 +239,8 @@ class ClusterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return void
      */
     public function destroy($id)
     {

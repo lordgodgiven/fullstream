@@ -1,12 +1,16 @@
 @extends('layouts.master')
-@section('title','Validation des TDR')
+@section('title','Liste des TDR')
 @section('content')
-    <!-- Gestion des TDR  -->
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Gestion des TDR</h2>
-                <ul class="nav navbar-right panel_toolbox"></ul>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="btn btn-success" href="{{route('dossier-benefiaires.tdr.create')}}" role="button"
+                           title="Créer un nouveau TDR"><i class="fa fa-2x fa-plus"></i></a>
+                    </li>
+
+                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -27,6 +31,7 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
                                 @foreach($tdrs as $tdr)
                                     <tr>
@@ -39,9 +44,14 @@
                                         <td>{{$tdr->date_soumission_tdr}}</td>
                                         <td>{{$tdr->date_approbation_tdr_on}}</td>
                                         <td>
-                                            <a href="{{route('gestionnaire.tdr.circuit-validation.show',$tdr->id)}}"
+                                            <a href="{{route('dossier-benefiaires.tdr.show',$tdr->id)}}"
                                                class="btn btn-outline-success btn-sm" title="Consulter"><i
                                                     class="fa fa-eye"></i></a>
+                                            <a href=""
+                                               class="btn btn-outline-warning btn-sm" title="Modifier"><i
+                                                    class="fa fa-edit"></i></a>
+                                            <a href="#" class="btn btn-outline-danger btn-sm" title="Supprimer"><i
+                                                    class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -53,7 +63,6 @@
             </div>
         </div>
     </div>
-    <!-- Gestion des TDR  -->
 @endsection
 
 @push('stylesheets')

@@ -7,10 +7,6 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>Génération de TDR</h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -21,14 +17,16 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">N°TDR
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="numero_tdr" name="numero_tdr" class="form-control">
+                            <input type="text" id="numero_tdr" name="numero_tdr" class="form-control"
+                                   value="{{$tdr->reference_tdr}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Titre de la mission
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="titre_mission" name="titre_mission" class="form-control">
+                            <input type="text" id="titre_mission" name="titre_mission" class="form-control"
+                                   value="{{$tdr->titre_mission}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -36,14 +34,15 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="composante_sous_componsante" name="composante_sous_componsante"
-                                   class="form-control">
+                                   class="form-control" value="{{$tdr->composante_sous_composante}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Objet de la mission:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="objet_mission" name="objet_mission" class="form-control">
+                            <input type="text" id="objet_mission" name="objet_mission" class="form-control"
+                                   value="{{$tdr->objet_mission}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -52,7 +51,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="prestations_demandees" rows="3"></textarea>
+                            <textarea class="form-control" cols="30" name="prestations_demandees" rows="3"
+                                      readonly>{{$tdr->prestation_demandees}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -61,7 +61,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="resultats_attendus" rows="3"></textarea>
+                            <textarea class="form-control" cols="30" name="resultats_attendus" rows="3"
+                                      readonly>{{$tdr->resultat_attendus}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -76,7 +77,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">cluster:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="cluster" name="cluster" class="form-control" readonly>
+                            <input type="text" id="cluster" name="cluster" class="form-control"
+                                   value="{{$tdr->cluster}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -84,21 +86,24 @@
                             en fin de mission
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="livrable_attendus" rows="3"></textarea>
+                            <textarea class="form-control" cols="30" name="livrable_attendus" rows="3"
+                                      readonly>{{$tdr->livrable_attendus}}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Lieu d'exécution:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="lieu_execution" name="lieu_execution" class="form-control">
+                            <input type="text" id="lieu_execution" name="lieu_execution" class="form-control"
+                                   value="{{$tdr->lieu_execution}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date de démarrage:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="date" id="date_demarrage" name="date_demarrage" class="form-control">
+                            <input type="date" id="date_demarrage" name="date_demarrage" class="form-control"
+                                   value="{{$tdr->date_demarrage}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -106,7 +111,8 @@
                             (Homme/jour):
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="duree_mission" name="duree_mission" class="form-control">
+                            <input type="text" id="duree_mission" name="duree_mission" class="form-control"
+                                   value="{{$tdr->duree_mission}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -116,10 +122,12 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-3 col-sm-3">
-                            <input type="date" name="date_debut" id="date_debut" class="form-control">
+                            <input type="date" name="date_debut" id="date_debut" class="form-control"
+                                   value="{{$tdr->date_debut_mision}}" readonly>
                         </div>
                         <div class="col-md-3 col-sm-3">
-                            <input type="date" name="date_fin" id="date_fin" required="required" class="form-control">
+                            <input type="date" name="date_fin" id="date_fin" required="required" class="form-control"
+                                   value="{{$tdr->date_fin_mision}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -128,7 +136,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="date" id="date_limite_remise_livrables" name="date_limite_remise_livrables"
-                                   class="form-control">
+                                   class="form-control" value="{{$tdr->date_limite_remise_livrable}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -138,7 +146,8 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6">
-                            <input type="text" name="responsable_suivi" id="responsable_suivi" class="form-control">
+                            <input type="text" name="responsable_suivi" id="responsable_suivi" class="form-control"
+                                   value="{{$tdr->responsable_suivi}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -146,7 +155,8 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" name="honoraires" id="honoraires" class="form-control">
+                            <input type="text" name="honoraires" id="honoraires" class="form-control"
+                                   value="{{$tdr->montant_honoraires}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -154,12 +164,7 @@
                             USD, …]
                         </label>
                         <div class="col-md-2 col-sm-2">
-                            <select name="devise" id="devise" class="form-control">
-                                <option value="">Votre choix</option>
-                                @foreach($devises as $devise)
-                                    <option value="{{$devise->id}}">{{$devise->code.'=>'.$devise->devise}}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="devise" id="devise" class="form-control" readonly>
                         </div>
                         <label class="col-form-label col-md-2 col-sm-2 label-align" for="last-name">Taux en € (= 1, si
                             €)
@@ -175,7 +180,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" name="depenses_accessoires" id="depenses_accessoires"
-                                   class="form-control">
+                                   class="form-control" value="{{$tdr->montant_depense_accessoires}}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -184,31 +189,44 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea class="form-control" cols="30" name="profil_expert" rows="3"></textarea>
+                            <textarea class="form-control" cols="30" name="profil_expert" rows="3"
+                                      readonly>{{$tdr->profils_experts_competences_exigees}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Documents joints
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <table class="data table table-striped no-margin">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nom du document</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td><a href="#"
+                                           target="_blank"><i class="fa fa-paperclip"></i>
+                                            Document joints
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">
-                        <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button class="btn btn-primary" type="reset">Effacer</button>
-                            <button type="submit" class="btn btn-success">Enregistrer</button>
+                        <div class="col-md-6 col-sm-6 offset-md-7">
+                            <a class="btn btn-primary" href="{{route('dossier-benefiaires.tdr.index')}}" role="button">Retour</a>
+                            <button type="submit" class="btn btn-success">Modifier</button>
                         </div>
                     </div>
                 </form>
-                <br>
-                <hr>
-                <strong>Documents joints (si applicable):</strong>
-
-                <div class="x_content">
-                    <div class="form-group row d-flex justify-content-center">
-                        <div class="col-md-6 col-sm-6">
-                            <form method="POST" action="{{url('document/upload/store')}}" enctype="multipart/form-data"
-                                  class="dropzone dropzone fform-horizontal form-label-left" id="dropzone">
-                                @csrf
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

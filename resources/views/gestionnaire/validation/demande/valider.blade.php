@@ -5,10 +5,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>Circuit de validation des TDR (ON, DUE) </h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                </ul>
+                <ul class="nav navbar-right panel_toolbox"></ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -143,6 +140,21 @@
                         </div>
                     </div>
                 </form>
+                <br>
+                <hr>
+                <strong>Documents joints (si applicable):</strong>
+
+                <div class="x_content">
+                    <div class="form-group row d-flex justify-content-center">
+                        <div class="col-md-6 col-sm-6">
+                            <form method="POST" action="{{url('document/upload/store')}}" enctype="multipart/form-data"
+                                  class="dropzone dropzone fform-horizontal form-label-left" id="dropzone">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

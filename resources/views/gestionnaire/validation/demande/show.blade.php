@@ -197,7 +197,7 @@
                 </div>
                 <div class="item form-group">
                     <div class="col-md-6 col-sm-6 offset-md-5">
-                        <a href="{{route('gestionnaire.tdr.circuit-validation.create')}}"
+                        <a href="{{route('gestionnaire.tdr.circuit-validation.index')}}"
                            class="btn btn-success">Retour</a>
                         <a href="{{route('gestionnaire.tdr.circuit-validation.validation',$tdr->id)}}"
                            class="btn btn-primary">Suivant</a>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="Dieudonné NIEME">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="_token" content="{{csrf_token()}}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/logo_prcce.png') }}" type="image/ico"/>
 
     <title>PRCCE | @yield('title')</title>

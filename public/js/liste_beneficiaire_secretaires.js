@@ -17,20 +17,20 @@ $(document).ready(function () {
             },
 
             success: function (data) {
+                if (!$.trim(data)) {
+                    $('#listeBeneficiaireSecretaires').modal('hide');
+                    toastr.warning("Aucun bénéficiaire");
+                } else {
+                    $('#liste_beneficiaire_secretaire').empty();
 
-                $('#liste_beneficiaire_secretaire').empty();
+                    $.each(data, function (key, value) {
+                        $("#loading_liste_beneficiaire_secretaire").hide();
+                        $("#label_choix_secretaire").show();
+                        $('#liste_beneficiaire_secretaire').show();
+                        $('#liste_beneficiaire_secretaire').append('<option value="' + key + '">' + value + '</option>');
 
-                $.each(data, function (key, value) {
-                    $("#loading_liste_beneficiaire_secretaire").hide();
-                    $("#label_choix_secretaire").show();
-                    $('#liste_beneficiaire_secretaire').show();
-                    $('#liste_beneficiaire_secretaire').append('<option value="' + key + '">' + value + '</option>');
-
-                });
-
-            },
-            complete: function () {
-
+                    });
+                }
             }
         });
     });

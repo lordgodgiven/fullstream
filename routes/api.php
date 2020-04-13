@@ -20,3 +20,4 @@ Route::apiResource('/sous-categories', 'Api\SousCategorieFamilleInterventionCont
 Route::apiResource('/fonctionnalites', 'Api\FonctionnaliteController');
 Route::apiResource('/beneficiaires', 'Api\BeneficiaireController');
 Route::apiResource('/chaine-valeurs', 'Api\ChaineValeurController');
+Route::apiResource('/tdrs', 'Api\TdrController');

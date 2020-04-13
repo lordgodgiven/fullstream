@@ -14,7 +14,7 @@
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" method="POST"
-                      action="">
+                      action="{{route('gestionnaire.contrat.store')}}">
                     @csrf
 
                     <div class="form-group row">
@@ -23,6 +23,9 @@
                         <div class="col-md-6 col-sm-6">
                             <select name="tdr" id="tdr" class="form-control">
                                 <option value="">Votre choix</option>
+                                @foreach($tdrs as $tdr)
+                                    <option value="{{$tdr->id}}">{{$tdr->reference_tdr}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -61,7 +64,7 @@
                     <br>
                     <br>
                     <div class="form-group row">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date soumission des
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Date soumission
                             du contrat:
                         </label>
                         <div class="col-md-6 col-sm-6 ">
@@ -141,6 +144,6 @@
 @endpush
 
 @push('scripts')
-
+    <script src="{{asset('js/load_info_contrat.js')}}"></script>
 @endpush
 

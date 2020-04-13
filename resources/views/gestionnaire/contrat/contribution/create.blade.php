@@ -14,9 +14,8 @@
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" method="POST"
-                      action="">
+                      action="{{route('gestionnaire.contribution.beneficiaire.store')}}">
                     @csrf
-
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Date
                             d’enregistrement
@@ -56,6 +55,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select name="devise" id="devise" class="form-control">
                                 <option value="">votre choix</option>
+                                @foreach($devises as $devise)
+                                    <option value="{{$devise->id}}">{{$devise->code.' => '.$devise->devise}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -66,7 +68,6 @@
                             <input type="text" id="taux" name="taux" class="form-control" placeholder="=1, si EUR">
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Observation du
                             Gestionnaire:
@@ -82,7 +83,6 @@
                             <button type="submit" class="btn btn-success">Enregistrer</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

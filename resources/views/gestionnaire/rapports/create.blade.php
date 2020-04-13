@@ -83,8 +83,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <form class="form-horizontal form-label-left" method="POST"
-                      action="">
+                <form class="form-horizontal form-label-left" method="GET"
+                      action="{{route('gestionnaire.prestataire.search')}}">
                     @csrf
                     <strong> Recherche par mot-clé</strong>
                     <br>
@@ -93,8 +93,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Mot-clé
                         </label>
                         <div class="col-md-6 col-sm-6">
-                            <input type="text" id="mot_cle" name="mot_cle" class="form-control"
-                                   placeholder="rechercher">
+                            <input type="text" id="query" name="query" class="form-control"
+                                   placeholder="rechercher" value="{{ request()->input('query') }}">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -103,10 +103,14 @@
                             <button type="submit" class="btn btn-success">Rechercher</button>
                         </div>
                     </div>
-                    <div class="ln_solid"></div>
-                    <strong>Recherche avancée par critères de sélection</strong>
-                    <br>
-                    <br>
+                </form>
+                <div class="ln_solid"></div>
+                <strong>Recherche avancée par critères de sélection</strong>
+                <br>
+                <br>
+                <form class="form-horizontal form-label-left" method="GET"
+                      action="{{route('gestionnaire.prestataire.advanced.search')}}">
+                    @csrf
                     <div class="form-group row">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Type de prestation:
                         </label>

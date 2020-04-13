@@ -106,8 +106,7 @@
                     </label>
                     <div class="col-md-6 col-sm-6 ">
                         <input type="text" name="nationalite" class="form-control"
-                               value="{{$dossierPrestataire->departement->designation ?? ''}}"
-                               readonly>
+                               value="{{$dossierPrestataire->departement->designation ?? ''}}" readonly>
 
                     </div>
                 </div>
